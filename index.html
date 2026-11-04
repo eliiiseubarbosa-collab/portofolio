@@ -4,16 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Eliseu Barbosa // Retro Multimedia Portfolio</title>
-
-  <!-- Retro Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&family=Orbitron:wght@600;800;900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
-    /* =============================================
-       CSS VARIABLES: SYNTHWAVE & NIGHT THEMES
-       ============================================= */
     :root {
       --bg-top: #060112;
       --bg-horizon: #2b0849;
@@ -23,9 +18,9 @@
       --pink: #ff007f;
       --yellow: #ffea00;
       --green: #00ff73;
-      --card-bg: rgba(18, 4, 38, 0.82);
+      --card-bg: rgba(18, 4, 38, 0.85);
       --card-border: #00f0ff;
-      --hud-bg: rgba(8, 2, 22, 0.92);
+      --hud-bg: rgba(8, 2, 22, 0.94);
       --hud-text: #00f0ff;
       --text-main: #e8e6ff;
       --text-muted: #cfc9ee;
@@ -43,7 +38,7 @@
       --pink: #9d4edd;
       --yellow: #ffd166;
       --green: #06d6a0;
-      --card-bg: rgba(7, 10, 20, 0.92);
+      --card-bg: rgba(7, 10, 20, 0.94);
       --card-border: #0088cc;
       --hud-bg: rgba(3, 5, 12, 0.96);
       --hud-text: #00d4ff;
@@ -62,11 +57,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Hide standard cursor only on desktop mouse */
     @media (pointer: fine) and (hover: hover) {
-      *, html, body, a, button, input {
-        cursor: none !important;
-      }
+      *, html, body, a, button, input { cursor: none !important; }
     }
 
     body {
@@ -80,9 +72,7 @@
       touch-action: manipulation;
     }
 
-    /* =============================================
-       RETRO TARGETING SIGHT (DESKTOP CURSOR)
-       ============================================= */
+    /* Target Reticle Cursor */
     .retro-sight {
       position: fixed;
       top: 0;
@@ -92,16 +82,14 @@
       pointer-events: none;
       z-index: 100000;
       transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-      transition: width 0.15s ease, height 0.15s ease, opacity 0.2s ease;
+      transition: width 0.15s ease, height 0.15s ease;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     @media (pointer: coarse), (hover: none) {
-      .retro-sight {
-        display: none !important;
-      }
+      .retro-sight { display: none !important; }
     }
 
     .sight-dot {
@@ -111,7 +99,7 @@
       background: #ffffff;
       border-radius: 50%;
       box-shadow: 0 0 8px var(--sight-color), 0 0 16px var(--sight-color);
-      transition: transform 0.1s ease, background 0.15s ease;
+      transition: transform 0.1s ease;
     }
 
     .sight-ring {
@@ -121,14 +109,13 @@
       border-radius: 50%;
       box-shadow: 0 0 10px var(--sight-color), inset 0 0 6px var(--sight-color);
       opacity: 0.85;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.2s ease;
     }
 
     .sight-tick {
       position: absolute;
       background: var(--sight-color);
       box-shadow: 0 0 8px var(--sight-color);
-      transition: all 0.2s ease;
     }
     .sight-tick.t { top: 0; width: 2px; height: 6px; }
     .sight-tick.b { bottom: 0; width: 2px; height: 6px; }
@@ -141,49 +128,23 @@
       height: 7px;
       border: 1.5px solid var(--sight-color);
       opacity: 0.55;
-      transition: all 0.2s ease;
     }
     .sight-corner.tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
     .sight-corner.tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
     .sight-corner.bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
     .sight-corner.br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
 
-    .retro-sight.locked {
-      width: 54px;
-      height: 54px;
-    }
+    .retro-sight.locked { width: 54px; height: 54px; }
     .retro-sight.locked .sight-ring {
       border-color: var(--sight-lock);
       border-style: dashed;
-      box-shadow: 0 0 16px var(--sight-lock), inset 0 0 8px var(--sight-lock);
+      box-shadow: 0 0 16px var(--sight-lock);
       transform: rotate(45deg);
     }
-    .retro-sight.locked .sight-dot {
-      background: var(--sight-lock);
-      transform: scale(1.6);
-      box-shadow: 0 0 12px var(--sight-lock);
-    }
-    .retro-sight.locked .sight-tick {
-      background: var(--sight-lock);
-      box-shadow: 0 0 10px var(--sight-lock);
-    }
-    .retro-sight.locked .sight-corner {
-      border-color: var(--sight-lock);
-      opacity: 1;
-      transform: scale(1.2);
-    }
+    .retro-sight.locked .sight-dot { background: var(--sight-lock); transform: scale(1.6); }
+    .retro-sight.firing .sight-ring { transform: scale(0.55); border-color: #fff; box-shadow: 0 0 25px #fff; }
 
-    .retro-sight.firing .sight-ring {
-      transform: scale(0.6);
-      border-color: #ffffff;
-      box-shadow: 0 0 25px #ffffff, 0 0 40px var(--pink);
-    }
-    .retro-sight.firing .sight-dot {
-      transform: scale(2.6);
-      background: #ffffff;
-    }
-
-    /* Fixed Background */
+    /* Canvas & 3D Horizon */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -212,7 +173,6 @@
       overflow: hidden;
       border-top: 2px solid var(--cyan);
       box-shadow: 0 -4px 30px rgba(0, 240, 255, 0.4);
-      transition: border-color 0.4s ease;
     }
 
     .grid-plane {
@@ -254,7 +214,6 @@
       padding: 10px 20px;
       background: var(--hud-bg);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       border-bottom: 2px solid var(--cyan);
       box-shadow: 0 2px 18px rgba(0, 240, 255, 0.25);
       font-family: 'Press Start 2P', monospace;
@@ -262,36 +221,13 @@
       color: var(--hud-text);
       text-shadow: 0 0 8px var(--cyan);
       gap: 10px;
-      transition: background 0.4s ease, border-color 0.4s ease;
     }
 
-    .hud-player span {
-      color: #fff;
-      text-shadow: 0 0 8px #fff;
-    }
-
-    .hud-nav {
-      display: flex;
-      gap: 14px;
-      list-style: none;
-    }
-
-    .hud-nav a {
-      color: #d6f6ff;
-      text-decoration: none;
-      transition: color 0.2s, text-shadow 0.2s;
-    }
-
-    .hud-nav a:hover {
-      color: var(--yellow);
-      text-shadow: 0 0 10px var(--yellow);
-    }
-
-    .hud-controls {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
+    .hud-player span { color: #fff; text-shadow: 0 0 8px #fff; }
+    .hud-nav { display: flex; gap: 14px; list-style: none; }
+    .hud-nav a { color: #d6f6ff; text-decoration: none; transition: all 0.2s; }
+    .hud-nav a:hover { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
+    .hud-controls { display: flex; gap: 6px; align-items: center; }
 
     .hud-btn {
       background: transparent;
@@ -304,22 +240,9 @@
       transition: all 0.2s ease;
       white-space: nowrap;
     }
-
-    .hud-btn:hover, .hud-btn:active {
-      background: var(--pink);
-      color: #fff;
-    }
-
-    .hud-btn.theme-toggle {
-      border-color: var(--yellow);
-      color: var(--yellow);
-      box-shadow: 0 0 8px rgba(255, 234, 0, 0.3);
-    }
-
-    .hud-btn.theme-toggle:hover, .hud-btn.theme-toggle:active {
-      background: var(--yellow);
-      color: #05050e;
-    }
+    .hud-btn:hover { background: var(--pink); color: #fff; }
+    .hud-btn.theme-toggle { border-color: var(--yellow); color: var(--yellow); box-shadow: 0 0 8px rgba(255, 234, 0, 0.3); }
+    .hud-btn.theme-toggle:hover { background: var(--yellow); color: #05050e; }
 
     /* Page Container */
     .page-container {
@@ -330,9 +253,7 @@
       padding: 85px 20px 80px;
     }
 
-    /* =============================================
-       HERO & PORTRAIT FRAME (FIXED & POLISHED)
-       ============================================= */
+    /* Hero Section */
     .hero-section {
       min-height: 80vh;
       display: flex;
@@ -350,7 +271,7 @@
       margin: 0 auto 22px;
       border-radius: 50%;
       perspective: 800px;
-      cursor: pointer;
+      user-select: none;
     }
 
     .avatar-ring-outer {
@@ -373,15 +294,8 @@
       pointer-events: none;
     }
 
-    @keyframes rotateRing {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes rotateRingRev {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
-    }
+    @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes rotateRingRev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
     .avatar-frame {
       position: relative;
@@ -390,16 +304,13 @@
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid #ffffff;
-      box-shadow:
-        0 0 25px var(--avatar-glow),
-        0 0 50px rgba(255, 0, 127, 0.4),
-        inset 0 0 20px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 25px var(--avatar-glow), 0 0 50px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
       background: #080214;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .avatar-portal:hover .avatar-frame {
-      transform: scale(1.04);
+      transform: scale(1.03);
       box-shadow: 0 0 45px var(--cyan), 0 0 85px var(--pink);
     }
 
@@ -410,6 +321,7 @@
       object-position: center 20%;
       filter: contrast(1.08) brightness(1.04) saturate(1.1);
       display: block;
+      pointer-events: none;
     }
 
     .avatar-scanline {
@@ -417,39 +329,8 @@
       inset: 0;
       border-radius: 50%;
       pointer-events: none;
-      background: linear-gradient(
-        180deg,
-        rgba(0, 240, 255, 0.12) 0%,
-        transparent 50%,
-        rgba(255, 0, 127, 0.12) 100%
-      );
+      background: linear-gradient(180deg, rgba(0, 240, 255, 0.12) 0%, transparent 50%, rgba(255, 0, 127, 0.12) 100%);
       box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.65);
-    }
-
-    /* Upload overlay badge */
-    .avatar-upload-overlay {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: rgba(10, 2, 26, 0.75);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.52rem;
-      color: var(--yellow);
-      text-align: center;
-      padding: 10px;
-      line-height: 1.5;
-      text-shadow: 0 0 8px var(--yellow);
-      z-index: 5;
-    }
-
-    .avatar-portal:hover .avatar-upload-overlay {
-      opacity: 1;
     }
 
     .avatar-badge-hint {
@@ -484,17 +365,7 @@
       line-height: 0.95;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: linear-gradient(
-        180deg,
-        #0a186b 0%,
-        #1d72dd 24%,
-        #90e4ff 48%,
-        #ffffff 50%,
-        #240138 52%,
-        #be0384 62%,
-        #ff2a8d 82%,
-        #ffd2f3 100%
-      );
+      background: linear-gradient(180deg, #0a186b 0%, #1d72dd 24%, #90e4ff 48%, #ffffff 50%, #240138 52%, #be0384 62%, #ff2a8d 82%, #ffd2f3 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -503,16 +374,7 @@
     }
 
     body.night-mode .first-name {
-      background: linear-gradient(
-        180deg,
-        #0f172a 0%,
-        #0284c7 26%,
-        #7dd3fc 48%,
-        #ffffff 50%,
-        #1e1b4b 52%,
-        #7c3aed 72%,
-        #c084fc 100%
-      );
+      background: linear-gradient(180deg, #0f172a 0%, #0284c7 26%, #7dd3fc 48%, #ffffff 50%, #1e1b4b 52%, #7c3aed 72%, #c084fc 100%);
       -webkit-background-clip: text;
       background-clip: text;
       filter: drop-shadow(0 0 20px rgba(2, 132, 199, 0.6));
@@ -526,11 +388,7 @@
       margin-top: -0.28em;
       transform: rotate(-6deg);
       color: #fff4fb;
-      text-shadow:
-        0 0 8px #ffffff,
-        0 0 20px var(--pink),
-        0 0 45px var(--pink),
-        0 0 80px #b000ff;
+      text-shadow: 0 0 8px #ffffff, 0 0 20px var(--pink), 0 0 45px var(--pink), 0 0 80px #b000ff;
     }
 
     .hero-tagline {
@@ -573,10 +431,7 @@
       gap: 8px;
     }
 
-    body.night-mode .btn-arcade {
-      background: rgba(5, 8, 20, 0.92);
-    }
-
+    body.night-mode .btn-arcade { background: rgba(5, 8, 20, 0.92); }
     .btn-arcade:hover, .btn-arcade:active {
       background: var(--cyan);
       color: #080014;
@@ -588,17 +443,14 @@
       border-color: var(--pink);
       box-shadow: 0 0 14px var(--pink), inset 0 0 8px rgba(255, 0, 127, 0.3);
     }
-
     .btn-arcade.primary:hover, .btn-arcade.primary:active {
       background: var(--pink);
       color: #fff;
       box-shadow: 0 0 28px var(--pink);
     }
 
-    /* Common Retro Cards */
-    .retro-section {
-      margin-bottom: 60px;
-    }
+    /* Common Retro Sections & Cards */
+    .retro-section { margin-bottom: 60px; }
 
     .section-header {
       display: flex;
@@ -632,94 +484,23 @@
       box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
       padding: clamp(18px, 4vw, 30px);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       position: relative;
-      transition: background 0.4s ease, border-color 0.4s ease;
     }
 
-    .section-card::before {
-      content: '';
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      width: 10px;
-      height: 10px;
-      background: var(--cyan);
-    }
+    .section-card::before { content: ''; position: absolute; top: -4px; left: -4px; width: 10px; height: 10px; background: var(--cyan); }
+    .section-card::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 10px; height: 10px; background: var(--pink); }
 
-    .section-card::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      width: 10px;
-      height: 10px;
-      background: var(--pink);
-    }
+    /* Bio / Stats */
+    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .bio-text { font-size: clamp(0.98rem, 2.2vw, 1.15rem); color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+    .bio-text strong { color: var(--yellow); text-shadow: 0 0 8px rgba(255, 234, 0, 0.35); }
+    .stats-title { font-family: 'Press Start 2P', monospace; font-size: clamp(0.58rem, 1.4vw, 0.68rem); color: var(--pink); margin-bottom: 14px; }
+    .stat-row { margin-bottom: 12px; }
+    .stat-label { display: flex; justify-content: space-between; font-size: 0.92rem; margin-bottom: 4px; color: var(--cyan); }
+    .stat-bar-outer { width: 100%; height: 12px; background: #090317; border: 1px solid var(--cyan); box-shadow: inset 0 0 6px rgba(0, 240, 255, 0.3); padding: 2px; }
+    .stat-bar-inner { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink)); box-shadow: 0 0 8px var(--pink); width: 0%; transition: width 1.2s ease; }
 
-    /* Profile / Bio Grid */
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-
-    .bio-text {
-      font-size: clamp(0.98rem, 2.2vw, 1.15rem);
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
-
-    .bio-text strong {
-      color: var(--yellow);
-      text-shadow: 0 0 8px rgba(255, 234, 0, 0.35);
-    }
-
-    .stats-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(0.58rem, 1.4vw, 0.68rem);
-      color: var(--pink);
-      margin-bottom: 14px;
-      letter-spacing: 0.08em;
-    }
-
-    .stat-row {
-      margin-bottom: 12px;
-    }
-
-    .stat-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.92rem;
-      margin-bottom: 4px;
-      color: var(--cyan);
-    }
-
-    .stat-bar-outer {
-      width: 100%;
-      height: 12px;
-      background: #090317;
-      border: 1px solid var(--cyan);
-      box-shadow: inset 0 0 6px rgba(0, 240, 255, 0.3);
-      padding: 2px;
-    }
-
-    .stat-bar-inner {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--pink));
-      box-shadow: 0 0 8px var(--pink);
-      width: 0%;
-      transition: width 1.2s ease-in-out;
-    }
-
-    .traits-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
+    .traits-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .trait-badge {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.88rem;
@@ -731,53 +512,15 @@
     }
 
     /* Skills Grid */
-    .skills-categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .skill-block {
-      background: rgba(10, 2, 26, 0.85);
-      border: 1px solid var(--cyan);
-      padding: 18px;
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.15);
-      transition: background 0.4s ease;
-    }
-
-    body.night-mode .skill-block {
-      background: rgba(5, 8, 18, 0.9);
-    }
-
-    .skill-block.pink-theme {
-      border-color: var(--pink);
-      box-shadow: 0 0 14px rgba(255, 0, 127, 0.15);
-    }
-
-    .skill-block.yellow-theme {
-      border-color: var(--yellow);
-      box-shadow: 0 0 14px rgba(255, 234, 0, 0.15);
-    }
-
-    .skill-category-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(0.58rem, 1.4vw, 0.66rem);
-      color: var(--cyan);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
+    .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .skill-block { background: rgba(10, 2, 26, 0.85); border: 1px solid var(--cyan); padding: 18px; box-shadow: 0 0 14px rgba(0, 240, 255, 0.15); }
+    body.night-mode .skill-block { background: rgba(5, 8, 18, 0.9); }
+    .skill-block.pink-theme { border-color: var(--pink); box-shadow: 0 0 14px rgba(255, 0, 127, 0.15); }
+    .skill-block.yellow-theme { border-color: var(--yellow); box-shadow: 0 0 14px rgba(255, 234, 0, 0.15); }
+    .skill-category-title { font-family: 'Press Start 2P', monospace; font-size: clamp(0.58rem, 1.4vw, 0.66rem); color: var(--cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .pink-theme .skill-category-title { color: var(--pink); }
     .yellow-theme .skill-category-title { color: var(--yellow); }
-
-    .skills-badges-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    .skills-badges-list { display: flex; flex-wrap: wrap; gap: 8px; }
     .skill-pill {
       font-size: 0.92rem;
       padding: 6px 10px;
@@ -790,155 +533,139 @@
       gap: 6px;
       transition: all 0.2s ease;
     }
+    .skill-pill:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.2); box-shadow: 0 0 10px var(--cyan); }
 
-    .skill-pill:hover, .skill-pill:active {
-      border-color: var(--cyan);
-      background: rgba(0, 240, 255, 0.2);
-      box-shadow: 0 0 10px var(--cyan);
+    /* Gallery Section */
+    .gallery-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; justify-content: center; }
+    .filter-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.5rem, 1.2vw, 0.62rem);
+      padding: 8px 14px;
+      background: rgba(14, 2, 32, 0.8);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+      transition: all 0.2s ease;
     }
+    .filter-btn:hover, .filter-btn.active { background: var(--cyan); color: #080014; box-shadow: 0 0 18px var(--cyan); }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
+    .gallery-card {
+      background: rgba(11, 2, 28, 0.88);
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .gallery-card:hover { border-color: var(--pink); box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); transform: translateY(-4px); }
+    .gallery-thumb-wrap { position: relative; width: 100%; height: 180px; background: #020108; overflow: hidden; }
+    .gallery-svg-art { width: 100%; height: 100%; display: block; transition: transform 0.4s ease; }
+    .gallery-card:hover .gallery-svg-art { transform: scale(1.06); }
+    .gallery-scanline { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0px, rgba(0, 0, 0, 0.25) 1px, transparent 1px, transparent 3px); pointer-events: none; }
+    .gallery-tag-float {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      padding: 4px 8px;
+      background: rgba(8, 2, 20, 0.9);
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      box-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+      border-radius: 2px;
+    }
+
+    .gallery-info { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+    .gallery-card-title { font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .gallery-card-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+    .gallery-tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .gallery-mini-tag { font-size: 0.78rem; padding: 2px 7px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); }
+    .gallery-open-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+      transition: all 0.2s ease;
+      width: 100%;
+      text-align: center;
+    }
+    .gallery-open-btn:hover { background: var(--cyan); color: #080014; box-shadow: 0 0 20px var(--cyan); }
+
+    /* Lightbox Modal */
+    .retro-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200000;
+      background: rgba(4, 1, 12, 0.92);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .retro-modal.active { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: rgba(14, 2, 34, 0.98);
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 35px var(--cyan), inset 0 0 20px rgba(0, 240, 255, 0.2);
+      max-width: 680px;
+      width: 100%;
+      padding: 24px;
+      position: relative;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      background: transparent;
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      padding: 6px 10px;
+      transition: all 0.2s ease;
+    }
+    .modal-close-btn:hover { background: var(--pink); color: #fff; }
+    .modal-img-wrap { width: 100%; height: 240px; background: #020108; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 18px; overflow: hidden; }
+    .modal-title { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+    .modal-desc { font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
 
     /* Timeline / Experience */
-    .timeline {
-      position: relative;
-      padding-left: 24px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 5px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--pink), var(--cyan));
-      box-shadow: 0 0 10px var(--cyan);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 28px;
-    }
-
-    .timeline-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: -24px;
-      top: 4px;
-      width: 12px;
-      height: 12px;
-      background: var(--pink);
-      border: 2px solid #fff;
-      box-shadow: 0 0 10px var(--pink);
-    }
-
-    .quest-period {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.58rem;
-      color: var(--yellow);
-      margin-bottom: 6px;
-      text-shadow: 0 0 6px var(--yellow);
-    }
-
-    .quest-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .quest-entity {
-      font-size: 0.98rem;
-      color: var(--cyan);
-      margin-bottom: 8px;
-    }
-
-    .quest-desc {
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, var(--pink), var(--cyan)); box-shadow: 0 0 10px var(--cyan); }
+    .timeline-item { position: relative; margin-bottom: 28px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot { position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; background: var(--pink); border: 2px solid #fff; box-shadow: 0 0 10px var(--pink); }
+    .quest-period { font-family: 'Press Start 2P', monospace; font-size: 0.58rem; color: var(--yellow); margin-bottom: 6px; text-shadow: 0 0 6px var(--yellow); }
+    .quest-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.25rem); font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .quest-entity { font-size: 0.98rem; color: var(--cyan); margin-bottom: 8px; }
+    .quest-desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.6; }
 
     /* Education & Languages */
-    .edu-lang-grid {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 20px;
-    }
+    .edu-lang-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; }
+    .edu-card-item { background: rgba(14, 2, 34, 0.7); border-left: 4px solid var(--green); padding: 14px 18px; margin-bottom: 12px; box-shadow: 0 0 10px rgba(0, 255, 115, 0.15); }
+    body.night-mode .edu-card-item { background: rgba(5, 8, 18, 0.85); }
+    .edu-level { font-family: 'Press Start 2P', monospace; font-size: 0.58rem; color: var(--green); margin-bottom: 6px; line-height: 1.4; }
+    .edu-degree { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: clamp(0.95rem, 2vw, 1.1rem); color: #fff; }
 
-    .edu-card-item {
-      background: rgba(14, 2, 34, 0.7);
-      border-left: 4px solid var(--green);
-      padding: 14px 18px;
-      margin-bottom: 12px;
-      box-shadow: 0 0 10px rgba(0, 255, 115, 0.15);
-      transition: background 0.4s ease;
-    }
-
-    body.night-mode .edu-card-item {
-      background: rgba(5, 8, 18, 0.85);
-    }
-
-    .edu-level {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.58rem;
-      color: var(--green);
-      margin-bottom: 6px;
-      line-height: 1.4;
-    }
-
-    .edu-degree {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      color: #fff;
-    }
-
-    .lang-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 11px 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 10px;
-    }
-
-    .lang-name {
-      font-size: 1rem;
-      color: #fff;
-    }
-
-    .lang-level {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.58rem;
-      color: var(--cyan);
-    }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 10px; }
+    .lang-name { font-size: 1rem; color: #fff; }
+    .lang-level { font-family: 'Press Start 2P', monospace; font-size: 0.58rem; color: var(--cyan); }
 
     /* Contacts */
-    .contact-box {
-      text-align: center;
-      padding: clamp(28px, 6vw, 45px) 16px;
-    }
-
-    .contact-subtitle {
-      font-size: clamp(0.98rem, 2vw, 1.15rem);
-      color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto 26px;
-    }
-
-    .contact-cards-flex {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 26px;
-    }
-
+    .contact-box { text-align: center; padding: clamp(28px, 6vw, 45px) 16px; }
+    .contact-subtitle { font-size: clamp(0.98rem, 2vw, 1.15rem); color: var(--text-muted); max-width: 620px; margin: 0 auto 26px; }
+    .contact-cards-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 26px; }
     .contact-pill-link {
       display: flex;
       align-items: center;
@@ -955,24 +682,9 @@
       transition: all 0.2s ease;
       word-break: break-all;
     }
-
-    body.night-mode .contact-pill-link {
-      background: rgba(5, 8, 20, 0.95);
-    }
-
-    .contact-pill-link:hover, .contact-pill-link:active {
-      border-color: var(--pink);
-      box-shadow: 0 0 25px var(--pink);
-      transform: translateY(-2px);
-      color: var(--yellow);
-    }
-
-    .contact-pill-link span.icon {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.85rem;
-      color: var(--pink);
-      flex-shrink: 0;
-    }
+    body.night-mode .contact-pill-link { background: rgba(5, 8, 20, 0.95); }
+    .contact-pill-link:hover { border-color: var(--pink); box-shadow: 0 0 25px var(--pink); transform: translateY(-2px); color: var(--yellow); }
+    .contact-pill-link span.icon { font-family: 'Press Start 2P', monospace; font-size: 0.85rem; color: var(--pink); flex-shrink: 0; }
 
     footer {
       text-align: center;
@@ -985,54 +697,23 @@
       line-height: 1.6;
     }
 
-    /* CRT Scanlines */
+    /* CRT Scanlines Overlay */
     .crt-overlay {
       position: fixed;
       inset: 0;
       z-index: 999;
       pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.22) 0px,
-          rgba(0, 0, 0, 0.22) 1px,
-          transparent 1px,
-          transparent 3px
-        );
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0px, rgba(0, 0, 0, 0.22) 1px, transparent 1px, transparent 3px);
       box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
     }
-
     body.night-mode .crt-overlay {
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.15) 0px,
-          rgba(0, 0, 0, 0.15) 1px,
-          transparent 1px,
-          transparent 3px
-        );
-    }
-
-    .crt-overlay::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 20vh;
-      background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.035) 50%, transparent 100%);
-      animation: scanRoll 7s linear infinite;
-    }
-
-    @keyframes scanRoll {
-      0% { top: -20vh; }
-      100% { top: 110vh; }
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
     }
 
     /* Mobile Breakpoints */
     @media (max-width: 820px) {
       .hud-nav { display: none; }
-      .profile-grid { grid-template-columns: 1fr; }
-      .edu-lang-grid { grid-template-columns: 1fr; }
+      .profile-grid, .edu-lang-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 580px) {
@@ -1040,10 +721,8 @@
       .hud-player { font-size: 0.5rem; }
       .hud-btn { padding: 6px 8px; font-size: 0.48rem; }
       .page-container { padding: 70px 14px 60px; }
-      .hero-buttons { flex-direction: column; align-items: stretch; }
-      .btn-arcade { width: 100%; }
-      .contact-cards-flex { flex-direction: column; align-items: stretch; }
-      .contact-pill-link { width: 100%; }
+      .hero-buttons, .contact-cards-flex { flex-direction: column; align-items: stretch; }
+      .btn-arcade, .contact-pill-link { width: 100%; }
       .section-card { padding: 16px 12px; }
       .timeline { padding-left: 18px; }
       .timeline-dot { left: -18px; width: 10px; height: 10px; }
@@ -1052,7 +731,7 @@
 </head>
 <body>
 
-  <!-- RETRO TARGETING SIGHT (ACTIVE ON DESKTOP MOUSE) -->
+  <!-- RETRO SIGHT CURSOR -->
   <div class="retro-sight" id="retro-sight">
     <div class="sight-ring"></div>
     <div class="sight-dot"></div>
@@ -1069,16 +748,12 @@
   <div class="crt-overlay"></div>
   <canvas id="bg-canvas"></canvas>
 
-  <!-- 3D Perspective Outrun Grid Floor -->
   <div class="retro-stage-bg">
     <div class="grid-bottom">
       <div class="grid-plane"></div>
       <div class="grid-vignette"></div>
     </div>
   </div>
-
-  <!-- Hidden file picker for custom photo upload -->
-  <input type="file" id="avatar-input" accept="image/*" style="display: none;" />
 
   <!-- Top Arcade HUD -->
   <header class="arcade-hud">
@@ -1087,6 +762,7 @@
       <ul class="hud-nav">
         <li><a href="#about" class="hud-link" data-i18n="navBio">[ BIO ]</a></li>
         <li><a href="#skills" class="hud-link" data-i18n="navSkills">[ INVENTÁRIO ]</a></li>
+        <li><a href="#gallery" class="hud-link" data-i18n="navGallery">[ GALERIA ]</a></li>
         <li><a href="#experience" class="hud-link" data-i18n="navExp">[ QUEST LOG ]</a></li>
         <li><a href="#education" class="hud-link" data-i18n="navEdu">[ EDUCAÇÃO ]</a></li>
         <li><a href="#contact" class="hud-link" data-i18n="navContact">[ CONTACTO ]</a></li>
@@ -1104,23 +780,12 @@
 
     <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
-      
-      <!-- CYBERPUNK PORTRAIT WITH SAFE RETRO VECTOR FALLBACK & PERSISTENT UPLOAD -->
-      <div class="avatar-portal" id="avatar-portal" title="Clique para escolher a sua foto / Click to upload your photo">
+      <div class="avatar-portal">
         <div class="avatar-ring-outer"></div>
         <div class="avatar-ring-inner"></div>
         <div class="avatar-frame">
-          <img 
-            id="avatar-img" 
-            class="avatar-img" 
-            src="foto eli.png" 
-            alt="Eliseu Barbosa" 
-          />
+          <img id="avatar-img" class="avatar-img" src="foto eli.png" alt="Eliseu Barbosa" />
           <div class="avatar-scanline"></div>
-          <div class="avatar-upload-overlay" data-i18n="uploadHint">
-            <span>📷</span>
-            <span>CLIQUE P/ CARREGAR FOTO</span>
-          </div>
         </div>
         <div class="avatar-badge-hint" data-i18n="avatarHint">⚡ ELISEU.B // ONLINE</div>
       </div>
@@ -1133,12 +798,12 @@
       <p class="hero-tagline" data-i18n="heroTagline">Desenvolvimento de Produtos e Conteúdos Multimédia</p>
 
       <div class="hero-buttons">
-        <a href="#contact" class="btn-arcade primary" data-i18n="heroBtnContact">▶ TRANSMITIR MENSAGEM</a>
-        <a href="#about" class="btn-arcade" data-i18n="heroBtnExplore">▼ VER PERFIL</a>
+        <a href="#gallery" class="btn-arcade primary" data-i18n="heroBtnGallery">▶ VER GALERIA</a>
+        <a href="#contact" class="btn-arcade" data-i18n="heroBtnContact">✉ CONTACTAR</a>
       </div>
     </section>
 
-    <!-- SOBRE MIM / BIO & STATS -->
+    <!-- SOBRE MIM -->
     <section class="retro-section" id="about">
       <div class="section-header">
         <span class="section-icon">👾</span>
@@ -1167,27 +832,22 @@
 
           <div>
             <div class="stats-title" data-i18n="statsHeader">// ATRIBUTOS DE DESEMPENHO</div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat1">Criatividade & Visão Visual</span><span>95%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="95%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat2">Comunicação & Empatia</span><span>92%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="92%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat3">Organização & Rigor</span><span>90%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="90%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat4">Polivalência Tecnológica</span><span>88%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="88%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat5">Capacidade de Adaptação</span><span>96%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="96%"></div></div>
@@ -1197,7 +857,7 @@
       </div>
     </section>
 
-    <!-- INVENTÁRIO / SKILLS -->
+    <!-- INVENTÁRIO -->
     <section class="retro-section" id="skills">
       <div class="section-header">
         <span class="section-icon">⚔️</span>
@@ -1243,7 +903,146 @@
       </div>
     </section>
 
-    <!-- QUEST LOG / EXPERIÊNCIA -->
+    <!-- MULTIMEDIA GALLERY -->
+    <section class="retro-section" id="gallery">
+      <div class="section-header">
+        <span class="section-icon">🕹️</span>
+        <h2 class="section-title" data-i18n="galleryTitle">Galeria Multimédia // Projetos</h2>
+      </div>
+
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all" data-i18n="fAll">TODOS</button>
+        <button class="filter-btn" data-filter="3d" data-i18n="f3d">3D & CGI</button>
+        <button class="filter-btn" data-filter="design" data-i18n="fDesign">DESIGN & UI</button>
+        <button class="filter-btn" data-filter="video" data-i18n="fVideo">VÍDEO & FOTO</button>
+        <button class="filter-btn" data-filter="web" data-i18n="fWeb">WEB & TECH</button>
+      </div>
+
+      <div class="gallery-grid" id="gallery-container">
+        <!-- Project 1: 3D Blender -->
+        <div class="gallery-card" data-category="3d">
+          <div class="gallery-thumb-wrap">
+            <svg class="gallery-svg-art" viewBox="0 0 320 200">
+              <defs>
+                <linearGradient id="p1g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#05051e"/><stop offset="100%" stop-color="#2a0845"/></linearGradient>
+                <linearGradient id="neon1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00f0ff"/><stop offset="100%" stop-color="#ff007f"/></linearGradient>
+              </defs>
+              <rect width="320" height="200" fill="url(#p1g)"/>
+              <polygon points="160,35 240,80 160,125 80,80" fill="none" stroke="url(#neon1)" stroke-width="2"/>
+              <polygon points="160,125 240,80 240,150 160,195" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+              <polygon points="160,125 80,80 80,150 160,195" fill="none" stroke="#ff007f" stroke-width="1.5"/>
+              <circle cx="160" cy="80" r="15" fill="#ffea00" filter="drop-shadow(0 0 8px #ffea00)"/>
+            </svg>
+            <div class="gallery-scanline"></div>
+            <span class="gallery-tag-float">3D CGI</span>
+          </div>
+          <div class="gallery-info">
+            <h3 class="gallery-card-title" data-i18n="g1Title">Cena Cyberpunk 3D</h3>
+            <p class="gallery-card-desc" data-i18n="g1Desc">Modelação, iluminação volumétrica e shading de ambiente sci-fi no Blender.</p>
+            <div class="gallery-tech-row">
+              <span class="gallery-mini-tag">Blender</span>
+              <span class="gallery-mini-tag">Lighting</span>
+              <span class="gallery-mini-tag">3D Mesh</span>
+            </div>
+            <button class="gallery-open-btn" data-project="0" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
+          </div>
+        </div>
+
+        <!-- Project 2: UI/UX Figma -->
+        <div class="gallery-card" data-category="design">
+          <div class="gallery-thumb-wrap">
+            <svg class="gallery-svg-art" viewBox="0 0 320 200">
+              <defs><linearGradient id="p2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#030b1c"/><stop offset="100%" stop-color="#011b2b"/></linearGradient></defs>
+              <rect width="320" height="200" fill="url(#p2g)"/>
+              <rect x="50" y="25" width="220" height="150" rx="8" fill="#081426" stroke="#00f0ff" stroke-width="2"/>
+              <rect x="65" y="40" width="80" height="12" rx="3" fill="#ff007f"/>
+              <rect x="65" y="60" width="190" height="60" rx="4" fill="rgba(0,240,255,0.1)" stroke="#00f0ff" stroke-dasharray="3,3"/>
+              <rect x="65" y="130" width="60" height="25" rx="4" fill="#00ff73"/>
+              <rect x="135" y="130" width="60" height="25" rx="4" fill="#ffea00"/>
+            </svg>
+            <div class="gallery-scanline"></div>
+            <span class="gallery-tag-float">UI / UX</span>
+          </div>
+          <div class="gallery-info">
+            <h3 class="gallery-card-title" data-i18n="g2Title">Protótipo de Produto Digital</h3>
+            <p class="gallery-card-desc" data-i18n="g2Desc">Design System completo, wireframes e prototipagem interativa mobile no Figma.</p>
+            <div class="gallery-tech-row">
+              <span class="gallery-mini-tag">Figma</span>
+              <span class="gallery-mini-tag">Penpot</span>
+              <span class="gallery-mini-tag">UX Flow</span>
+            </div>
+            <button class="gallery-open-btn" data-project="1" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
+          </div>
+        </div>
+
+        <!-- Project 3: Foto & Vídeo -->
+        <div class="gallery-card" data-category="video">
+          <div class="gallery-thumb-wrap">
+            <svg class="gallery-svg-art" viewBox="0 0 320 200">
+              <defs><linearGradient id="p3g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1f0212"/><stop offset="100%" stop-color="#3b032a"/></linearGradient></defs>
+              <rect width="320" height="200" fill="url(#p3g)"/>
+              <circle cx="160" cy="100" r="55" fill="none" stroke="#ff007f" stroke-width="2"/>
+              <polygon points="150,80 180,100 150,120" fill="#ffea00" filter="drop-shadow(0 0 10px #ffea00)"/>
+              <line x1="20" y1="20" x2="40" y2="20" stroke="#00f0ff" stroke-width="2"/>
+              <line x1="20" y1="20" x2="20" y2="40" stroke="#00f0ff" stroke-width="2"/>
+              <line x1="300" y1="180" x2="280" y2="180" stroke="#00f0ff" stroke-width="2"/>
+              <line x1="300" y1="180" x2="300" y2="160" stroke="#00f0ff" stroke-width="2"/>
+            </svg>
+            <div class="gallery-scanline"></div>
+            <span class="gallery-tag-float">MOTION</span>
+          </div>
+          <div class="gallery-info">
+            <h3 class="gallery-card-title" data-i18n="g3Title">Edição e Motion Graphics</h3>
+            <p class="gallery-card-desc" data-i18n="g3Desc">Tratamento de cor cromática, montagem dinâmica e grafismo promocional.</p>
+            <div class="gallery-tech-row">
+              <span class="gallery-mini-tag">Photoshop</span>
+              <span class="gallery-mini-tag">Video Cut</span>
+              <span class="gallery-mini-tag">Color Grade</span>
+            </div>
+            <button class="gallery-open-btn" data-project="2" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
+          </div>
+        </div>
+
+        <!-- Project 4: Web Application -->
+        <div class="gallery-card" data-category="web">
+          <div class="gallery-thumb-wrap">
+            <svg class="gallery-svg-art" viewBox="0 0 320 200">
+              <defs><linearGradient id="p4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#041215"/><stop offset="100%" stop-color="#022119"/></linearGradient></defs>
+              <rect width="320" height="200" fill="url(#p4g)"/>
+              <text x="35" y="60" font-family="'Press Start 2P', monospace" font-size="11" fill="#00ff73">&gt; def init_app():</text>
+              <text x="55" y="90" font-family="'Press Start 2P', monospace" font-size="11" fill="#00f0ff">render(UI_WEB)</text>
+              <text x="55" y="120" font-family="'Press Start 2P', monospace" font-size="11" fill="#ffea00">return True_</text>
+              <rect x="25" y="150" width="270" height="20" fill="rgba(0,255,115,0.1)" stroke="#00ff73" stroke-dasharray="4,4"/>
+            </svg>
+            <div class="gallery-scanline"></div>
+            <span class="gallery-tag-float">DEV</span>
+          </div>
+          <div class="gallery-info">
+            <h3 class="gallery-card-title" data-i18n="g4Title">Frontend & Scripts Python</h3>
+            <p class="gallery-card-desc" data-i18n="g4Desc">Desenvolvimento de interface web responsiva e automação em VSCode e Python.</p>
+            <div class="gallery-tech-row">
+              <span class="gallery-mini-tag">Python</span>
+              <span class="gallery-mini-tag">VSCode</span>
+              <span class="gallery-mini-tag">HTML5 / Web</span>
+            </div>
+            <button class="gallery-open-btn" data-project="3" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Lightbox -->
+    <div class="retro-modal" id="retro-modal">
+      <div class="modal-box">
+        <button class="modal-close-btn" id="modal-close-btn">[ X ]</button>
+        <div class="modal-img-wrap" id="modal-img-container"></div>
+        <h3 class="modal-title" id="modal-title">Título do Projeto</h3>
+        <p class="modal-desc" id="modal-desc">Descrição detalhada do projeto.</p>
+        <div class="gallery-tech-row" id="modal-tags"></div>
+      </div>
+    </div>
+
+    <!-- QUEST LOG -->
     <section class="retro-section" id="experience">
       <div class="section-header">
         <span class="section-icon">🕹️</span>
@@ -1285,12 +1084,10 @@
       <div class="edu-lang-grid">
         <div class="section-card">
           <div class="stats-title" data-i18n="eduHeader">// REGISTO ACADÉMICO</div>
-
           <div class="edu-card-item">
             <div class="edu-level" data-i18n="edu1Level">CET NÍVEL 5 (CURSO DE ESPECIALIZAÇÃO TECNOLÓGICA)</div>
             <div class="edu-degree" data-i18n="edu1Degree">Técnico Especialista em Desenvolvimento de Produtos Multimédia</div>
           </div>
-
           <div class="edu-card-item" style="border-left-color: var(--cyan);">
             <div class="edu-level" style="color: var(--cyan);" data-i18n="edu2Level">12º ANO — ENSINO SECUNDÁRIO</div>
             <div class="edu-degree" data-i18n="edu2Degree">Técnico de Apoio à Gestão</div>
@@ -1299,17 +1096,14 @@
 
         <div class="section-card">
           <div class="stats-title" data-i18n="langHeader">// COMUNICAÇÃO LINGUÍSTICA</div>
-
           <div class="lang-item">
             <span class="lang-name" data-i18n="langPt">🇵🇹 Português</span>
             <span class="lang-level" data-i18n="langPtLevel">NATIVO</span>
           </div>
-
           <div class="lang-item">
             <span class="lang-name" data-i18n="langEn">🇬🇧 Inglês</span>
             <span class="lang-level" data-i18n="langEnLevel">PROFICIENTE</span>
           </div>
-
           <div class="lang-item">
             <span class="lang-name" data-i18n="langEs">🇪🇸 Espanhol</span>
             <span class="lang-level" data-i18n="langEsLevel">OPERACIONAL</span>
@@ -1335,7 +1129,6 @@
             <span class="icon">✉</span>
             <span>eliiiseubarbosa@gmail.com</span>
           </a>
-
           <a href="tel:+351916356761" class="contact-pill-link">
             <span class="icon">☎</span>
             <span>(+351) 916 356 761</span>
@@ -1355,94 +1148,181 @@
 
   <script>
     (() => {
-      /* ==========================================================
-         1. PROFILE IMAGE MANAGEMENT WITH CUSTOM RETRO VECTOR FALLBACK
-         ========================================================== */
-      const avatarPortal = document.getElementById('avatar-portal');
-      const avatarImg = document.getElementById('avatar-img');
-      const avatarInput = document.getElementById('avatar-input');
+      /* 1. AUDIO SYNTHESIZER */
+      let audioCtx = null;
+      let sfxActive = true;
 
-      // Custom Retro Cyberpunk Silhouette Fallback matching Eliseu (Beard, Turtleneck & Neon rim)
-      const defaultRetroSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
-          <defs>
-            <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#140228"/>
-              <stop offset="100%" stop-color="#04010a"/>
-            </linearGradient>
-            <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#00f0ff"/>
-              <stop offset="100%" stop-color="#ff007f"/>
-            </linearGradient>
-          </defs>
-          <rect width="240" height="240" fill="url(#bg)"/>
-          <!-- Grid lines -->
-          <line x1="0" y1="120" x2="240" y2="120" stroke="rgba(0,240,255,0.15)" stroke-width="1"/>
-          <line x1="120" y1="0" x2="120" y2="240" stroke="rgba(255,0,127,0.15)" stroke-width="1"/>
-          <!-- Black Turtleneck Body -->
-          <path d="M 40 240 C 40 190, 75 165, 95 160 L 95 142 L 145 142 L 145 160 C 165 165, 200 190, 200 240 Z" fill="#0c0915" stroke="url(#rim)" stroke-width="2"/>
-          <!-- Turtleneck collar -->
-          <rect x="94" y="132" width="52" height="22" rx="4" fill="#140f22" stroke="#00f0ff" stroke-width="1.5"/>
-          <!-- Head / Neck -->
-          <ellipse cx="120" cy="100" rx="36" ry="44" fill="#ffd1b3"/>
-          <!-- Beard & Mustache (Eliseu profile match) -->
-          <path d="M 94 98 C 94 135, 102 142, 120 142 C 138 142, 146 135, 146 98 C 146 112, 138 134, 120 134 C 102 134, 94 112, 94 98 Z" fill="#301e17"/>
-          <path d="M 104 104 Q 120 115 136 104 Q 120 109 104 104 Z" fill="#251610"/>
-          <!-- Dark hair style -->
-          <path d="M 82 92 C 82 52, 102 45, 120 45 C 138 45, 158 52, 158 92 C 152 74, 135 62, 120 64 C 105 62, 88 74, 82 92 Z" fill="#22150f"/>
-          <!-- Cyber HUD details -->
-          <circle cx="120" cy="120" r="110" fill="none" stroke="url(#rim)" stroke-width="2" stroke-dasharray="6,6"/>
-          <text x="120" y="215" font-family="'Press Start 2P', monospace" font-size="8" fill="#00f0ff" text-anchor="middle" letter-spacing="1">ELISEU BARBOSA</text>
-        </svg>
-      `);
-
-      // Check browser localStorage for saved image first
-      const savedAvatar = localStorage.getItem('eliseu_avatar');
-      if (savedAvatar) {
-        avatarImg.src = savedAvatar;
-      } else {
-        // Fallback chain: test if avatar.jpg exists, otherwise set the custom retro vector
-        avatarImg.onerror = () => {
-          avatarImg.onerror = null;
-          avatarImg.src = defaultRetroSvg;
-        };
+      function getAudioContext() {
+        if (!sfxActive) return null;
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        return audioCtx;
       }
 
-      // Click to choose file from computer or phone
-      avatarPortal.addEventListener('click', () => avatarInput.click());
-
-      avatarInput.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files[0]) {
-          loadFile(e.target.files[0]);
-        }
-      });
-
-      // Drag and drop photo onto page or avatar
-      window.addEventListener('dragover', (e) => e.preventDefault());
-      window.addEventListener('drop', (e) => {
-        e.preventDefault();
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-          loadFile(e.dataTransfer.files[0]);
-        }
-      });
-
-      function loadFile(file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          avatarImg.src = event.target.result;
-          localStorage.setItem('eliseu_avatar', event.target.result);
-          playCoinSound();
-          spawnFireworks(window.innerWidth / 2, window.innerHeight * 0.35, 40);
-        };
-        reader.readAsDataURL(file);
+      function playLaserClick(freq1 = 750, freq2 = 220) {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq1, now);
+        osc.frequency.exponentialRampToValueAtTime(freq2, now + 0.08);
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.09);
       }
 
-      /* =========================================
-         2. RETRO TARGETING SIGHT (DESKTOP MOUSE)
-         ========================================= */
+      function playCoinSound() {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.09);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.46);
+      }
+
+      const sfxBtn = document.getElementById('sfx-toggle');
+      sfxBtn.addEventListener('click', () => {
+        sfxActive = !sfxActive;
+        sfxBtn.textContent = sfxActive ? 'SFX' : 'MUTE';
+        sfxBtn.style.opacity = sfxActive ? '1' : '0.5';
+        if (sfxActive) playLaserClick(500, 850);
+      });
+
+      /* 2. CANVAS & GLOBAL CLICK ANIMATIONS */
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let width = 0, height = 0;
+      const stars = [], particles = [], shockwaves = [];
+      let isNightMode = false;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        stars.length = 0;
+        const starCount = width < 600 ? 50 : 85;
+        for (let i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height * 0.7,
+            size: Math.random() < 0.25 ? 2.5 : 1.5,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+
+      function spawnClickFX(x, y) {
+        shockwaves.push({
+          x, y, r: 4,
+          maxR: 58,
+          alpha: 1,
+          color: isNightMode ? '#00d4ff' : '#00f0ff'
+        });
+
+        const colors = isNightMode 
+          ? ['#00d4ff', '#9d4edd', '#ffd166', '#ffffff']
+          : ['#00f0ff', '#ff007f', '#ffea00', '#ffffff', '#00ff73'];
+
+        for (let i = 0; i < 16; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 60 + Math.random() * 200;
+          particles.push({
+            x, y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 20,
+            size: 2 + Math.floor(Math.random() * 3),
+            life: 1,
+            decay: 1.2 + Math.random() * 0.8,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      window.addEventListener('pointerdown', (e) => {
+        spawnClickFX(e.clientX, e.clientY);
+        playLaserClick(820, 240);
+        if (sight) sight.classList.add('firing');
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (sight) sight.classList.remove('firing');
+      });
+
+      let lastTime = performance.now();
+      function render(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
+        ctx.clearRect(0, 0, width, height);
+
+        for (const s of stars) {
+          const alpha = 0.25 + 0.75 * Math.abs(Math.sin(now * 0.002 + s.phase));
+          ctx.fillStyle = isNightMode ? `rgba(180, 210, 255, ${alpha.toFixed(2)})` : `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
+          ctx.fillRect(Math.floor(s.x), Math.floor(s.y), s.size, s.size);
+        }
+
+        for (let i = shockwaves.length - 1; i >= 0; i--) {
+          const sw = shockwaves[i];
+          sw.r += 120 * dt;
+          sw.alpha -= 2.2 * dt;
+          if (sw.alpha <= 0) {
+            shockwaves.splice(i, 1);
+            continue;
+          }
+          ctx.save();
+          ctx.strokeStyle = sw.color;
+          ctx.globalAlpha = Math.max(0, sw.alpha);
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.vy += 320 * dt;
+          p.life -= p.decay * dt;
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+            continue;
+          }
+          ctx.globalAlpha = Math.max(0, p.life);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+
+      /* 3. RETRO TARGETING SIGHT (DESKTOP) */
       const sight = document.getElementById('retro-sight');
-      let sightX = -100, sightY = -100;
-      let targetX = -100, targetY = -100;
+      let sightX = -100, sightY = -100, targetX = -100, targetY = -100;
       const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
       if (!isTouch) {
@@ -1459,31 +1339,139 @@
         }
         requestAnimationFrame(updateSight);
 
-        window.addEventListener('pointerdown', () => sight.classList.add('firing'));
-        window.addEventListener('pointerup', () => sight.classList.remove('firing'));
-
-        const targets = document.querySelectorAll('a, button, .skill-pill, .avatar-portal, .contact-pill-link, .stat-bar-outer, .lang-item');
-        targets.forEach(el => {
+        document.querySelectorAll('a, button, .skill-pill, .contact-pill-link, .gallery-card, .filter-btn').forEach(el => {
           el.addEventListener('pointerenter', () => sight.classList.add('locked'));
           el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
         });
       }
 
-      /* =========================================
-         3. TRANSLATION (PT / EN)
-         ========================================= */
+      /* 4. MULTIMEDIA GALLERY FILTERS & MODAL */
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const galleryCards = document.querySelectorAll('.gallery-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+
+          galleryCards.forEach(card => {
+            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'flex' : 'none';
+          });
+        });
+      });
+
+      const projectData = [
+        {
+          title: "Cena Cyberpunk 3D // Blender",
+          titleEn: "3D Cyberpunk Scene // Blender",
+          desc: "Ambiente retro-futurista criado com iluminação volumétrica, materiais metálicos e shaders PBR, explorando perspetivas synthwave e renderização otimizada para produtos interativos.",
+          descEn: "Retro-futuristic environment modeled with volumetric lighting, metallic materials and PBR shaders, exploring synthwave camera angles and real-time interactive rendering.",
+          tags: ["Blender 3D", "Cycles", "CGI", "Lighting"],
+          svg: document.querySelectorAll('.gallery-svg-art')[0].outerHTML
+        },
+        {
+          title: "Design System & UI Mobile // Figma",
+          titleEn: "Design System & Mobile UI // Figma",
+          desc: "Arquitetura de informação completa, prototipagem responsiva, componentes modulares e validação de fluxos de navegação (UX) para aplicações móveis e digitais de alto impacto.",
+          descEn: "Complete information architecture, responsive prototyping, modular design tokens and user flow validation (UX) for high-impact mobile and digital applications.",
+          tags: ["Figma", "Penpot", "UI/UX", "Wireframing"],
+          svg: document.querySelectorAll('.gallery-svg-art')[1].outerHTML
+        },
+        {
+          title: "Motion Graphics & Edição // Video Cut",
+          titleEn: "Motion Graphics & Video Editing // Cut",
+          desc: "Montagem de vídeo dinâmico com tratamento de cor (color grading), efeitos visuais cromáticos e integração de identidade sonora para conteúdos multimédia e redes digitais.",
+          descEn: "Dynamic video editing with chromatic color grading, visual FX overlays and synchronized sound design for multimedia campaigns and digital channels.",
+          tags: ["Photoshop", "Motion Design", "Color Grading", "Video FX"],
+          svg: document.querySelectorAll('.gallery-svg-art')[2].outerHTML
+        },
+        {
+          title: "Frontend Web & Automação // Python",
+          titleEn: "Frontend Web & Automation // Python",
+          desc: "Implementação de portais interativos modernos com CSS Grid/Flexbox, animações de alta performance e scripts Python em VSCode para automação e gestão de dados.",
+          descEn: "Implementation of modern interactive web portals using CSS Grid/Flexbox, high-performance animations and Python backend scripts for workflow automation.",
+          tags: ["Python", "VSCode", "HTML5/CSS3", "JavaScript"],
+          svg: document.querySelectorAll('.gallery-svg-art')[3].outerHTML
+        }
+      ];
+
+      const modal = document.getElementById('retro-modal');
+      const modalClose = document.getElementById('modal-close-btn');
+      const modalImg = document.getElementById('modal-img-container');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDesc = document.getElementById('modal-desc');
+      const modalTags = document.getElementById('modal-tags');
+
+      document.querySelectorAll('.gallery-open-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const pIndex = parseInt(btn.getAttribute('data-project'));
+          const p = projectData[pIndex];
+          modalTitle.textContent = currentLang === 'pt' ? p.title : p.titleEn;
+          modalDesc.textContent = currentLang === 'pt' ? p.desc : p.descEn;
+          modalImg.innerHTML = p.svg;
+          modalTags.innerHTML = p.tags.map(t => `<span class="gallery-mini-tag">${t}</span>`).join('');
+          modal.classList.add('active');
+          playCoinSound();
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove('active');
+        playLaserClick(400, 200);
+      }
+
+      modalClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeModal();
+      });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+      });
+
+      /* 5. PROFILE IMAGE ROBUST FALLBACK */
+      const avatarImg = document.getElementById('avatar-img');
+      const defaultRetroSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#140228"/><stop offset="100%" stop-color="#04010a"/></linearGradient>
+            <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00f0ff"/><stop offset="100%" stop-color="#ff007f"/></linearGradient>
+          </defs>
+          <rect width="240" height="240" fill="url(#bg)"/>
+          <path d="M 40 240 C 40 190, 75 165, 95 160 L 95 142 L 145 142 L 145 160 C 165 165, 200 190, 200 240 Z" fill="#0c0915" stroke="url(#rim)" stroke-width="2"/>
+          <rect x="94" y="132" width="52" height="22" rx="4" fill="#140f22" stroke="#00f0ff" stroke-width="1.5"/>
+          <ellipse cx="120" cy="100" rx="36" ry="44" fill="#ffd1b3"/>
+          <path d="M 94 98 C 94 135, 102 142, 120 142 C 138 142, 146 135, 146 98 C 146 112, 138 134, 120 134 C 102 134, 94 112, 94 98 Z" fill="#301e17"/>
+          <path d="M 104 104 Q 120 115 136 104 Q 120 109 104 104 Z" fill="#251610"/>
+          <path d="M 82 92 C 82 52, 102 45, 120 45 C 138 45, 158 52, 158 92 C 152 74, 135 62, 120 64 C 105 62, 88 74, 82 92 Z" fill="#22150f"/>
+          <circle cx="120" cy="120" r="110" fill="none" stroke="url(#rim)" stroke-width="2" stroke-dasharray="6,6"/>
+          <text x="120" y="215" font-family="'Press Start 2P', monospace" font-size="8" fill="#00f0ff" text-anchor="middle">ELISEU BARBOSA</text>
+        </svg>
+      `);
+
+      avatarImg.onerror = () => {
+        avatarImg.onerror = null;
+        avatarImg.src = defaultRetroSvg;
+      };
+
+      /* 6. TRANSLATION (PT / EN) */
       const translations = {
         pt: {
           navBio: "[ BIO ]",
           navSkills: "[ INVENTÁRIO ]",
+          navGallery: "[ GALERIA ]",
           navExp: "[ QUEST LOG ]",
           navEdu: "[ EDUCAÇÃO ]",
           navContact: "[ CONTACTO ]",
           avatarHint: "⚡ ELISEU.B // ONLINE",
-          uploadHint: "<span>📷</span><span>CLIQUE P/ CARREGAR FOTO</span>",
           heroTagline: "Desenvolvimento de Produtos e Conteúdos Multimédia",
-          heroBtnContact: "▶ TRANSMITIR MENSAGEM",
-          heroBtnExplore: "▼ VER PERFIL",
+          heroBtnGallery: "▶ VER GALERIA",
+          heroBtnContact: "✉ CONTACTAR",
           aboutTitle: "Sobre Mim // Ficha de Jogador",
           bio1: "Em processo de <strong>mudança de carreira</strong>, com foco total no <strong>desenvolvimento de produtos e conteúdos multimédia</strong>.",
           bio2: "Perfil dinâmico e colaborativo, aliando pensamento criativo à resolução prática de problemas. Forte capacidade de comunicação, empatia com o cliente, elevado sentido de organização, responsabilidade e paixão pela polivalência e aprendizagem contínua.",
@@ -1507,6 +1495,21 @@
           catAdmin: "GESTÃO & ADMINISTRAÇÃO",
           pillBackOffice: "📋 Back-Office",
           pillCustomerSupport: "👥 Atendimento ao Público",
+          galleryTitle: "Galeria Multimédia // Projetos",
+          fAll: "TODOS",
+          f3d: "3D & CGI",
+          fDesign: "DESIGN & UI",
+          fVideo: "VÍDEO & FOTO",
+          fWeb: "WEB & TECH",
+          g1Title: "Cena Cyberpunk 3D",
+          g1Desc: "Modelação, iluminação volumétrica e shading de ambiente sci-fi no Blender.",
+          g2Title: "Protótipo de Produto Digital",
+          g2Desc: "Design System completo, wireframes e prototipagem interativa mobile no Figma.",
+          g3Title: "Edição e Motion Graphics",
+          g3Desc: "Tratamento de cor cromática, montagem dinâmica e grafismo promocional.",
+          g4Title: "Frontend & Scripts Python",
+          g4Desc: "Desenvolvimento de interface web responsiva e automação em VSCode e Python.",
+          gInspect: "[ EXPANDIR PROJETO ]",
           expTitle: "Quest Log // Experiência Profissional",
           quest1Period: "2011 — 2025 [ 14 ANOS DE EXP. ]",
           quest1Title: "Assistente de Loja & Relação com Cliente",
@@ -1537,14 +1540,14 @@
         en: {
           navBio: "[ BIO ]",
           navSkills: "[ INVENTORY ]",
+          navGallery: "[ GALLERY ]",
           navExp: "[ QUEST LOG ]",
           navEdu: "[ EDUCATION ]",
           navContact: "[ CONTACT ]",
           avatarHint: "⚡ ELISEU.B // ONLINE",
-          uploadHint: "<span>📷</span><span>CLICK TO UPLOAD PHOTO</span>",
           heroTagline: "Multimedia Product & Content Development",
-          heroBtnContact: "▶ TRANSMIT MESSAGE",
-          heroBtnExplore: "▼ VIEW PROFILE",
+          heroBtnGallery: "▶ VIEW GALLERY",
+          heroBtnContact: "✉ CONTACT ME",
           aboutTitle: "About Me // Player Sheet",
           bio1: "Currently undergoing a <strong>career transition</strong>, with full focus on <strong>multimedia product and content development</strong>.",
           bio2: "Dynamic and collaborative profile, combining creative thinking with practical problem-solving. Strong communication skills, deep customer empathy, high sense of organization, accountability, and a passion for versatility and continuous learning.",
@@ -1568,6 +1571,21 @@
           catAdmin: "MANAGEMENT & ADMIN",
           pillBackOffice: "📋 Back-Office",
           pillCustomerSupport: "👥 Customer Relations",
+          galleryTitle: "Multimedia Gallery // Projects",
+          fAll: "ALL",
+          f3d: "3D & CGI",
+          fDesign: "DESIGN & UI",
+          fVideo: "VIDEO & PHOTO",
+          fWeb: "WEB & TECH",
+          g1Title: "3D Cyberpunk Scene",
+          g1Desc: "Modeling, volumetric lighting and sci-fi environment shading in Blender.",
+          g2Title: "Digital Product Prototype",
+          g2Desc: "Complete Design System, wireframes and interactive mobile prototyping in Figma.",
+          g3Title: "Editing & Motion Graphics",
+          g3Desc: "Chromatic color grading, dynamic video assembly and promotional graphics.",
+          g4Title: "Frontend & Python Scripts",
+          g4Desc: "Responsive web interface and workflow automation in VSCode and Python.",
+          gInspect: "[ INSPECT PROJECT ]",
           expTitle: "Quest Log // Professional Experience",
           quest1Period: "2011 — 2025 [ 14 YEARS EXP. ]",
           quest1Title: "Store Assistant & Customer Relations",
@@ -1613,194 +1631,21 @@
         });
       }
 
-      langToggleBtn.addEventListener('click', () => {
+      langToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         setLanguage(currentLang === 'pt' ? 'en' : 'pt');
-        playChirp(480, 880, 0.12, 'square');
       });
 
-      /* =========================================
-         4. NIGHT MODE / THEME TOGGLE
-         ========================================= */
+      /* 7. NIGHT MODE TOGGLE */
       const themeToggleBtn = document.getElementById('theme-toggle');
-      let isNightMode = false;
-
-      themeToggleBtn.addEventListener('click', () => {
+      themeToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         isNightMode = !isNightMode;
         document.body.classList.toggle('night-mode', isNightMode);
         themeToggleBtn.textContent = isNightMode ? '☀️' : '🌙';
-        playChirp(isNightMode ? 320 : 640, isNightMode ? 160 : 960, 0.16, 'sawtooth');
       });
 
-      /* =========================================
-         5. WEB AUDIO SYNTHESIZER
-         ========================================= */
-      let audioCtx = null;
-      let sfxActive = true;
-
-      function getAudioContext() {
-        if (!sfxActive) return null;
-        if (!audioCtx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) audioCtx = new AudioContext();
-        }
-        if (audioCtx && audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        return audioCtx;
-      }
-
-      function playChirp(freq1, freq2, duration, type = 'square') {
-        const ctx = getAudioContext();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq1, now);
-        osc.frequency.exponentialRampToValueAtTime(freq2, now + duration);
-
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + duration + 0.02);
-      }
-
-      function playCoinSound() {
-        const ctx = getAudioContext();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(987.77, now);
-        osc.frequency.setValueAtTime(1318.51, now + 0.09);
-
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.46);
-      }
-
-      const sfxBtn = document.getElementById('sfx-toggle');
-      sfxBtn.addEventListener('click', () => {
-        sfxActive = !sfxActive;
-        sfxBtn.textContent = sfxActive ? 'SFX' : 'MUTE';
-        sfxBtn.style.opacity = sfxActive ? '1' : '0.5';
-        if (sfxActive) playChirp(440, 880, 0.15);
-      });
-
-      document.querySelectorAll('.btn-arcade, .hud-nav a, .skill-pill, .contact-pill-link, .hud-btn').forEach(el => {
-        el.addEventListener('mouseenter', () => playChirp(350, 480, 0.06, 'triangle'));
-        el.addEventListener('click', () => playChirp(520, 920, 0.12, 'square'));
-      });
-
-      const coinBtn = document.getElementById('btn-coin');
-      coinBtn.addEventListener('click', () => {
-        playCoinSound();
-        spawnFireworks(window.innerWidth / 2, window.innerHeight * 0.7, 45);
-      });
-
-      /* =========================================
-         6. CANVAS PARTICLES & STARFIELD
-         ========================================= */
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      let width = 0;
-      let height = 0;
-      const stars = [];
-      const particles = [];
-
-      function resize() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-        stars.length = 0;
-        const starCount = width < 600 ? 50 : 85;
-        for (let i = 0; i < starCount; i++) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height * 0.7,
-            size: Math.random() < 0.25 ? 2.5 : 1.5,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
-      }
-
-      function spawnFireworks(x, y, count = 30) {
-        const colors = isNightMode 
-          ? ['#00d4ff', '#9d4edd', '#ffd166', '#ffffff', '#06d6a0']
-          : ['#00f0ff', '#ff007f', '#ffea00', '#ffffff', '#00ff73'];
-
-        const particleCount = width < 600 ? Math.floor(count * 0.6) : count;
-
-        for (let i = 0; i < particleCount; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = 70 + Math.random() * 240;
-          particles.push({
-            x,
-            y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 40,
-            size: 2 + Math.floor(Math.random() * 3),
-            life: 1,
-            decay: 0.8 + Math.random() * 0.7,
-            color: colors[Math.floor(Math.random() * colors.length)]
-          });
-        }
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-
-      let lastTime = performance.now();
-      function render(now) {
-        const dt = Math.min((now - lastTime) / 1000, 0.05);
-        lastTime = now;
-        ctx.clearRect(0, 0, width, height);
-
-        for (const s of stars) {
-          const alpha = 0.25 + 0.75 * Math.abs(Math.sin(now * 0.002 + s.phase));
-          ctx.fillStyle = isNightMode 
-            ? `rgba(180, 210, 255, ${alpha.toFixed(2)})`
-            : `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
-          ctx.fillRect(Math.floor(s.x), Math.floor(s.y), s.size, s.size);
-        }
-
-        for (let i = particles.length - 1; i >= 0; i--) {
-          const p = particles[i];
-          p.x += p.vx * dt;
-          p.y += p.vy * dt;
-          p.vy += 320 * dt;
-          p.life -= p.decay * dt;
-
-          if (p.life <= 0) {
-            particles.splice(i, 1);
-            continue;
-          }
-
-          ctx.globalAlpha = Math.max(0, p.life);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
-        }
-        ctx.globalAlpha = 1;
-
-        requestAnimationFrame(render);
-      }
-      requestAnimationFrame(render);
-
-      /* =========================================
-         7. STAT BARS ANIMATION
-         ========================================= */
+      /* 8. STAT BARS ANIMATION ON SCROLL */
       const statBars = document.querySelectorAll('.stat-bar-inner');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1814,6 +1659,13 @@
 
       const aboutSection = document.getElementById('about');
       if (aboutSection) observer.observe(aboutSection);
+
+      const coinBtn = document.getElementById('btn-coin');
+      coinBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playCoinSound();
+        spawnClickFX(window.innerWidth / 2, window.innerHeight * 0.7);
+      });
     })();
   </script>
 </body>
