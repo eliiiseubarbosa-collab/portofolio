@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Eliseu Barbosa // Retro Multimedia Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;900&family=Orbitron:wght@600;800;900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
@@ -144,7 +144,7 @@
     .retro-sight.locked .sight-dot { background: var(--sight-lock); transform: scale(1.6); }
     .retro-sight.firing .sight-ring { transform: scale(0.55); border-color: #fff; box-shadow: 0 0 25px #fff; }
 
-    /* Canvas (Starfield, Spaceship, Shockwaves) */
+    /* Background Canvas */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -351,148 +351,46 @@
       z-index: 6;
     }
 
-    /* ========================================================
-       SQUARE CYBERPUNK TITLE IN WEBSITE COLOR GRADE + 3D DEPTH
-       ======================================================== */
+    /* Animated Vector Main Title ("Eliseu") */
     .hero-name {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
+      width: 100%;
     }
 
-    .cyber-square-stage {
-      perspective: 800px;
-      perspective-origin: 50% 50%;
-      transform-style: preserve-3d;
+    .svg-logo-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(6px, 1.4vw, 14px);
-      text-align: center;
-      user-select: none;
+      width: min(88vw, 540px);
+      margin: 0 auto;
+      position: relative;
     }
 
-    .cyber-square-word {
-      display: inline-block;
-      font-family: 'Chakra Petch', 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.3rem, 8.2vw, 5.2rem);
-      line-height: 1.05;
-      letter-spacing: clamp(0.08em, 1.4vw, 0.16em);
-      text-transform: uppercase;
-      transform-style: preserve-3d;
-      /* Website Signature Color Grade: Cyan -> Pink -> Gold */
-      background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        var(--cyan) 25%,
-        var(--pink) 65%,
-        var(--yellow) 100%
-      );
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      /* Layered 3D Isometric Extrusion matching Website Color Grade */
-      text-shadow:
-        1px 1px 0px #060112,
-        2px 2px 0px #1a0438,
-        3px 3px 0px var(--pink),
-        4px 4px 0px #060112,
-        5px 5px 0px var(--cyan),
-        6px 6px 0px #060112,
-        7px 7px 0px var(--yellow),
-        0 12px 30px rgba(0, 240, 255, 0.45);
-      /* Subtle 3D Depth Shift + Shimmer */
-      animation:
-        subtle3DShift 5.5s ease-in-out infinite alternate,
-        subtleGlintSweep 8s ease-in-out infinite;
-      will-change: transform, text-shadow;
+    .eliseu-svg-logo {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      cursor: pointer;
+      color: var(--cyan);
+      filter: drop-shadow(0 0 10px var(--cyan)) drop-shadow(0 0 22px rgba(0, 240, 255, 0.4));
+      transition: filter 0.3s ease, color 0.3s ease, transform 0.2s ease;
     }
 
-    .cyber-square-word.word-last {
-      animation-delay: -2.75s, -4s;
+    .eliseu-svg-logo:hover {
+      filter: drop-shadow(0 0 16px var(--cyan)) drop-shadow(0 0 32px var(--pink));
+      transform: scale(1.02);
     }
 
-    @keyframes subtle3DShift {
-      0% {
-        transform: rotateX(5deg) rotateY(-4deg) translateZ(0px);
-        text-shadow:
-          1px 1px 0px #060112,
-          2px 2px 0px #1a0438,
-          3px 3px 0px var(--pink),
-          4px 4px 0px #060112,
-          5px 5px 0px var(--cyan),
-          6px 6px 0px #060112,
-          7px 7px 0px var(--yellow),
-          0 10px 24px rgba(0, 240, 255, 0.35);
-      }
-      100% {
-        transform: rotateX(-5deg) rotateY(4deg) translateZ(12px);
-        text-shadow:
-          -1px 1px 0px #060112,
-          -2px 2px 0px #1a0438,
-          -3px 3px 0px var(--cyan),
-          -4px 4px 0px #060112,
-          -5px 5px 0px var(--pink),
-          -6px 6px 0px #060112,
-          -7px 7px 0px var(--yellow),
-          0 15px 34px rgba(255, 0, 127, 0.45);
-      }
+    .svg-logo-line {
+      filter: drop-shadow(0 0 4px currentColor);
     }
 
-    @keyframes subtleGlintSweep {
-      0%, 25% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      75%, 100% { background-position: 0% 50%; }
-    }
-
-    /* Night Mode: Ice Cyan, Neon Violet & Cyber Gold */
-    body.night-mode .cyber-square-word {
-      background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        var(--cyan) 28%,
-        var(--pink) 68%,
-        var(--yellow) 100%
-      );
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    body.night-mode .cyber-square-word {
-      animation:
-        subtle3DShiftNight 5.5s ease-in-out infinite alternate,
-        subtleGlintSweep 8s ease-in-out infinite;
-    }
-
-    @keyframes subtle3DShiftNight {
-      0% {
-        transform: rotateX(5deg) rotateY(-4deg) translateZ(0px);
-        text-shadow:
-          1px 1px 0px #020206,
-          2px 2px 0px #14052a,
-          3px 3px 0px var(--pink),
-          4px 4px 0px #020206,
-          5px 5px 0px var(--cyan),
-          6px 6px 0px #020206,
-          7px 7px 0px var(--yellow),
-          0 10px 24px rgba(0, 212, 255, 0.35);
-      }
-      100% {
-        transform: rotateX(-5deg) rotateY(4deg) translateZ(12px);
-        text-shadow:
-          -1px 1px 0px #020206,
-          -2px 2px 0px #14052a,
-          -3px 3px 0px var(--cyan),
-          -4px 4px 0px #020206,
-          -5px 5px 0px var(--pink),
-          -6px 6px 0px #020206,
-          -7px 7px 0px var(--yellow),
-          0 15px 34px rgba(157, 78, 221, 0.45);
-      }
+    body.night-mode .eliseu-svg-logo {
+      color: var(--cyan);
+      filter: drop-shadow(0 0 12px var(--cyan)) drop-shadow(0 0 26px rgba(0, 212, 255, 0.4));
     }
 
     .hero-tagline {
@@ -502,6 +400,7 @@
       letter-spacing: 0.1em;
       text-shadow: 0 0 12px var(--cyan);
       max-width: 800px;
+      margin-top: 14px;
       margin-bottom: 28px;
       text-transform: uppercase;
       font-weight: 800;
@@ -516,9 +415,7 @@
       width: 100%;
     }
 
-    /* =============================================
-       ALL WEBSITE BOXES: TACTILE 3D DEPTH
-       ============================================= */
+    /* 3D Push Button Depth */
     .btn-arcade {
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(0.55rem, 1.4vw, 0.72rem);
@@ -529,7 +426,6 @@
       border: 2px solid var(--cyan);
       border-right: 3px solid var(--cyan);
       border-bottom: 3px solid var(--cyan);
-      /* 3D Push Button Depth */
       box-shadow:
         2px 2px 0px #060112,
         4px 4px 0px var(--cyan),
@@ -587,26 +483,26 @@
         8px 8px 20px rgba(255, 0, 127, 0.5);
     }
 
-    .btn-arcade.primary:active {
-      transform: translate(2px, 2px);
-      box-shadow:
-        1px 1px 0px #060112,
-        2px 2px 0px var(--pink),
-        3px 3px 6px rgba(0, 0, 0, 0.9);
-    }
-
     /* Section Separation */
     .retro-section {
-      margin-bottom: 140px; /* Long, spacious separation */
+      margin-bottom: 140px;
     }
 
     .section-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 26px;
       border-bottom: 2px solid rgba(0, 240, 255, 0.4);
       padding-bottom: 12px;
+    }
+
+    .section-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .section-icon {
@@ -632,7 +528,6 @@
       border: 2px solid var(--card-border);
       border-right: 4px solid var(--cyan);
       border-bottom: 4px solid var(--pink);
-      /* Layered 3D Chassis Bevel & Extrusion */
       box-shadow:
         1px 1px 0px var(--cyan),
         2px 2px 0px #060112,
@@ -792,8 +687,17 @@
       box-shadow: 2px 2px 0px #060112, 4px 4px 0px var(--cyan);
     }
 
-    /* 3D Depth on Gallery Cards */
-    .gallery-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; justify-content: center; }
+    /* Gallery Cards with Actual Prints & 3D Depth */
+    .gallery-top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .gallery-filters { display: flex; flex-wrap: wrap; gap: 10px; }
     
     .filter-btn {
       font-family: 'Press Start 2P', monospace;
@@ -806,6 +710,7 @@
       color: var(--cyan);
       box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--cyan);
       transition: all 0.18s ease;
+      cursor: pointer;
     }
     
     .filter-btn:hover, .filter-btn.active {
@@ -815,14 +720,31 @@
       box-shadow: 2px 2px 0px #060112, 5px 5px 0px var(--cyan);
     }
 
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .btn-quick-loader {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      padding: 9px 12px;
+      background: rgba(11, 2, 28, 0.95);
+      border: 1px dashed var(--yellow);
+      color: var(--yellow);
+      box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-quick-loader:hover {
+      background: var(--yellow);
+      color: #060112;
+      box-shadow: 0 0 20px var(--yellow);
+    }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 26px; }
     
     .gallery-card {
-      background: rgba(11, 2, 28, 0.9);
+      background: rgba(11, 2, 28, 0.92);
       border: 2px solid rgba(0, 240, 255, 0.4);
       border-right: 4px solid var(--cyan);
       border-bottom: 4px solid var(--pink);
-      /* 3D Isometric Card Depth */
       box-shadow:
         2px 2px 0px #060112,
         5px 5px 0px var(--cyan),
@@ -848,27 +770,56 @@
         16px 20px 32px rgba(0, 0, 0, 0.95);
     }
     
-    .gallery-thumb-wrap { position: relative; width: 100%; height: 180px; background: #020108; overflow: hidden; }
-    .gallery-svg-art { width: 100%; height: 100%; display: block; transition: transform 0.4s ease; }
-    .gallery-card:hover .gallery-svg-art { transform: scale(1.06); }
-    .gallery-scanline { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0px, rgba(0, 0, 0, 0.25) 1px, transparent 1px, transparent 3px); pointer-events: none; }
+    .gallery-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: #020108;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: contrast(1.05) brightness(1.02);
+      display: block;
+    }
+
+    .gallery-card:hover .gallery-card-img {
+      transform: scale(1.06);
+      filter: contrast(1.1) brightness(1.08);
+    }
+
+    .gallery-scanline {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, transparent 1px, transparent 3px);
+      pointer-events: none;
+    }
     
     .gallery-tag-float {
       position: absolute;
       top: 10px;
       right: 10px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.5rem;
-      padding: 4px 8px;
+      font-size: 0.48rem;
+      padding: 5px 8px;
       background: rgba(8, 2, 20, 0.95);
       border: 1px solid var(--pink);
       color: var(--pink);
       box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--pink);
       border-radius: 2px;
+      z-index: 2;
     }
 
-    .gallery-info { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-    .gallery-card-title { font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .gallery-info { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+    .gallery-card-title { font-family: 'Orbitron', sans-serif; font-size: 1.12rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.35; }
     .gallery-card-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
     .gallery-tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
     .gallery-mini-tag { font-size: 0.78rem; padding: 2px 7px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); }
@@ -876,7 +827,7 @@
     .gallery-open-btn {
       font-family: 'Press Start 2P', monospace;
       font-size: 0.55rem;
-      padding: 10px;
+      padding: 11px;
       background: transparent;
       border: 1px solid var(--cyan);
       border-right: 2px solid var(--cyan);
@@ -886,6 +837,7 @@
       transition: all 0.18s ease;
       width: 100%;
       text-align: center;
+      cursor: pointer;
     }
     
     .gallery-open-btn:hover {
@@ -895,17 +847,18 @@
       box-shadow: 2px 2px 0px #060112, 4px 4px 0px var(--cyan);
     }
 
-    /* 3D Depth on Modal Box */
+    /* Modal Lightbox & Slide Carousel */
     .retro-modal {
       position: fixed;
       inset: 0;
       z-index: 200000;
-      background: rgba(4, 1, 12, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(4, 1, 12, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
@@ -918,7 +871,6 @@
       border: 2px solid var(--cyan);
       border-right: 4px solid var(--cyan);
       border-bottom: 4px solid var(--pink);
-      /* Deep Floating 3D Extrusion */
       box-shadow:
         3px 3px 0px #060112,
         6px 6px 0px var(--cyan),
@@ -927,16 +879,23 @@
         0 20px 60px rgba(0, 0, 0, 0.95),
         inset 0 0 20px rgba(0, 240, 255, 0.2),
         inset 1px 1px 0px rgba(255, 255, 255, 0.3);
-      max-width: 680px;
+      max-width: 920px;
       width: 100%;
-      padding: 24px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: clamp(16px, 3vw, 24px);
       position: relative;
     }
-    
+
+    .modal-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+
     .modal-close-btn {
-      position: absolute;
-      top: 14px;
-      right: 14px;
       font-family: 'Press Start 2P', monospace;
       font-size: 0.7rem;
       background: transparent;
@@ -947,12 +906,88 @@
       box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--pink);
       padding: 6px 10px;
       transition: all 0.18s ease;
+      cursor: pointer;
+      flex-shrink: 0;
     }
     
     .modal-close-btn:hover { background: var(--pink); color: #fff; transform: translate(-1px, -1px); }
-    .modal-img-wrap { width: 100%; height: 240px; background: #020108; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 18px; overflow: hidden; }
-    .modal-title { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
-    .modal-desc { font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      border: 2px solid rgba(0, 240, 255, 0.5);
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9), 2px 2px 0px #060112;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .carousel-viewport {
+      width: 100%;
+      height: clamp(260px, 50vh, 500px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #020108;
+    }
+
+    .slide-media-item {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .carousel-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(8, 2, 20, 0.95);
+      border-top: 1px solid rgba(0, 240, 255, 0.3);
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.5rem, 1.2vw, 0.65rem);
+    }
+
+    .carousel-arrow-btn {
+      font-family: inherit;
+      font-size: inherit;
+      padding: 7px 12px;
+      background: rgba(14, 2, 34, 0.9);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      box-shadow: 2px 2px 0px #060112;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .carousel-arrow-btn:hover {
+      background: var(--cyan);
+      color: #080014;
+      transform: translateY(-1px);
+    }
+
+    .carousel-counter {
+      color: var(--yellow);
+      text-shadow: 0 0 6px var(--yellow);
+      letter-spacing: 0.1em;
+    }
+
+    .slide-caption-box {
+      background: rgba(10, 2, 26, 0.85);
+      border-left: 3px solid var(--pink);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .modal-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.15rem, 2.5vw, 1.45rem); font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .modal-desc { font-size: 1.02rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
 
     /* Timeline / Experience */
     .timeline { position: relative; padding-left: 24px; }
@@ -1019,7 +1054,6 @@
     .contact-subtitle { font-size: clamp(0.98rem, 2vw, 1.15rem); color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
     .contact-cards-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 28px; }
     
-    /* 3D Depth on Contact Links */
     .contact-pill-link {
       display: flex;
       align-items: center;
@@ -1031,7 +1065,6 @@
       border: 2px solid var(--cyan);
       border-right: 3px solid var(--cyan);
       border-bottom: 3px solid var(--pink);
-      /* 3D Isometric Drop */
       box-shadow:
         2px 2px 0px #060112,
         5px 5px 0px var(--cyan),
@@ -1109,6 +1142,9 @@
 </head>
 <body>
 
+  <!-- Hidden multi-file input for uploading prints directly -->
+  <input type="file" id="bulk-prints-input" accept="image/*" multiple style="display:none;" />
+
   <!-- RETRO SIGHT CURSOR -->
   <div class="retro-sight" id="retro-sight">
     <div class="sight-ring"></div>
@@ -1168,13 +1204,27 @@
         <div class="avatar-badge-hint" data-i18n="avatarHint">⚡ ELISEU.B // ONLINE</div>
       </div>
 
-      <!-- SQUARE CYBERPUNK TITLE IN WEBSITE COLOR GRADE WITH 3D DEPTH -->
+      <!-- ANIMATED VECTOR SVG MAIN TITLE ("ELISEU") ONLY -->
       <div class="hero-name">
-        <div class="cyber-square-stage">
-          <h1 style="margin: 0; padding: 0;">
-            <span class="cyber-square-word word-first" aria-label="ELISEU">ELISEU</span><br />
-            <span class="cyber-square-word word-last" aria-label="BARBOSA">BARBOSA</span>
-          </h1>
+        <div class="svg-logo-wrapper">
+          <svg viewBox="0 0 310 112" role="img" aria-label="Eliseu" id="eliseu-svg-logo" class="eliseu-svg-logo">
+            <g stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6">
+              <!-- E -->
+              <path class="svg-logo-line" d="M8 10H58V27H25V42H52V59H25V73H58V90H8Z"/>
+              <!-- l -->
+              <path class="svg-logo-line" d="M66 10H83V90H66Z"/>
+              <!-- i (stem + dot) -->
+              <path class="svg-logo-line" d="M91 22H108V90H91Z"/>
+              <path class="svg-logo-line" d="M99.5 1.5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 1 1 0-17Z"/>
+              <!-- s -->
+              <path class="svg-logo-line" d="M161 41A21 21 0 1 0 140 62A7 7 0 1 1 133 69L119 69A21 21 0 1 0 140 48A7 7 0 1 1 147 41Z"/>
+              <!-- e (outer shape + counter) -->
+              <path class="svg-logo-line" d="M225.4 49A28 34 0 1 0 219.4 78L206.8 70A13 19 0 0 1 185.9 63L225.4 63Z"/>
+              <path class="svg-logo-line" d="M185.9 49A13 19 0 0 1 210.1 49Z"/>
+              <!-- u -->
+              <path class="svg-logo-line" d="M247 22H264V65A8 8 0 0 0 280 65V22H297V65A25 25 0 0 1 247 65Z"/>
+            </g>
+          </svg>
         </div>
       </div>
 
@@ -1189,8 +1239,10 @@
     <!-- SOBRE MIM -->
     <section class="retro-section" id="about">
       <div class="section-header">
-        <span class="section-icon">👾</span>
-        <h2 class="section-title" data-i18n="aboutTitle">Sobre Mim // Ficha de Jogador</h2>
+        <div class="section-header-left">
+          <span class="section-icon">👾</span>
+          <h2 class="section-title" data-i18n="aboutTitle">Sobre Mim // Ficha de Jogador</h2>
+        </div>
       </div>
 
       <div class="section-card">
@@ -1243,8 +1295,10 @@
     <!-- INVENTÁRIO -->
     <section class="retro-section" id="skills">
       <div class="section-header">
-        <span class="section-icon">⚔️</span>
-        <h2 class="section-title" data-i18n="skillsTitle">Inventário & Competências</h2>
+        <div class="section-header-left">
+          <span class="section-icon">⚔️</span>
+          <h2 class="section-title" data-i18n="skillsTitle">Inventário & Competências</h2>
+        </div>
       </div>
 
       <div class="skills-categories">
@@ -1286,141 +1340,57 @@
       </div>
     </section>
 
-    <!-- MULTIMEDIA GALLERY -->
+    <!-- =============================================
+         MULTIMEDIA GALLERY: PRINTSCREENS WITH SLIDES
+         ============================================= -->
     <section class="retro-section" id="gallery">
       <div class="section-header">
-        <span class="section-icon">🕹️</span>
-        <h2 class="section-title" data-i18n="galleryTitle">Galeria Multimédia // Projetos</h2>
+        <div class="section-header-left">
+          <span class="section-icon">🕹️</span>
+          <h2 class="section-title" data-i18n="galleryTitle">Galeria Multimédia // Projetos & Prints</h2>
+        </div>
+        <button class="btn-quick-loader" id="btn-load-prints" title="Carregar imagens do seu computador">📁 CARREGAR PRINTS</button>
       </div>
 
-      <div class="gallery-filters">
-        <button class="filter-btn active" data-filter="all" data-i18n="fAll">TODOS</button>
-        <button class="filter-btn" data-filter="3d" data-i18n="f3d">3D & CGI</button>
-        <button class="filter-btn" data-filter="design" data-i18n="fDesign">DESIGN & UI</button>
-        <button class="filter-btn" data-filter="video" data-i18n="fVideo">VÍDEO & FOTO</button>
-        <button class="filter-btn" data-filter="web" data-i18n="fWeb">WEB & TECH</button>
+      <!-- Filters by Software -->
+      <div class="gallery-top-controls">
+        <div class="gallery-filters">
+          <button class="filter-btn active" data-filter="all" data-i18n="fAll">TODOS</button>
+          <button class="filter-btn" data-filter="figma">FIGMA</button>
+          <button class="filter-btn" data-filter="blender">BLENDER</button>
+          <button class="filter-btn" data-filter="affinity">AFFINITY</button>
+          <button class="filter-btn" data-filter="canva">CANVA</button>
+        </div>
       </div>
 
       <div class="gallery-grid" id="gallery-container">
-        <!-- Project 1: 3D Blender -->
-        <div class="gallery-card" data-category="3d">
-          <div class="gallery-thumb-wrap">
-            <svg class="gallery-svg-art" viewBox="0 0 320 200">
-              <defs>
-                <linearGradient id="p1g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#05051e"/><stop offset="100%" stop-color="#2a0845"/></linearGradient>
-                <linearGradient id="neon1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00f0ff"/><stop offset="100%" stop-color="#ff007f"/></linearGradient>
-              </defs>
-              <rect width="320" height="200" fill="url(#p1g)"/>
-              <polygon points="160,35 240,80 160,125 80,80" fill="none" stroke="url(#neon1)" stroke-width="2"/>
-              <polygon points="160,125 240,80 240,150 160,195" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
-              <polygon points="160,125 80,80 80,150 160,195" fill="none" stroke="#ff007f" stroke-width="1.5"/>
-              <circle cx="160" cy="80" r="15" fill="#ffea00" filter="drop-shadow(0 0 8px #ffea00)"/>
-            </svg>
-            <div class="gallery-scanline"></div>
-            <span class="gallery-tag-float">3D CGI</span>
-          </div>
-          <div class="gallery-info">
-            <h3 class="gallery-card-title" data-i18n="g1Title">Cena Cyberpunk 3D</h3>
-            <p class="gallery-card-desc" data-i18n="g1Desc">Modelação, iluminação volumétrica e shading de ambiente sci-fi no Blender.</p>
-            <div class="gallery-tech-row">
-              <span class="gallery-mini-tag">Blender</span>
-              <span class="gallery-mini-tag">Lighting</span>
-              <span class="gallery-mini-tag">3D Mesh</span>
-            </div>
-            <button class="gallery-open-btn" data-project="0" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
-          </div>
-        </div>
-
-        <!-- Project 2: UI/UX Figma -->
-        <div class="gallery-card" data-category="design">
-          <div class="gallery-thumb-wrap">
-            <svg class="gallery-svg-art" viewBox="0 0 320 200">
-              <defs><linearGradient id="p2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#030b1c"/><stop offset="100%" stop-color="#011b2b"/></linearGradient></defs>
-              <rect width="320" height="200" fill="url(#p2g)"/>
-              <rect x="50" y="25" width="220" height="150" rx="8" fill="#081426" stroke="#00f0ff" stroke-width="2"/>
-              <rect x="65" y="40" width="80" height="12" rx="3" fill="#ff007f"/>
-              <rect x="65" y="60" width="190" height="60" rx="4" fill="rgba(0,240,255,0.1)" stroke="#00f0ff" stroke-dasharray="3,3"/>
-              <rect x="65" y="130" width="60" height="25" rx="4" fill="#00ff73"/>
-              <rect x="135" y="130" width="60" height="25" rx="4" fill="#ffea00"/>
-            </svg>
-            <div class="gallery-scanline"></div>
-            <span class="gallery-tag-float">UI / UX</span>
-          </div>
-          <div class="gallery-info">
-            <h3 class="gallery-card-title" data-i18n="g2Title">Protótipo de Produto Digital</h3>
-            <p class="gallery-card-desc" data-i18n="g2Desc">Design System completo, wireframes e prototipagem interativa mobile no Figma.</p>
-            <div class="gallery-tech-row">
-              <span class="gallery-mini-tag">Figma</span>
-              <span class="gallery-mini-tag">Penpot</span>
-              <span class="gallery-mini-tag">UX Flow</span>
-            </div>
-            <button class="gallery-open-btn" data-project="1" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
-          </div>
-        </div>
-
-        <!-- Project 3: Foto & Vídeo -->
-        <div class="gallery-card" data-category="video">
-          <div class="gallery-thumb-wrap">
-            <svg class="gallery-svg-art" viewBox="0 0 320 200">
-              <defs><linearGradient id="p3g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1f0212"/><stop offset="100%" stop-color="#3b032a"/></linearGradient></defs>
-              <rect width="320" height="200" fill="url(#p3g)"/>
-              <circle cx="160" cy="100" r="55" fill="none" stroke="#ff007f" stroke-width="2"/>
-              <polygon points="150,80 180,100 150,120" fill="#ffea00" filter="drop-shadow(0 0 10px #ffea00)"/>
-              <line x1="20" y1="20" x2="40" y2="20" stroke="#00f0ff" stroke-width="2"/>
-              <line x1="20" y1="20" x2="20" y2="40" stroke="#00f0ff" stroke-width="2"/>
-              <line x1="300" y1="180" x2="280" y2="180" stroke="#00f0ff" stroke-width="2"/>
-              <line x1="300" y1="180" x2="300" y2="160" stroke="#00f0ff" stroke-width="2"/>
-            </svg>
-            <div class="gallery-scanline"></div>
-            <span class="gallery-tag-float">MOTION</span>
-          </div>
-          <div class="gallery-info">
-            <h3 class="gallery-card-title" data-i18n="g3Title">Edição e Motion Graphics</h3>
-            <p class="gallery-card-desc" data-i18n="g3Desc">Tratamento de cor cromática, montagem dinâmica e grafismo promocional.</p>
-            <div class="gallery-tech-row">
-              <span class="gallery-mini-tag">Photoshop</span>
-              <span class="gallery-mini-tag">Video Cut</span>
-              <span class="gallery-mini-tag">Color Grade</span>
-            </div>
-            <button class="gallery-open-btn" data-project="2" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
-          </div>
-        </div>
-
-        <!-- Project 4: Web Application -->
-        <div class="gallery-card" data-category="web">
-          <div class="gallery-thumb-wrap">
-            <svg class="gallery-svg-art" viewBox="0 0 320 200">
-              <defs><linearGradient id="p4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#041215"/><stop offset="100%" stop-color="#022119"/></linearGradient></defs>
-              <rect width="320" height="200" fill="url(#p4g)"/>
-              <text x="35" y="60" font-family="'Press Start 2P', monospace" font-size="11" fill="#00ff73">&gt; def init_app():</text>
-              <text x="55" y="90" font-family="'Press Start 2P', monospace" font-size="11" fill="#00f0ff">render(UI_WEB)</text>
-              <text x="55" y="120" font-family="'Press Start 2P', monospace" font-size="11" fill="#ffea00">return True_</text>
-              <rect x="25" y="150" width="270" height="20" fill="rgba(0,255,115,0.1)" stroke="#00ff73" stroke-dasharray="4,4"/>
-            </svg>
-            <div class="gallery-scanline"></div>
-            <span class="gallery-tag-float">DEV</span>
-          </div>
-          <div class="gallery-info">
-            <h3 class="gallery-card-title" data-i18n="g4Title">Frontend & Scripts Python</h3>
-            <p class="gallery-card-desc" data-i18n="g4Desc">Desenvolvimento de interface web responsiva e automação em VSCode e Python.</p>
-            <div class="gallery-tech-row">
-              <span class="gallery-mini-tag">Python</span>
-              <span class="gallery-mini-tag">VSCode</span>
-              <span class="gallery-mini-tag">HTML5 / Web</span>
-            </div>
-            <button class="gallery-open-btn" data-project="3" data-i18n="gInspect">[ EXPANDIR PROJETO ]</button>
-          </div>
-        </div>
+        <!-- Rendered dynamically by script using PRINTS_CONFIG -->
       </div>
     </section>
 
-    <!-- Modal Lightbox -->
+    <!-- SLIDESHOW LIGHTBOX MODAL -->
     <div class="retro-modal" id="retro-modal">
       <div class="modal-box">
-        <button class="modal-close-btn" id="modal-close-btn">[ X ]</button>
-        <div class="modal-img-wrap" id="modal-img-container"></div>
-        <h3 class="modal-title" id="modal-title">Título do Projeto</h3>
-        <p class="modal-desc" id="modal-desc">Descrição detalhada do projeto.</p>
+        <div class="modal-header-row">
+          <h3 class="modal-title" id="modal-title">Título do Projeto</h3>
+          <button class="modal-close-btn" id="modal-close-btn" title="Fechar (ESC)">[ X ]</button>
+        </div>
+
+        <!-- Carousel Presentation Area -->
+        <div class="carousel-container">
+          <div class="carousel-viewport" id="carousel-viewport">
+            <!-- Slide Media Rendered Here -->
+          </div>
+          <div class="carousel-controls-bar">
+            <button class="carousel-arrow-btn" id="prev-slide-btn">[ ◄ ANTERIOR ]</button>
+            <span class="carousel-counter" id="carousel-counter">[ SLIDE 01 / 03 ]</span>
+            <button class="carousel-arrow-btn" id="next-slide-btn">[ SEGUINTE ► ]</button>
+          </div>
+        </div>
+
+        <!-- Slide Caption & Detailed Overview -->
+        <div class="slide-caption-box" id="slide-caption">Legenda do slide em exibição.</div>
+        <p class="modal-desc" id="modal-desc">Descrição do projeto.</p>
         <div class="gallery-tech-row" id="modal-tags"></div>
       </div>
     </div>
@@ -1428,8 +1398,10 @@
     <!-- QUEST LOG -->
     <section class="retro-section" id="experience">
       <div class="section-header">
-        <span class="section-icon">🕹️</span>
-        <h2 class="section-title" data-i18n="expTitle">Quest Log // Experiência Profissional</h2>
+        <div class="section-header-left">
+          <span class="section-icon">🕹️</span>
+          <h2 class="section-title" data-i18n="expTitle">Quest Log // Experiência Profissional</h2>
+        </div>
       </div>
 
       <div class="section-card">
@@ -1460,8 +1432,10 @@
     <!-- EDUCAÇÃO & LÍNGUAS -->
     <section class="retro-section" id="education">
       <div class="section-header">
-        <span class="section-icon">📜</span>
-        <h2 class="section-title" data-i18n="eduTitle">Educação & Idiomas</h2>
+        <div class="section-header-left">
+          <span class="section-icon">📜</span>
+          <h2 class="section-title" data-i18n="eduTitle">Educação & Idiomas</h2>
+        </div>
       </div>
 
       <div class="edu-lang-grid">
@@ -1498,8 +1472,10 @@
     <!-- CONTACTO -->
     <section class="retro-section" id="contact">
       <div class="section-header">
-        <span class="section-icon">📡</span>
-        <h2 class="section-title" data-i18n="contactTitle">Iniciar Transmissão // Contactos</h2>
+        <div class="section-header-left">
+          <span class="section-icon">📡</span>
+          <h2 class="section-title" data-i18n="contactTitle">Iniciar Transmissão // Contactos</h2>
+        </div>
       </div>
 
       <div class="section-card contact-box">
@@ -1530,8 +1506,95 @@
   </main>
 
   <script>
+    /* ========================================================
+       CONFIGURAÇÃO DOS PRINTS PNG:
+       Basta colocar as tuas imagens PNG numa pasta 'prints'
+       (ou na mesma pasta do ficheiro index.html).
+       ======================================================== */
+    const PRINTS_CONFIG = {
+      // 1. FIGMA - CUDDLY APP (3 PNGs)
+      figma_cuddly_1: "Captura de ecrã 2026-11-12, às 11.58.20.png",
+      figma_cuddly_2: "Captura de ecrã 2026-11-12, às 11.58.35.png",
+      figma_cuddly_3: "Captura de ecrã 2026-11-12, às 11.58.46.png",
+
+      // 2. BLENDER & PYTHON - PORTA-CHAVES (1 PNG)
+      blender_laptop_1: "Captura de ecrã 2026-11-12, às 12.11.49.png",
+
+      // 3. AFFINITY DESIGNER - LOGO EB MULTIMÉDIA (1 PNG)
+      affinity_logo_1: "Captura de ecrã 2026-11-12, às 12.04.59.png",
+
+      // 4. AFFINITY DESIGNER - CUDDLY PERSONAGENS (2 PNGs)
+      affinity_cuddly_1: "Captura de ecrã 2026-11-12, às 12.04.41.png",
+      affinity_cuddly_2: "Captura de ecrã 2026-11-12, às 12.04.41.png",
+
+      // 5. BLENDER - ESTÚDIO VIRTUAL (1 PNG)
+      blender_banco_1: "Captura de ecrã 2026-11-12, às 12.11.34.png",
+
+      // 6. BLENDER - BOUNCING BALL (3 PNGs)
+      blender_ball_1: "Captura de ecrã 2026-11-12, às 12.11.12.png",
+      blender_ball_2: "Captura de ecrã 2026-11-12, às 12.11.13.png",
+      blender_ball_3: "Captura de ecrã 2026-11-12, às 12.11.10.png",
+
+      // 7. CANVA - CARTAZ RETRO CRT (1 PNG)
+      canva_poster_pc: "Captura de ecrã 2026-11-12, às 12.05.43.png",
+
+      // 8. CANVA - CARTAZ CYBER CHIP (1 PNG)
+      canva_poster_chip: "Captura de ecrã 2026-11-12, às 12.06.19.png",
+
+      // 9. CANVA - POSTER PENAFIEL 2026 (1 PNG)
+      canva_poster_penafiel: "Captura de ecrã 2026-11-12, às 12.06.05.png",
+
+      // 10. CANVA - CARTÃO DE VISITA (1 PNG)
+      canva_card_gameboy: "Captura de ecrã 2026-11-12, às 12.05.33.png"
+    };
+
     (() => {
-      /* 1. AUDIO SYNTHESIZER */
+      /* 1. ANIMATED VECTOR SVG TITLE LOADER */
+      const svgLogo = document.getElementById('eliseu-svg-logo');
+      const paths = [...document.querySelectorAll('.svg-logo-line')];
+      let currentAnime = null;
+
+      async function setupLogoAnimation() {
+        try {
+          const { animate, svg, stagger } = await import('https://cdn.jsdelivr.net/npm/animejs@4/+esm');
+          const drawables = svg.createDrawable('.svg-logo-line');
+          const run = () => {
+            currentAnime?.cancel?.();
+            currentAnime = animate(drawables, {
+              draw: ['0 0', '0 1', '1 1'],
+              ease: 'inOutQuad',
+              duration: 2200,
+              delay: stagger(120),
+              loop: true
+            });
+          };
+          run();
+          svgLogo.addEventListener('click', () => {
+            run();
+            playLaserClick(650, 950);
+          });
+        } catch (err) {
+          paths.forEach(p => {
+            p.setAttribute('pathLength', '1');
+            p.style.strokeDasharray = '1';
+          });
+          const run = () => {
+            currentAnime?.forEach?.(a => a.cancel());
+            currentAnime = paths.map((p, i) => p.animate(
+              [{ strokeDashoffset: 1 }, { strokeDashoffset: 0, offset: .5 }, { strokeDashoffset: -1 }],
+              { duration: 2200, delay: i * 120, iterations: Infinity, easing: 'ease-in-out', fill: 'both' }
+            ));
+          };
+          run();
+          svgLogo.addEventListener('click', () => {
+            run();
+            playLaserClick(650, 950);
+          });
+        }
+      }
+      setupLogoAnimation();
+
+      /* 2. AUDIO SYNTHESIZER */
       let audioCtx = null;
       let sfxActive = true;
 
@@ -1587,14 +1650,13 @@
         if (sfxActive) playLaserClick(500, 850);
       });
 
-      /* 2. CANVAS & AUTONOMOUS FLYING ARCADE SPACESHIP */
+      /* 3. CANVAS & AUTONOMOUS FLYING ARCADE SPACESHIP */
       const canvas = document.getElementById('bg-canvas');
       const ctx = canvas.getContext('2d');
       let width = 0, height = 0;
       const stars = [], particles = [], shockwaves = [];
       let isNightMode = false;
 
-      // Small Arcade Spaceship Entity
       const ship = {
         x: -40,
         y: 120,
@@ -1671,7 +1733,6 @@
         if (sight) sight.classList.remove('firing');
       });
 
-      // Update & Draw Spaceship
       function updateAndDrawSpaceship(dt) {
         const dist = Math.hypot(ship.targetX - ship.x, ship.targetY - ship.y);
         if (dist < 45) {
@@ -1687,7 +1748,6 @@
         ship.x += Math.cos(ship.angle) * ship.speed * dt;
         ship.y += Math.sin(ship.angle) * ship.speed * dt;
 
-        // Glowing Thruster Exhaust Particles
         if (Math.random() < 0.7) {
           const exhaustX = ship.x - Math.cos(ship.angle) * 11;
           const exhaustY = ship.y - Math.sin(ship.angle) * 11;
@@ -1703,7 +1763,6 @@
           });
         }
 
-        // Draw Spaceship
         ctx.save();
         ctx.translate(ship.x, ship.y);
         ctx.rotate(ship.angle);
@@ -1734,17 +1793,14 @@
         lastTime = now;
         ctx.clearRect(0, 0, width, height);
 
-        // Stars
         for (const s of stars) {
           const alpha = 0.25 + 0.75 * Math.abs(Math.sin(now * 0.002 + s.phase));
           ctx.fillStyle = isNightMode ? `rgba(180, 210, 255, ${alpha.toFixed(2)})` : `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
           ctx.fillRect(Math.floor(s.x), Math.floor(s.y), s.size, s.size);
         }
 
-        // Flying Starship
         updateAndDrawSpaceship(dt);
 
-        // Shockwaves
         for (let i = shockwaves.length - 1; i >= 0; i--) {
           const sw = shockwaves[i];
           sw.r += 120 * dt;
@@ -1763,7 +1819,6 @@
           ctx.restore();
         }
 
-        // Exhaust & Click Sparks
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
           p.x += p.vx * dt;
@@ -1783,7 +1838,7 @@
       }
       requestAnimationFrame(render);
 
-      /* 3. RETRO TARGETING SIGHT (DESKTOP) */
+      /* 4. RETRO TARGETING SIGHT (DESKTOP) */
       const sight = document.getElementById('retro-sight');
       let sightX = -100, sightY = -100, targetX = -100, targetY = -100;
       const isTouch = window.matchMedia('(pointer: coarse)').matches;
@@ -1802,102 +1857,422 @@
         }
         requestAnimationFrame(updateSight);
 
-        document.querySelectorAll('a, button, .skill-pill, .contact-pill-link, .gallery-card, .filter-btn').forEach(el => {
-          el.addEventListener('pointerenter', () => sight.classList.add('locked'));
-          el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
-        });
+        function bindHoverTargets() {
+          document.querySelectorAll('a, button, .skill-pill, .contact-pill-link, .gallery-card, .filter-btn, .eliseu-svg-logo').forEach(el => {
+            el.addEventListener('pointerenter', () => sight.classList.add('locked'));
+            el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
+          });
+        }
+        bindHoverTargets();
       }
 
-      /* 4. MULTIMEDIA GALLERY FILTERS & MODAL */
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const galleryCards = document.querySelectorAll('.gallery-card');
+      /* ========================================================
+         5. REAL PRINTS DATABASE & DYNAMIC SLIDE RENDERING
+         ======================================================== */
+      const userPrintsCache = JSON.parse(localStorage.getItem('eliseu_prints_cache') || '{}');
 
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          filterBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const filter = btn.getAttribute('data-filter');
-
-          galleryCards.forEach(card => {
-            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'flex' : 'none';
-          });
-        });
-      });
-
-      const projectData = [
+      const realShowcaseProjects = [
         {
-          title: "Cena Cyberpunk 3D // Blender",
-          titleEn: "3D Cyberpunk Scene // Blender",
-          desc: "Ambiente retro-futurista criado com iluminação volumétrica, materiais metálicos e shaders PBR, explorando perspetivas synthwave e renderização otimizada para produtos interativos.",
-          descEn: "Retro-futuristic environment modeled with volumetric lighting, metallic materials and PBR shaders, exploring synthwave camera angles and real-time interactive rendering.",
-          tags: ["Blender 3D", "Cycles", "CGI", "Lighting"],
-          svg: document.querySelectorAll('.gallery-svg-art')[0].outerHTML
+          id: "figma_cuddly_flow",
+          category: "figma",
+          title: "Cuddly App // UI/UX & Onboarding Flow",
+          titleEn: "Cuddly App // UI/UX & Onboarding Flow",
+          desc: "Prototipagem completa em Figma da aplicação móvel 'Cuddly' (acompanhamento pós-parto e cuidados com o bebé). Apresenta a mascote no ecrã de boas-vindas e os formulários de registo 'Sobre ti' e 'Sobre o bebé'.",
+          descEn: "Complete mobile UI/UX design in Figma for the 'Cuddly' post-partum care app. Features welcome screen with baby mascot logo and registration flows ('About you' and 'About baby').",
+          tags: ["Figma", "UI/UX", "Mobile Onboarding", "Design System"],
+          defaultPrintKey: "figma_cuddly_1",
+          slides: [
+            {
+              key: "figma_cuddly_1",
+              caption: "Ecrãs Iniciais: Onboarding com logo mascote 'Cuddly', login e formulários de registo ('Sobre ti' e 'Sobre o bebé')."
+            },
+            {
+              key: "figma_cuddly_2",
+              caption: "Visão Global do Board (Figma): Fluxo de Dashboard principal, registo de grávida e módulo de início pós-parto."
+            },
+            {
+              key: "figma_cuddly_3",
+              caption: "Módulos de Configuração: Monitorização de Sono, Cuidadores, Notificações, Privacidade e Permissões."
+            }
+          ]
         },
         {
-          title: "Design System & UI Mobile // Figma",
-          titleEn: "Design System & Mobile UI // Figma",
-          desc: "Arquitetura de informação completa, prototipagem responsiva, componentes modulares e validação de fluxos de navegação (UX) para aplicações móveis e digitais de alto impacto.",
-          descEn: "Complete information architecture, responsive prototyping, modular design tokens and user flow validation (UX) for high-impact mobile and digital applications.",
-          tags: ["Figma", "Penpot", "UI/UX", "Wireframing"],
-          svg: document.querySelectorAll('.gallery-svg-art')[1].outerHTML
+          id: "blender_laptop_keychain",
+          category: "blender",
+          title: "Porta-Chaves Laptop 3D // Python Scripting",
+          titleEn: "3D Laptop Keychain // Python Scripting",
+          desc: "Modelação paramétrica no Blender 5.2 (`porta chaves iefo.blend`) de um portátil articulado para impressão 3D (STL), com consola interativa Python para automação de rotação euler e manipulação de malha.",
+          descEn: "Parametric 3D modeling in Blender 5.2 (`porta chaves iefo.blend`) of a hinged laptop keychain for 3D printing, with an interactive Python console for procedural rotation.",
+          tags: ["Blender 5.2", "Python (bpy)", "3D Modeling", "STL Print"],
+          defaultPrintKey: "blender_laptop_1",
+          slides: [
+            {
+              key: "blender_laptop_1",
+              caption: "Viewport 3D no Blender: Modelo articulado para porta-chaves com consola Python aberta (`tampa.rotation_euler.x = 0`)."
+            }
+          ]
         },
         {
-          title: "Motion Graphics & Edição // Video Cut",
-          titleEn: "Motion Graphics & Video Editing // Cut",
-          desc: "Montagem de vídeo dinâmico com tratamento de cor (color grading), efeitos visuais cromáticos e integração de identidade sonora para conteúdos multimédia e redes digitais.",
-          descEn: "Dynamic video editing with chromatic color grading, visual FX overlays and synchronized sound design for multimedia campaigns and digital channels.",
-          tags: ["Photoshop", "Motion Design", "Color Grading", "Video FX"],
-          svg: document.querySelectorAll('.gallery-svg-art')[2].outerHTML
+          id: "affinity_eb_logo",
+          category: "affinity",
+          title: "Identidade Visual // EB. Multimédia",
+          titleEn: "Visual Identity // EB. Multimedia",
+          desc: "Branding pessoal e desenho vetorial de monograma minimalista 'EB.' no Affinity Designer (`logo eli 1`). Exploração em múltiplas pranchetas com variantes de contraste e ponto cromático azul/vermelho.",
+          descEn: "Personal branding and vector monogram 'EB.' in Affinity Designer (`logo eli 1`). Artboard exploration with light/dark contrast and cyan/red accents.",
+          tags: ["Affinity Designer", "Vector Art", "Branding", "Monogram"],
+          defaultPrintKey: "affinity_logo_1",
+          slides: [
+            {
+              key: "affinity_logo_1",
+              caption: "Pranchetas no Affinity Designer: Monograma 'EB.' em fundo claro e escuro com estudo tipográfico."
+            }
+          ]
         },
         {
-          title: "Frontend Web & Automação // Python",
-          titleEn: "Frontend Web & Automation // Python",
-          desc: "Implementação de portais interativos modernos com CSS Grid/Flexbox, animações de alta performance e scripts Python em VSCode para automação e gestão de dados.",
-          descEn: "Implementation of modern interactive web portals using CSS Grid/Flexbox, high-performance animations and Python backend scripts for workflow automation.",
-          tags: ["Python", "VSCode", "HTML5/CSS3", "JavaScript"],
-          svg: document.querySelectorAll('.gallery-svg-art')[3].outerHTML
+          id: "affinity_cuddly_characters",
+          category: "affinity",
+          title: "Ilustração Vetorial // Cuddly Personagens",
+          titleEn: "Vector Illustration // Cuddly Characters",
+          desc: "Criação de mascote e avatares no Affinity Designer (`Cuddly_perfis`): desenho vetorial da mascote bebé com lettering tridimensional e sistema de avatares com estudo rigoroso de tons de pele.",
+          descEn: "Character and mascot design in Affinity Designer (`Cuddly_perfis`): baby mascot, 3D lettering, and avatar system with skin tone studies.",
+          tags: ["Affinity Designer", "Character Design", "Palette Study", "Vector"],
+          defaultPrintKey: "affinity_cuddly_1",
+          slides: [
+            {
+              key: "affinity_cuddly_1",
+              caption: "Design de Mascote: Ilustração vetorial da face infantil com lettering volumétrico 'CUDDLY'."
+            },
+            {
+              key: "affinity_cuddly_2",
+              caption: "Avatares Familiares & Tons de Pele: Estudos de proporção e paleta cromática inclusiva no Affinity Designer."
+            }
+          ]
+        },
+        {
+          id: "blender_studio_bench",
+          category: "blender",
+          title: "Estúdio Virtual 3D // Mobiliário & EEVEE",
+          titleEn: "3D Virtual Studio // Furniture & EEVEE",
+          desc: "Modelação 3D de banco contemporâneo em madeira com pernas metálicas no Blender (`banco2_1.blend`). Configuração de estúdio virtual com ciclorama curvado e iluminação Key & Fill em renderizador EEVEE.",
+          descEn: "3D contemporary wood and metal bench modeling in Blender (`banco2_1.blend`) with an infinity curve virtual studio and 3-point lighting in EEVEE.",
+          tags: ["Blender 5.2", "Studio Lighting", "Product Design", "EEVEE"],
+          defaultPrintKey: "blender_banco_1",
+          slides: [
+            {
+              key: "blender_banco_1",
+              caption: "Estúdio 3D (`banco2_1.blend`): Ciclorama curvado, banco moderno e sistema de iluminação de 3 pontos."
+            }
+          ]
+        },
+        {
+          id: "blender_bouncing_ball",
+          category: "blender",
+          title: "Animação de Física // Bouncing Ball",
+          titleEn: "Physics Animation // Bouncing Ball",
+          desc: "Estudo fundamental dos princípios de animação no Blender (`ball 3.blend`) demonstrando trajetória parabólica, gravidade e timing com keyframing na Dope Sheet ao longo dos frames 12, 34 e 46.",
+          descEn: "Core physics animation study in Blender (`ball 3.blend`) demonstrating parabolic arcs, gravity timing, and keyframing in the Dope Sheet across frames 12, 34, and 46.",
+          tags: ["Blender 5.2", "Animation", "Keyframing", "Physics Arc"],
+          defaultPrintKey: "blender_ball_1",
+          slides: [
+            {
+              key: "blender_ball_1",
+              caption: "Frame 12 (Dope Sheet): Início do salto e arco ascendente da esfera sobre o plano."
+            },
+            {
+              key: "blender_ball_2",
+              caption: "Frame 34: Apógeo da trajetória com desaceleração gravitacional."
+            },
+            {
+              key: "blender_ball_3",
+              caption: "Frame 46: Squash & Stretch e contacto com a superfície."
+            }
+          ]
+        },
+        {
+          id: "canva_poster_pc",
+          category: "canva",
+          title: "Cartaz Retro CRT // Dia da Informática",
+          titleEn: "Retro CRT Poster // Computer Science Day",
+          desc: "Cartaz A3 desenvolvido no Canva para o 'Dia da Informática' no IEFP Viana do Castelo. Layout dividido em blocos de cor pastel, computador retro CRT com cursor pixel e tipografia técnica.",
+          descEn: "A3 print poster designed in Canva for 'Dia da Informática' at IEFP Viana do Castelo. Dual pastel layout with retro CRT computer and pixel cursor.",
+          tags: ["Canva", "Poster A3", "Retro CRT", "IEFP"],
+          defaultPrintKey: "canva_poster_pc",
+          slides: [
+            {
+              key: "canva_poster_pc",
+              caption: "Cartaz A3 no Canva: Composição com computador CRT vintage e tipografia editorial para o IEFP Viana do Castelo."
+            }
+          ]
+        },
+        {
+          id: "canva_poster_chip",
+          category: "canva",
+          title: "Cartaz Cyber Microchip // Dia da Informática",
+          titleEn: "Cyber Microchip Poster // Computer Science Day",
+          desc: "Conceito alternativo no Canva para o evento no IEFP Viana do Castelo, combinando um microprocessador metálico tridimensional com pistas de circuito integrado e estética terminal.",
+          descEn: "Alternative concept in Canva for IEFP Viana do Castelo, featuring a 3D metallic processor with circuit board traces.",
+          tags: ["Canva", "Cyberpunk", "3D Graphic", "IEFP"],
+          defaultPrintKey: "canva_poster_chip",
+          slides: [
+            {
+              key: "canva_poster_chip",
+              caption: "Cartaz Cyberpunk: Processador 3D prateado com pistas de circuito integrado e formatação de texto estilo código."
+            }
+          ]
+        },
+        {
+          id: "canva_poster_penafiel",
+          category: "canva",
+          title: "Poster Retro // Penafiel 2026",
+          titleEn: "Retro Poster // Penafiel 2026",
+          desc: "Cartaz vintage dos anos 70/80 criado no Canva com faixas de cor horizontais analógicas (turquesa, terracota, mostarda) e televisor analógico CRT central.",
+          descEn: "70s/80s vintage poster designed in Canva, featuring horizontal analogue color stripes and a retro CRT television.",
+          tags: ["Canva", "Print Poster", "Vintage Style", "70s/80s"],
+          defaultPrintKey: "canva_poster_penafiel",
+          slides: [
+            {
+              key: "canva_poster_penafiel",
+              caption: "Poster Retro 'Penafiel 2026': Paleta analógica vintage com televisor CRT de tubo sobre fundo escuro."
+            }
+          ]
+        },
+        {
+          id: "canva_card_gameboy",
+          category: "canva",
+          title: "Cartão de Visita // Console Retro",
+          titleEn: "Business Card // Retro Game Console",
+          desc: "Identidade de cartão de visita personalizado concebido no Canva, simulando o ecrã e os botões direcionais de uma consola portátil clássica para 'Técnico de Desenvolvimento de Multimédia'.",
+          descEn: "Creative business card mockup in Canva simulating a classic retro handheld console screen and D-Pad for 'Técnico de Desenvolvimento de Multimédia'.",
+          tags: ["Canva", "Business Card", "Print Design", "Branding"],
+          defaultPrintKey: "canva_card_gameboy",
+          slides: [
+            {
+              key: "canva_card_gameboy",
+              caption: "Mockup de Cartão de Visita no Canva: Formato de consola portátil retro com logo e controlos clássicos."
+            }
+          ]
         }
       ];
 
+      function resolveImage(key) {
+        if (userPrintsCache[key]) return userPrintsCache[key];
+        return PRINTS_CONFIG[key] || `prints/${key}.png`;
+      }
+
+      const galleryContainer = document.getElementById('gallery-container');
+
+      function buildGallery() {
+        galleryContainer.innerHTML = realShowcaseProjects.map((proj, idx) => {
+          const thumbSrc = resolveImage(proj.defaultPrintKey);
+          const slidesCount = proj.slides.length;
+          const badgeText = `${proj.category.toUpperCase()} • ${slidesCount} ${slidesCount > 1 ? 'SLIDES' : 'SLIDE'}`;
+
+          return `
+            <div class="gallery-card" data-category="${proj.category}">
+              <div class="gallery-thumb-wrap">
+                <img 
+                  src="${thumbSrc}" 
+                  alt="${proj.title}" 
+                  class="gallery-card-img" 
+                  onerror="this.onerror=null; this.src='${proj.defaultPrintKey.replace('prints/', '')}';" 
+                />
+                <div class="gallery-scanline"></div>
+                <span class="gallery-tag-float">${badgeText}</span>
+              </div>
+              <div class="gallery-info">
+                <h3 class="gallery-card-title">${proj.title}</h3>
+                <p class="gallery-card-desc">${proj.desc}</p>
+                <div class="gallery-tech-row">
+                  ${proj.tags.map(t => `<span class="gallery-mini-tag">${t}</span>`).join('')}
+                </div>
+                <button class="gallery-open-btn" data-project="${idx}">[ EXPANDIR // VER SLIDES ]</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        document.querySelectorAll('.gallery-open-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pIdx = parseInt(btn.getAttribute('data-project'));
+            openModalForProject(pIdx);
+          });
+        });
+
+        if (!isTouch && sight) {
+          document.querySelectorAll('.gallery-card, .gallery-open-btn').forEach(el => {
+            el.addEventListener('pointerenter', () => sight.classList.add('locked'));
+            el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
+          });
+        }
+      }
+
+      buildGallery();
+
+      /* 6. MODAL SLIDESHOW CONTROLLER */
+      let currentProjectIndex = 0;
+      let currentSlideIndex = 0;
+
       const modal = document.getElementById('retro-modal');
       const modalClose = document.getElementById('modal-close-btn');
-      const modalImg = document.getElementById('modal-img-container');
       const modalTitle = document.getElementById('modal-title');
       const modalDesc = document.getElementById('modal-desc');
       const modalTags = document.getElementById('modal-tags');
+      const carouselViewport = document.getElementById('carousel-viewport');
+      const carouselCounter = document.getElementById('carousel-counter');
+      const slideCaption = document.getElementById('slide-caption');
+      const prevSlideBtn = document.getElementById('prev-slide-btn');
+      const nextSlideBtn = document.getElementById('next-slide-btn');
 
-      document.querySelectorAll('.gallery-open-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const pIndex = parseInt(btn.getAttribute('data-project'));
-          const p = projectData[pIndex];
-          modalTitle.textContent = currentLang === 'pt' ? p.title : p.titleEn;
-          modalDesc.textContent = currentLang === 'pt' ? p.desc : p.descEn;
-          modalImg.innerHTML = p.svg;
-          modalTags.innerHTML = p.tags.map(t => `<span class="gallery-mini-tag">${t}</span>`).join('');
-          modal.classList.add('active');
-          playCoinSound();
-        });
-      });
+      function renderCurrentSlide() {
+        const proj = realShowcaseProjects[currentProjectIndex];
+        const slide = proj.slides[currentSlideIndex];
+        const total = proj.slides.length;
+        const slideSrc = resolveImage(slide.key);
+
+        carouselCounter.textContent = `[ SLIDE ${String(currentSlideIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')} ]`;
+        slideCaption.textContent = slide.caption;
+
+        carouselViewport.innerHTML = `
+          <img 
+            src="${slideSrc}" 
+            alt="${proj.title} - Slide ${currentSlideIndex + 1}" 
+            class="slide-media-item" 
+            onerror="this.onerror=null; this.src='${slide.key}.png';"
+          />
+        `;
+      }
+
+      function openModalForProject(index) {
+        currentProjectIndex = index;
+        currentSlideIndex = 0;
+        const proj = realShowcaseProjects[index];
+
+        modalTitle.textContent = currentLang === 'pt' ? proj.title : proj.titleEn;
+        modalDesc.textContent = currentLang === 'pt' ? proj.desc : proj.descEn;
+        modalTags.innerHTML = proj.tags.map(t => `<span class="gallery-mini-tag">${t}</span>`).join('');
+
+        renderCurrentSlide();
+        modal.classList.add('active');
+        playCoinSound();
+      }
+
+      function nextSlide() {
+        const total = realShowcaseProjects[currentProjectIndex].slides.length;
+        currentSlideIndex = (currentSlideIndex + 1) % total;
+        renderCurrentSlide();
+        playLaserClick(650, 450);
+      }
+
+      function prevSlide() {
+        const total = realShowcaseProjects[currentProjectIndex].slides.length;
+        currentSlideIndex = (currentSlideIndex - 1 + total) % total;
+        renderCurrentSlide();
+        playLaserClick(500, 350);
+      }
+
+      nextSlideBtn.addEventListener('click', nextSlide);
+      prevSlideBtn.addEventListener('click', prevSlide);
 
       function closeModal() {
         modal.classList.remove('active');
         playLaserClick(400, 200);
       }
 
-      modalClose.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeModal();
-      });
+      modalClose.addEventListener('click', closeModal);
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
       });
+
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
       });
 
-      /* 5. PROFILE IMAGE ROBUST FALLBACK */
+      /* 7. QUICK BULK PRINTS LOADER */
+      const bulkInput = document.getElementById('bulk-prints-input');
+      const btnLoadPrints = document.getElementById('btn-load-prints');
+
+      btnLoadPrints.addEventListener('click', () => {
+        bulkInput.click();
+      });
+
+      bulkInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handleBulkPrints(e.target.files);
+        }
+      });
+
+      function handleBulkPrints(fileList) {
+        const files = Array.from(fileList);
+        let loaded = 0;
+
+        files.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const dataUrl = event.target.result;
+            const nameLower = file.name.toLowerCase();
+
+            if (nameLower.includes('cuddly') && (nameLower.includes('1') || nameLower.includes('sobre'))) {
+              userPrintsCache['figma_cuddly_1'] = dataUrl;
+            } else if (nameLower.includes('cuddly') && (nameLower.includes('board') || nameLower.includes('all'))) {
+              userPrintsCache['figma_cuddly_2'] = dataUrl;
+            } else if (nameLower.includes('cuddly') && nameLower.includes('perfil')) {
+              userPrintsCache['affinity_cuddly_2'] = dataUrl;
+            } else if (nameLower.includes('cuddly') && nameLower.includes('mascot')) {
+              userPrintsCache['affinity_cuddly_1'] = dataUrl;
+            } else if (nameLower.includes('cuddly')) {
+              userPrintsCache['figma_cuddly_3'] = dataUrl;
+            } else if (nameLower.includes('laptop') || nameLower.includes('chave')) {
+              userPrintsCache['blender_laptop_1'] = dataUrl;
+            } else if (nameLower.includes('banco')) {
+              userPrintsCache['blender_banco_1'] = dataUrl;
+            } else if (nameLower.includes('ball') && nameLower.includes('12')) {
+              userPrintsCache['blender_ball_1'] = dataUrl;
+            } else if (nameLower.includes('ball') && nameLower.includes('34')) {
+              userPrintsCache['blender_ball_2'] = dataUrl;
+            } else if (nameLower.includes('ball') || nameLower.includes('46')) {
+              userPrintsCache['blender_ball_3'] = dataUrl;
+            } else if (nameLower.includes('logo') || nameLower.includes('eb')) {
+              userPrintsCache['affinity_logo_1'] = dataUrl;
+            } else if (nameLower.includes('penafiel')) {
+              userPrintsCache['canva_poster_penafiel'] = dataUrl;
+            } else if (nameLower.includes('chip') || nameLower.includes('cyber')) {
+              userPrintsCache['canva_poster_chip'] = dataUrl;
+            } else if (nameLower.includes('cartao') || nameLower.includes('gameboy') || nameLower.includes('visita')) {
+              userPrintsCache['canva_card_gameboy'] = dataUrl;
+            } else if (nameLower.includes('informatica') || nameLower.includes('crt')) {
+              userPrintsCache['canva_poster_pc'] = dataUrl;
+            } else {
+              const unassigned = [
+                'figma_cuddly_1', 'figma_cuddly_2', 'figma_cuddly_3',
+                'blender_laptop_1', 'blender_banco_1', 'blender_ball_1', 'blender_ball_2', 'blender_ball_3',
+                'affinity_logo_1', 'affinity_cuddly_1', 'affinity_cuddly_2',
+                'canva_poster_pc', 'canva_poster_chip', 'canva_poster_penafiel', 'canva_card_gameboy'
+              ].find(k => !userPrintsCache[k]);
+              if (unassigned) userPrintsCache[unassigned] = dataUrl;
+            }
+
+            loaded++;
+            if (loaded === files.length) {
+              try {
+                localStorage.setItem('eliseu_prints_cache', JSON.stringify(userPrintsCache));
+              } catch (e) {
+                console.warn('Storage limit reached.');
+              }
+              buildGallery();
+              playCoinSound();
+              spawnClickFX(window.innerWidth / 2, window.innerHeight * 0.5);
+              alert(`${loaded} prints carregados com sucesso para a galeria e slides!`);
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      /* 8. PROFILE IMAGE ROBUST FALLBACK */
       const avatarImg = document.getElementById('avatar-img');
       const defaultRetroSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
@@ -1922,7 +2297,7 @@
         avatarImg.src = defaultRetroSvg;
       };
 
-      /* 6. TRANSLATION (PT / EN) */
+      /* 9. TRANSLATION (PT / EN) */
       const translations = {
         pt: {
           navBio: "[ BIO ]",
@@ -1958,21 +2333,9 @@
           catAdmin: "GESTÃO & ADMINISTRAÇÃO",
           pillBackOffice: "📋 Back-Office",
           pillCustomerSupport: "👥 Atendimento ao Público",
-          galleryTitle: "Galeria Multimédia // Projetos",
+          galleryTitle: "Galeria Multimédia // Projetos & Prints",
           fAll: "TODOS",
-          f3d: "3D & CGI",
-          fDesign: "DESIGN & UI",
-          fVideo: "VÍDEO & FOTO",
-          fWeb: "WEB & TECH",
-          g1Title: "Cena Cyberpunk 3D",
-          g1Desc: "Modelação, iluminação volumétrica e shading de ambiente sci-fi no Blender.",
-          g2Title: "Protótipo de Produto Digital",
-          g2Desc: "Design System completo, wireframes e prototipagem interativa mobile no Figma.",
-          g3Title: "Edição e Motion Graphics",
-          g3Desc: "Tratamento de cor cromática, montagem dinâmica e grafismo promocional.",
-          g4Title: "Frontend & Scripts Python",
-          g4Desc: "Desenvolvimento de interface web responsiva e automação em VSCode e Python.",
-          gInspect: "[ EXPANDIR PROJETO ]",
+          gInspect: "[ EXPANDIR // VER SLIDES ]",
           expTitle: "Quest Log // Experiência Profissional",
           quest1Period: "2011 — 2025 [ 14 ANOS DE EXP. ]",
           quest1Title: "Assistente de Loja & Relação com Cliente",
@@ -2034,21 +2397,9 @@
           catAdmin: "MANAGEMENT & ADMIN",
           pillBackOffice: "📋 Back-Office",
           pillCustomerSupport: "👥 Customer Relations",
-          galleryTitle: "Multimedia Gallery // Projects",
+          galleryTitle: "Multimedia Gallery // Projects & Prints",
           fAll: "ALL",
-          f3d: "3D & CGI",
-          fDesign: "DESIGN & UI",
-          fVideo: "VIDEO & PHOTO",
-          fWeb: "WEB & TECH",
-          g1Title: "3D Cyberpunk Scene",
-          g1Desc: "Modeling, volumetric lighting and sci-fi environment shading in Blender.",
-          g2Title: "Digital Product Prototype",
-          g2Desc: "Complete Design System, wireframes and interactive mobile prototyping in Figma.",
-          g3Title: "Editing & Motion Graphics",
-          g3Desc: "Chromatic color grading, dynamic video assembly and promotional graphics.",
-          g4Title: "Frontend & Python Scripts",
-          g4Desc: "Responsive web interface and workflow automation in VSCode and Python.",
-          gInspect: "[ INSPECT PROJECT ]",
+          gInspect: "[ EXPAND // VIEW SLIDES ]",
           expTitle: "Quest Log // Professional Experience",
           quest1Period: "2011 — 2025 [ 14 YEARS EXP. ]",
           quest1Title: "Store Assistant & Customer Relations",
@@ -2092,6 +2443,8 @@
             el.innerHTML = translations[lang][key];
           }
         });
+
+        buildGallery();
       }
 
       langToggleBtn.addEventListener('click', (e) => {
@@ -2099,7 +2452,7 @@
         setLanguage(currentLang === 'pt' ? 'en' : 'pt');
       });
 
-      /* 7. NIGHT MODE TOGGLE */
+      /* 10. NIGHT MODE TOGGLE */
       const themeToggleBtn = document.getElementById('theme-toggle');
       themeToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -2108,7 +2461,7 @@
         themeToggleBtn.textContent = isNightMode ? '☀️' : '🌙';
       });
 
-      /* 8. STAT BARS ANIMATION ON SCROLL */
+      /* 11. STAT BARS ANIMATION ON SCROLL */
       const statBars = document.querySelectorAll('.stat-bar-inner');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
