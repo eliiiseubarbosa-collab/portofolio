@@ -4,16 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Eliseu Barbosa // Retro Multimedia Portfolio</title>
-
-  <!-- Retro Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&family=Orbitron:wght@600;800;900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;900&family=Orbitron:wght@600;800;900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
-    /* =============================================
-       CSS VARIABLES: SYNTHWAVE & NIGHT THEMES
-       ============================================= */
     :root {
       --bg-top: #060112;
       --bg-horizon: #2b0849;
@@ -23,9 +18,9 @@
       --pink: #ff007f;
       --yellow: #ffea00;
       --green: #00ff73;
-      --card-bg: rgba(18, 4, 38, 0.82);
+      --card-bg: rgba(18, 4, 38, 0.88);
       --card-border: #00f0ff;
-      --hud-bg: rgba(8, 2, 22, 0.92);
+      --hud-bg: rgba(8, 2, 22, 0.94);
       --hud-text: #00f0ff;
       --text-main: #e8e6ff;
       --text-muted: #cfc9ee;
@@ -43,7 +38,7 @@
       --pink: #9d4edd;
       --yellow: #ffd166;
       --green: #06d6a0;
-      --card-bg: rgba(7, 10, 20, 0.92);
+      --card-bg: rgba(7, 10, 20, 0.94);
       --card-border: #0088cc;
       --hud-bg: rgba(3, 5, 12, 0.96);
       --hud-text: #00d4ff;
@@ -62,11 +57,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Hide standard cursor only on desktop devices with a precision mouse */
     @media (pointer: fine) and (hover: hover) {
-      *, html, body, a, button, input {
-        cursor: none !important;
-      }
+      *, html, body, a, button, input { cursor: none !important; }
     }
 
     body {
@@ -80,9 +72,7 @@
       touch-action: manipulation;
     }
 
-    /* =============================================
-       RETRO TARGETING SIGHT (DESKTOP CURSOR)
-       ============================================= */
+    /* Target Reticle Cursor */
     .retro-sight {
       position: fixed;
       top: 0;
@@ -92,27 +82,24 @@
       pointer-events: none;
       z-index: 100000;
       transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-      transition: width 0.15s ease, height 0.15s ease, opacity 0.2s ease;
+      transition: width 0.15s ease, height 0.15s ease;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* Disabled completely on touchscreens / smartphones */
     @media (pointer: coarse), (hover: none) {
-      .retro-sight {
-        display: none !important;
-      }
+      .retro-sight { display: none !important; }
     }
 
     .sight-dot {
       position: absolute;
       width: 4px;
       height: 4px;
-      background: #ffffff;
+      background: #fff;
       border-radius: 50%;
       box-shadow: 0 0 8px var(--sight-color), 0 0 16px var(--sight-color);
-      transition: transform 0.1s ease, background 0.15s ease;
+      transition: transform 0.1s ease;
     }
 
     .sight-ring {
@@ -122,14 +109,13 @@
       border-radius: 50%;
       box-shadow: 0 0 10px var(--sight-color), inset 0 0 6px var(--sight-color);
       opacity: 0.85;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.2s ease;
     }
 
     .sight-tick {
       position: absolute;
       background: var(--sight-color);
       box-shadow: 0 0 8px var(--sight-color);
-      transition: all 0.2s ease;
     }
     .sight-tick.t { top: 0; width: 2px; height: 6px; }
     .sight-tick.b { bottom: 0; width: 2px; height: 6px; }
@@ -142,49 +128,23 @@
       height: 7px;
       border: 1.5px solid var(--sight-color);
       opacity: 0.55;
-      transition: all 0.2s ease;
     }
     .sight-corner.tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
     .sight-corner.tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
     .sight-corner.bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
     .sight-corner.br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
 
-    .retro-sight.locked {
-      width: 54px;
-      height: 54px;
-    }
+    .retro-sight.locked { width: 54px; height: 54px; }
     .retro-sight.locked .sight-ring {
       border-color: var(--sight-lock);
       border-style: dashed;
-      box-shadow: 0 0 16px var(--sight-lock), inset 0 0 8px var(--sight-lock);
+      box-shadow: 0 0 16px var(--sight-lock);
       transform: rotate(45deg);
     }
-    .retro-sight.locked .sight-dot {
-      background: var(--sight-lock);
-      transform: scale(1.6);
-      box-shadow: 0 0 12px var(--sight-lock);
-    }
-    .retro-sight.locked .sight-tick {
-      background: var(--sight-lock);
-      box-shadow: 0 0 10px var(--sight-lock);
-    }
-    .retro-sight.locked .sight-corner {
-      border-color: var(--sight-lock);
-      opacity: 1;
-      transform: scale(1.2);
-    }
+    .retro-sight.locked .sight-dot { background: var(--sight-lock); transform: scale(1.6); }
+    .retro-sight.firing .sight-ring { transform: scale(0.55); border-color: #fff; box-shadow: 0 0 25px #fff; }
 
-    .retro-sight.firing .sight-ring {
-      transform: scale(0.6);
-      border-color: #ffffff;
-      box-shadow: 0 0 25px #ffffff, 0 0 40px var(--pink);
-    }
-    .retro-sight.firing .sight-dot {
-      transform: scale(2.6);
-      background: #ffffff;
-    }
-
-    /* Fixed Background Visuals */
+    /* Background Canvas */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -213,7 +173,6 @@
       overflow: hidden;
       border-top: 2px solid var(--cyan);
       box-shadow: 0 -4px 30px rgba(0, 240, 255, 0.4);
-      transition: border-color 0.4s ease;
     }
 
     .grid-plane {
@@ -242,9 +201,7 @@
       100% { background-position: 0 50px; }
     }
 
-    /* =============================================
-       TOP HUD (RESPONSIVE FOR SMARTPHONES)
-       ============================================= */
+    /* Top HUD */
     .arcade-hud {
       position: fixed;
       top: 0;
@@ -257,7 +214,6 @@
       padding: 10px 20px;
       background: var(--hud-bg);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       border-bottom: 2px solid var(--cyan);
       box-shadow: 0 2px 18px rgba(0, 240, 255, 0.25);
       font-family: 'Press Start 2P', monospace;
@@ -265,40 +221,13 @@
       color: var(--hud-text);
       text-shadow: 0 0 8px var(--cyan);
       gap: 10px;
-      transition: background 0.4s ease, border-color 0.4s ease;
     }
 
-    .hud-player {
-      white-space: nowrap;
-    }
-
-    .hud-player span {
-      color: #fff;
-      text-shadow: 0 0 8px #fff;
-    }
-
-    .hud-nav {
-      display: flex;
-      gap: 14px;
-      list-style: none;
-    }
-
-    .hud-nav a {
-      color: #d6f6ff;
-      text-decoration: none;
-      transition: color 0.2s, text-shadow 0.2s;
-    }
-
-    .hud-nav a:hover {
-      color: var(--yellow);
-      text-shadow: 0 0 10px var(--yellow);
-    }
-
-    .hud-controls {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
+    .hud-player span { color: #fff; text-shadow: 0 0 8px #fff; }
+    .hud-nav { display: flex; gap: 14px; list-style: none; }
+    .hud-nav a { color: #d6f6ff; text-decoration: none; transition: all 0.2s; }
+    .hud-nav a:hover { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
+    .hud-controls { display: flex; gap: 6px; align-items: center; }
 
     .hud-btn {
       background: transparent;
@@ -311,22 +240,9 @@
       transition: all 0.2s ease;
       white-space: nowrap;
     }
-
-    .hud-btn:hover, .hud-btn:active {
-      background: var(--pink);
-      color: #fff;
-    }
-
-    .hud-btn.theme-toggle {
-      border-color: var(--yellow);
-      color: var(--yellow);
-      box-shadow: 0 0 8px rgba(255, 234, 0, 0.3);
-    }
-
-    .hud-btn.theme-toggle:hover, .hud-btn.theme-toggle:active {
-      background: var(--yellow);
-      color: #05050e;
-    }
+    .hud-btn:hover { background: var(--pink); color: #fff; }
+    .hud-btn.theme-toggle { border-color: var(--yellow); color: var(--yellow); box-shadow: 0 0 8px rgba(255, 234, 0, 0.3); }
+    .hud-btn.theme-toggle:hover { background: var(--yellow); color: #05050e; }
 
     /* Page Container */
     .page-container {
@@ -334,29 +250,28 @@
       z-index: 10;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 85px 20px 80px;
+      padding: 85px 20px 120px;
     }
 
-    /* =============================================
-       HERO & PORTRAIT (NO CET BADGE)
-       ============================================= */
+    /* Hero Section */
     .hero-section {
-      min-height: 80vh;
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 15px 0 50px;
+      padding: 20px 0 65px;
     }
 
     .avatar-portal {
       position: relative;
-      width: clamp(150px, 42vw, 220px);
-      height: clamp(150px, 42vw, 220px);
-      margin: 0 auto 22px;
+      width: clamp(160px, 44vw, 230px);
+      height: clamp(160px, 44vw, 230px);
+      margin: 0 auto 28px;
       border-radius: 50%;
       perspective: 800px;
+      user-select: none;
     }
 
     .avatar-ring-outer {
@@ -379,15 +294,8 @@
       pointer-events: none;
     }
 
-    @keyframes rotateRing {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes rotateRingRev {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
-    }
+    @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes rotateRingRev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
     .avatar-frame {
       position: relative;
@@ -396,12 +304,14 @@
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid #ffffff;
-      box-shadow:
-        0 0 25px var(--avatar-glow),
-        0 0 50px rgba(255, 0, 127, 0.4),
-        inset 0 0 20px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 25px var(--avatar-glow), 0 0 50px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
       background: #080214;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .avatar-portal:hover .avatar-frame {
+      transform: scale(1.03);
+      box-shadow: 0 0 45px var(--cyan), 0 0 85px var(--pink);
     }
 
     .avatar-img {
@@ -409,8 +319,9 @@
       height: 100%;
       object-fit: cover;
       object-position: center 20%;
-      filter: contrast(1.1) brightness(1.05) saturate(1.15);
-      transition: filter 0.3s ease;
+      filter: contrast(1.08) brightness(1.04) saturate(1.1);
+      display: block;
+      pointer-events: none;
     }
 
     .avatar-scanline {
@@ -418,12 +329,7 @@
       inset: 0;
       border-radius: 50%;
       pointer-events: none;
-      background: linear-gradient(
-        180deg,
-        rgba(0, 240, 255, 0.15) 0%,
-        transparent 50%,
-        rgba(255, 0, 127, 0.15) 100%
-      );
+      background: linear-gradient(180deg, rgba(0, 240, 255, 0.12) 0%, transparent 50%, rgba(255, 0, 127, 0.12) 100%);
       box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.65);
     }
 
@@ -442,69 +348,49 @@
       border-radius: 4px;
       box-shadow: 0 0 10px rgba(255, 234, 0, 0.4);
       pointer-events: none;
+      z-index: 6;
     }
 
+    /* Animated Vector Main Title ("Eliseu") */
     .hero-name {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 24px;
+      width: 100%;
     }
 
-    .first-name {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.6rem, 13vw, 7.2rem);
-      line-height: 0.95;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: linear-gradient(
-        180deg,
-        #0a186b 0%,
-        #1d72dd 24%,
-        #90e4ff 48%,
-        #ffffff 50%,
-        #240138 52%,
-        #be0384 62%,
-        #ff2a8d 82%,
-        #ffd2f3 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.7);
-      filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+    .svg-logo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(88vw, 540px);
+      margin: 0 auto;
+      position: relative;
     }
 
-    body.night-mode .first-name {
-      background: linear-gradient(
-        180deg,
-        #0f172a 0%,
-        #0284c7 26%,
-        #7dd3fc 48%,
-        #ffffff 50%,
-        #1e1b4b 52%,
-        #7c3aed 72%,
-        #c084fc 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      filter: drop-shadow(0 0 20px rgba(2, 132, 199, 0.6));
+    .eliseu-svg-logo {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      cursor: pointer;
+      color: var(--cyan);
+      filter: drop-shadow(0 0 10px var(--cyan)) drop-shadow(0 0 22px rgba(0, 240, 255, 0.4));
+      transition: filter 0.3s ease, color 0.3s ease, transform 0.2s ease;
     }
 
-    .last-name {
-      font-family: 'Mr Dafoe', cursive;
-      font-weight: 400;
-      font-size: clamp(2.6rem, 12vw, 6.8rem);
-      line-height: 1;
-      margin-top: -0.28em;
-      transform: rotate(-6deg);
-      color: #fff4fb;
-      text-shadow:
-        0 0 8px #ffffff,
-        0 0 20px var(--pink),
-        0 0 45px var(--pink),
-        0 0 80px #b000ff;
+    .eliseu-svg-logo:hover {
+      filter: drop-shadow(0 0 16px var(--cyan)) drop-shadow(0 0 32px var(--pink));
+      transform: scale(1.02);
+    }
+
+    .svg-logo-line {
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    body.night-mode .eliseu-svg-logo {
+      color: var(--cyan);
+      filter: drop-shadow(0 0 12px var(--cyan)) drop-shadow(0 0 26px rgba(0, 212, 255, 0.4));
     }
 
     .hero-tagline {
@@ -514,7 +400,8 @@
       letter-spacing: 0.1em;
       text-shadow: 0 0 12px var(--cyan);
       max-width: 800px;
-      margin-bottom: 26px;
+      margin-top: 14px;
+      margin-bottom: 28px;
       text-transform: uppercase;
       font-weight: 800;
       padding: 0 10px;
@@ -528,59 +415,94 @@
       width: 100%;
     }
 
+    /* 3D Push Button Depth */
     .btn-arcade {
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(0.55rem, 1.4vw, 0.72rem);
       padding: 14px 20px;
       min-height: 44px;
-      background: rgba(14, 2, 32, 0.9);
+      background: rgba(14, 2, 32, 0.92);
       color: #fff;
       border: 2px solid var(--cyan);
-      box-shadow: 0 0 14px var(--cyan), inset 0 0 8px rgba(0, 240, 255, 0.3);
+      border-right: 3px solid var(--cyan);
+      border-bottom: 3px solid var(--cyan);
+      box-shadow:
+        2px 2px 0px #060112,
+        4px 4px 0px var(--cyan),
+        6px 6px 14px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0px rgba(255, 255, 255, 0.35);
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      transform: translate(0, 0);
     }
 
-    body.night-mode .btn-arcade {
-      background: rgba(5, 8, 20, 0.92);
-    }
-
-    .btn-arcade:hover, .btn-arcade:active {
+    body.night-mode .btn-arcade { background: rgba(5, 8, 20, 0.94); }
+    
+    .btn-arcade:hover {
       background: var(--cyan);
       color: #080014;
-      box-shadow: 0 0 26px var(--cyan);
-      transform: translateY(-2px);
+      transform: translate(-2px, -2px);
+      box-shadow:
+        3px 3px 0px #060112,
+        6px 6px 0px var(--cyan),
+        8px 8px 20px rgba(0, 240, 255, 0.4);
+    }
+
+    .btn-arcade:active {
+      transform: translate(2px, 2px);
+      box-shadow:
+        1px 1px 0px #060112,
+        2px 2px 0px var(--cyan),
+        3px 3px 6px rgba(0, 0, 0, 0.9);
     }
 
     .btn-arcade.primary {
       border-color: var(--pink);
-      box-shadow: 0 0 14px var(--pink), inset 0 0 8px rgba(255, 0, 127, 0.3);
+      border-right-color: var(--pink);
+      border-bottom-color: var(--pink);
+      box-shadow:
+        2px 2px 0px #060112,
+        4px 4px 0px var(--pink),
+        6px 6px 14px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0px rgba(255, 255, 255, 0.35);
     }
 
-    .btn-arcade.primary:hover, .btn-arcade.primary:active {
+    .btn-arcade.primary:hover {
       background: var(--pink);
       color: #fff;
-      box-shadow: 0 0 28px var(--pink);
+      transform: translate(-2px, -2px);
+      box-shadow:
+        3px 3px 0px #060112,
+        6px 6px 0px var(--pink),
+        8px 8px 20px rgba(255, 0, 127, 0.5);
     }
 
-    /* Common Retro Cards */
+    /* Section Separation */
     .retro-section {
-      margin-bottom: 60px;
+      margin-bottom: 140px;
     }
 
     .section-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 22px;
+      margin-bottom: 26px;
       border-bottom: 2px solid rgba(0, 240, 255, 0.4);
-      padding-bottom: 10px;
+      padding-bottom: 12px;
+    }
+
+    .section-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .section-icon {
@@ -600,100 +522,67 @@
       text-shadow: 0 0 10px var(--cyan);
     }
 
+    /* 3D Depth on Section Cards */
     .section-card {
       background: var(--card-bg);
       border: 2px solid var(--card-border);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
-      padding: clamp(18px, 4vw, 30px);
+      border-right: 4px solid var(--cyan);
+      border-bottom: 4px solid var(--pink);
+      box-shadow:
+        1px 1px 0px var(--cyan),
+        2px 2px 0px #060112,
+        4px 4px 0px rgba(0, 240, 255, 0.7),
+        6px 6px 0px #060112,
+        8px 8px 0px rgba(255, 0, 127, 0.65),
+        12px 14px 28px rgba(0, 0, 0, 0.9),
+        inset 0 0 18px rgba(0, 240, 255, 0.12),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.25);
+      padding: clamp(20px, 4vw, 34px);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       position: relative;
-      transition: background 0.4s ease, border-color 0.4s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .section-card::before {
-      content: '';
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      width: 10px;
-      height: 10px;
-      background: var(--cyan);
+    .section-card:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        1px 1px 0px var(--cyan),
+        2px 2px 0px #060112,
+        5px 5px 0px rgba(0, 240, 255, 0.85),
+        7px 7px 0px #060112,
+        10px 10px 0px rgba(255, 0, 127, 0.8),
+        14px 18px 34px rgba(0, 0, 0, 0.95),
+        inset 0 0 22px rgba(0, 240, 255, 0.16),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.3);
     }
 
-    .section-card::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      width: 10px;
-      height: 10px;
-      background: var(--pink);
-    }
+    .section-card::before { content: ''; position: absolute; top: -4px; left: -4px; width: 10px; height: 10px; background: var(--cyan); }
+    .section-card::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 10px; height: 10px; background: var(--pink); }
 
-    /* Profile / Bio Grid */
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-
-    .bio-text {
-      font-size: clamp(0.98rem, 2.2vw, 1.15rem);
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
-
-    .bio-text strong {
-      color: var(--yellow);
-      text-shadow: 0 0 8px rgba(255, 234, 0, 0.35);
-    }
-
-    .stats-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(0.58rem, 1.4vw, 0.68rem);
-      color: var(--pink);
-      margin-bottom: 14px;
-      letter-spacing: 0.08em;
-    }
-
-    .stat-row {
-      margin-bottom: 12px;
-    }
-
-    .stat-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.92rem;
-      margin-bottom: 4px;
-      color: var(--cyan);
-    }
-
+    /* Bio / Stats */
+    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .bio-text { font-size: clamp(0.98rem, 2.2vw, 1.15rem); color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+    .bio-text strong { color: var(--yellow); text-shadow: 0 0 8px rgba(255, 234, 0, 0.35); }
+    .stats-title { font-family: 'Press Start 2P', monospace; font-size: clamp(0.58rem, 1.4vw, 0.68rem); color: var(--pink); margin-bottom: 14px; }
+    .stat-row { margin-bottom: 12px; }
+    .stat-label { display: flex; justify-content: space-between; font-size: 0.92rem; margin-bottom: 4px; color: var(--cyan); }
+    
     .stat-bar-outer {
       width: 100%;
-      height: 12px;
+      height: 14px;
       background: #090317;
       border: 1px solid var(--cyan);
-      box-shadow: inset 0 0 6px rgba(0, 240, 255, 0.3);
+      box-shadow:
+        inset 0 0 6px rgba(0, 240, 255, 0.4),
+        2px 2px 0px #060112,
+        3px 3px 0px rgba(0, 240, 255, 0.35);
       padding: 2px;
     }
+    
+    .stat-bar-inner { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink)); box-shadow: 0 0 8px var(--pink); width: 0%; transition: width 1.2s ease; }
 
-    .stat-bar-inner {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--pink));
-      box-shadow: 0 0 8px var(--pink);
-      width: 0%;
-      transition: width 1.2s ease-in-out;
-    }
-
-    .traits-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
+    .traits-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    
     .trait-badge {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.88rem;
@@ -702,101 +591,410 @@
       border: 1px solid var(--green);
       color: var(--green);
       text-shadow: 0 0 6px var(--green);
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px rgba(0, 255, 115, 0.4);
     }
 
-    /* Skills Grid */
-    .skills-categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
+    /* 3D Depth on Skill Blocks */
+    .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    
     .skill-block {
-      background: rgba(10, 2, 26, 0.85);
+      background: rgba(10, 2, 26, 0.88);
       border: 1px solid var(--cyan);
-      padding: 18px;
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.15);
-      transition: background 0.4s ease;
+      border-right: 3px solid var(--cyan);
+      border-bottom: 3px solid var(--cyan);
+      padding: 20px;
+      box-shadow:
+        2px 2px 0px #060112,
+        5px 5px 0px var(--cyan),
+        8px 10px 20px rgba(0, 0, 0, 0.85),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.18);
+      transition: all 0.22s ease;
     }
 
-    body.night-mode .skill-block {
-      background: rgba(5, 8, 18, 0.9);
+    .skill-block:hover {
+      transform: translate(-3px, -3px);
+      box-shadow:
+        3px 3px 0px #060112,
+        8px 8px 0px var(--cyan),
+        10px 14px 26px rgba(0, 0, 0, 0.92),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.25);
     }
 
+    body.night-mode .skill-block { background: rgba(5, 8, 18, 0.92); }
+    
     .skill-block.pink-theme {
       border-color: var(--pink);
-      box-shadow: 0 0 14px rgba(255, 0, 127, 0.15);
+      border-right-color: var(--pink);
+      border-bottom-color: var(--pink);
+      box-shadow:
+        2px 2px 0px #060112,
+        5px 5px 0px var(--pink),
+        8px 10px 20px rgba(0, 0, 0, 0.85),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.18);
+    }
+    
+    .skill-block.pink-theme:hover {
+      box-shadow:
+        3px 3px 0px #060112,
+        8px 8px 0px var(--pink),
+        10px 14px 26px rgba(0, 0, 0, 0.92);
     }
 
     .skill-block.yellow-theme {
       border-color: var(--yellow);
-      box-shadow: 0 0 14px rgba(255, 234, 0, 0.15);
+      border-right-color: var(--yellow);
+      border-bottom-color: var(--yellow);
+      box-shadow:
+        2px 2px 0px #060112,
+        5px 5px 0px var(--yellow),
+        8px 10px 20px rgba(0, 0, 0, 0.85),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.18);
     }
 
-    .skill-category-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(0.58rem, 1.4vw, 0.66rem);
-      color: var(--cyan);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .skill-block.yellow-theme:hover {
+      box-shadow:
+        3px 3px 0px #060112,
+        8px 8px 0px var(--yellow),
+        10px 14px 26px rgba(0, 0, 0, 0.92);
     }
 
+    .skill-category-title { font-family: 'Press Start 2P', monospace; font-size: clamp(0.58rem, 1.4vw, 0.66rem); color: var(--cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .pink-theme .skill-category-title { color: var(--pink); }
     .yellow-theme .skill-category-title { color: var(--yellow); }
-
-    .skills-badges-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    
+    .skills-badges-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    
     .skill-pill {
       font-size: 0.92rem;
-      padding: 6px 10px;
+      padding: 6px 11px;
       min-height: 36px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.2);
+      border-right: 2px solid rgba(255, 255, 255, 0.25);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.25);
       color: #fff;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: all 0.18s ease;
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px rgba(0, 0, 0, 0.5);
+    }
+    
+    .skill-pill:hover {
+      border-color: var(--cyan);
+      background: rgba(0, 240, 255, 0.2);
+      transform: translate(-2px, -2px);
+      box-shadow: 2px 2px 0px #060112, 4px 4px 0px var(--cyan);
+    }
+
+    /* Gallery Cards with Actual Prints & 3D Depth */
+    .gallery-top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .gallery-filters { display: flex; flex-wrap: wrap; gap: 10px; }
+    
+    .filter-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.5rem, 1.2vw, 0.62rem);
+      padding: 10px 14px;
+      background: rgba(14, 2, 32, 0.85);
+      border: 1px solid var(--cyan);
+      border-right: 2px solid var(--cyan);
+      border-bottom: 2px solid var(--cyan);
+      color: var(--cyan);
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--cyan);
+      transition: all 0.18s ease;
+      cursor: pointer;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--cyan);
+      color: #080014;
+      transform: translate(-2px, -2px);
+      box-shadow: 2px 2px 0px #060112, 5px 5px 0px var(--cyan);
+    }
+
+    .btn-quick-loader {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      padding: 9px 12px;
+      background: rgba(11, 2, 28, 0.95);
+      border: 1px dashed var(--yellow);
+      color: var(--yellow);
+      box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .skill-pill:hover, .skill-pill:active {
-      border-color: var(--cyan);
-      background: rgba(0, 240, 255, 0.2);
-      box-shadow: 0 0 10px var(--cyan);
+    .btn-quick-loader:hover {
+      background: var(--yellow);
+      color: #060112;
+      box-shadow: 0 0 20px var(--yellow);
     }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 26px; }
+    
+    .gallery-card {
+      background: rgba(11, 2, 28, 0.92);
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      border-right: 4px solid var(--cyan);
+      border-bottom: 4px solid var(--pink);
+      box-shadow:
+        2px 2px 0px #060112,
+        5px 5px 0px var(--cyan),
+        7px 7px 0px #060112,
+        9px 9px 0px var(--pink),
+        12px 14px 26px rgba(0, 0, 0, 0.9),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.16);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.22s ease;
+      position: relative;
+    }
+    
+    .gallery-card:hover {
+      border-color: var(--pink);
+      transform: translate(-3px, -3px);
+      box-shadow:
+        3px 3px 0px #060112,
+        7px 7px 0px var(--pink),
+        9px 9px 0px #060112,
+        12px 12px 0px var(--cyan),
+        16px 20px 32px rgba(0, 0, 0, 0.95);
+    }
+    
+    .gallery-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: #020108;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: contrast(1.05) brightness(1.02);
+      display: block;
+    }
+
+    .gallery-card:hover .gallery-card-img {
+      transform: scale(1.06);
+      filter: contrast(1.1) brightness(1.08);
+    }
+
+    .gallery-scanline {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, transparent 1px, transparent 3px);
+      pointer-events: none;
+    }
+    
+    .gallery-tag-float {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.48rem;
+      padding: 5px 8px;
+      background: rgba(8, 2, 20, 0.95);
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--pink);
+      border-radius: 2px;
+      z-index: 2;
+    }
+
+    .gallery-info { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+    .gallery-card-title { font-family: 'Orbitron', sans-serif; font-size: 1.12rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.35; }
+    .gallery-card-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+    .gallery-tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .gallery-mini-tag { font-size: 0.78rem; padding: 2px 7px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); }
+    
+    .gallery-open-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      padding: 11px;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      border-right: 2px solid var(--cyan);
+      border-bottom: 2px solid var(--cyan);
+      color: var(--cyan);
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--cyan);
+      transition: all 0.18s ease;
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .gallery-open-btn:hover {
+      background: var(--cyan);
+      color: #080014;
+      transform: translate(-1px, -1px);
+      box-shadow: 2px 2px 0px #060112, 4px 4px 0px var(--cyan);
+    }
+
+    /* Modal Lightbox & Slide Carousel */
+    .retro-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200000;
+      background: rgba(4, 1, 12, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    
+    .retro-modal.active { opacity: 1; pointer-events: auto; }
+    
+    .modal-box {
+      background: rgba(14, 2, 34, 0.98);
+      border: 2px solid var(--cyan);
+      border-right: 4px solid var(--cyan);
+      border-bottom: 4px solid var(--pink);
+      box-shadow:
+        3px 3px 0px #060112,
+        6px 6px 0px var(--cyan),
+        9px 9px 0px #060112,
+        12px 12px 0px var(--pink),
+        0 20px 60px rgba(0, 0, 0, 0.95),
+        inset 0 0 20px rgba(0, 240, 255, 0.2),
+        inset 1px 1px 0px rgba(255, 255, 255, 0.3);
+      max-width: 920px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: clamp(16px, 3vw, 24px);
+      position: relative;
+    }
+
+    .modal-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+
+    .modal-close-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      background: transparent;
+      border: 1px solid var(--pink);
+      border-right: 2px solid var(--pink);
+      border-bottom: 2px solid var(--pink);
+      color: var(--pink);
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--pink);
+      padding: 6px 10px;
+      transition: all 0.18s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    
+    .modal-close-btn:hover { background: var(--pink); color: #fff; transform: translate(-1px, -1px); }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      border: 2px solid rgba(0, 240, 255, 0.5);
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9), 2px 2px 0px #060112;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .carousel-viewport {
+      width: 100%;
+      height: clamp(260px, 50vh, 500px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #020108;
+    }
+
+    .slide-media-item {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .carousel-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(8, 2, 20, 0.95);
+      border-top: 1px solid rgba(0, 240, 255, 0.3);
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.5rem, 1.2vw, 0.65rem);
+    }
+
+    .carousel-arrow-btn {
+      font-family: inherit;
+      font-size: inherit;
+      padding: 7px 12px;
+      background: rgba(14, 2, 34, 0.9);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      box-shadow: 2px 2px 0px #060112;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .carousel-arrow-btn:hover {
+      background: var(--cyan);
+      color: #080014;
+      transform: translateY(-1px);
+    }
+
+    .carousel-counter {
+      color: var(--yellow);
+      text-shadow: 0 0 6px var(--yellow);
+      letter-spacing: 0.1em;
+    }
+
+    .slide-caption-box {
+      background: rgba(10, 2, 26, 0.85);
+      border-left: 3px solid var(--pink);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .modal-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.15rem, 2.5vw, 1.45rem); font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .modal-desc { font-size: 1.02rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
 
     /* Timeline / Experience */
-    .timeline {
-      position: relative;
-      padding-left: 24px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 5px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--pink), var(--cyan));
-      box-shadow: 0 0 10px var(--cyan);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 28px;
-    }
-
-    .timeline-item:last-child {
-      margin-bottom: 0;
-    }
-
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, var(--pink), var(--cyan)); box-shadow: 0 0 10px var(--cyan); }
+    .timeline-item { position: relative; margin-bottom: 30px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    
     .timeline-dot {
       position: absolute;
       left: -24px;
@@ -805,114 +1003,57 @@
       height: 12px;
       background: var(--pink);
       border: 2px solid #fff;
-      box-shadow: 0 0 10px var(--pink);
+      box-shadow: 2px 2px 0px #060112, 3px 3px 0px var(--pink);
     }
+    
+    .quest-period { font-family: 'Press Start 2P', monospace; font-size: 0.58rem; color: var(--yellow); margin-bottom: 6px; text-shadow: 0 0 6px var(--yellow); }
+    .quest-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.05rem, 2.5vw, 1.25rem); font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .quest-entity { font-size: 0.98rem; color: var(--cyan); margin-bottom: 8px; }
+    .quest-desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.6; }
 
-    .quest-period {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.58rem;
-      color: var(--yellow);
-      margin-bottom: 6px;
-      text-shadow: 0 0 6px var(--yellow);
-    }
-
-    .quest-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .quest-entity {
-      font-size: 0.98rem;
-      color: var(--cyan);
-      margin-bottom: 8px;
-    }
-
-    .quest-desc {
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Education & Languages */
-    .edu-lang-grid {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 20px;
-    }
-
+    /* 3D Depth on Education & Language Items */
+    .edu-lang-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; }
+    
     .edu-card-item {
-      background: rgba(14, 2, 34, 0.7);
+      background: rgba(14, 2, 34, 0.75);
       border-left: 4px solid var(--green);
-      padding: 14px 18px;
-      margin-bottom: 12px;
-      box-shadow: 0 0 10px rgba(0, 255, 115, 0.15);
-      transition: background 0.4s ease;
+      border-right: 2px solid rgba(0, 255, 115, 0.3);
+      border-bottom: 2px solid rgba(0, 255, 115, 0.3);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow:
+        2px 2px 0px #060112,
+        4px 4px 0px rgba(0, 255, 115, 0.45),
+        6px 8px 16px rgba(0, 0, 0, 0.8);
     }
-
-    body.night-mode .edu-card-item {
-      background: rgba(5, 8, 18, 0.85);
-    }
-
-    .edu-level {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.58rem;
-      color: var(--green);
-      margin-bottom: 6px;
-      line-height: 1.4;
-    }
-
-    .edu-degree {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      color: #fff;
-    }
+    
+    body.night-mode .edu-card-item { background: rgba(5, 8, 18, 0.85); }
+    .edu-level { font-family: 'Press Start 2P', monospace; font-size: 0.58rem; color: var(--green); margin-bottom: 6px; line-height: 1.4; }
+    .edu-degree { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: clamp(0.95rem, 2vw, 1.1rem); color: #fff; }
 
     .lang-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 11px 14px;
+      padding: 12px 14px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 2px solid rgba(0, 240, 255, 0.4);
+      border-bottom: 2px solid rgba(0, 240, 255, 0.4);
       margin-bottom: 10px;
+      box-shadow:
+        2px 2px 0px #060112,
+        3px 3px 0px rgba(0, 240, 255, 0.4);
     }
-
-    .lang-name {
-      font-size: 1rem;
-      color: #fff;
-    }
-
-    .lang-level {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.58rem;
-      color: var(--cyan);
-    }
+    
+    .lang-name { font-size: 1rem; color: #fff; }
+    .lang-level { font-family: 'Press Start 2P', monospace; font-size: 0.58rem; color: var(--cyan); }
 
     /* Contacts */
-    .contact-box {
-      text-align: center;
-      padding: clamp(28px, 6vw, 45px) 16px;
-    }
-
-    .contact-subtitle {
-      font-size: clamp(0.98rem, 2vw, 1.15rem);
-      color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto 26px;
-    }
-
-    .contact-cards-flex {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 26px;
-    }
-
+    .contact-box { text-align: center; padding: clamp(32px, 6vw, 50px) 16px; }
+    .contact-subtitle { font-size: clamp(0.98rem, 2vw, 1.15rem); color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
+    .contact-cards-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 28px; }
+    
     .contact-pill-link {
       display: flex;
       align-items: center;
@@ -920,142 +1061,91 @@
       gap: 12px;
       padding: 14px 20px;
       min-height: 48px;
-      background: rgba(11, 2, 28, 0.9);
+      background: rgba(11, 2, 28, 0.92);
       border: 2px solid var(--cyan);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+      border-right: 3px solid var(--cyan);
+      border-bottom: 3px solid var(--pink);
+      box-shadow:
+        2px 2px 0px #060112,
+        5px 5px 0px var(--cyan),
+        7px 7px 0px #060112,
+        9px 9px 0px var(--pink),
+        10px 12px 22px rgba(0, 0, 0, 0.85);
       color: #fff;
       text-decoration: none;
       font-size: clamp(0.9rem, 2.5vw, 1.05rem);
       transition: all 0.2s ease;
       word-break: break-all;
     }
-
-    body.night-mode .contact-pill-link {
-      background: rgba(5, 8, 20, 0.95);
-    }
-
-    .contact-pill-link:hover, .contact-pill-link:active {
+    
+    body.night-mode .contact-pill-link { background: rgba(5, 8, 20, 0.95); }
+    
+    .contact-pill-link:hover {
       border-color: var(--pink);
-      box-shadow: 0 0 25px var(--pink);
-      transform: translateY(-2px);
+      transform: translate(-3px, -3px);
+      box-shadow:
+        3px 3px 0px #060112,
+        7px 7px 0px var(--pink),
+        9px 9px 0px #060112,
+        12px 12px 0px var(--cyan),
+        14px 16px 28px rgba(0, 0, 0, 0.95);
       color: var(--yellow);
     }
-
-    .contact-pill-link span.icon {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.85rem;
-      color: var(--pink);
-      flex-shrink: 0;
-    }
+    
+    .contact-pill-link span.icon { font-family: 'Press Start 2P', monospace; font-size: 0.85rem; color: var(--pink); flex-shrink: 0; }
 
     footer {
       text-align: center;
-      padding: 24px 14px;
+      padding: 30px 14px;
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(0.48rem, 1.2vw, 0.58rem);
       color: #7d77b0;
       border-top: 1px solid rgba(0, 240, 255, 0.2);
-      margin-top: 40px;
+      margin-top: 60px;
       line-height: 1.6;
     }
 
-    /* CRT Scanlines */
+    /* CRT Scanlines Overlay */
     .crt-overlay {
       position: fixed;
       inset: 0;
       z-index: 999;
       pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.22) 0px,
-          rgba(0, 0, 0, 0.22) 1px,
-          transparent 1px,
-          transparent 3px
-        );
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0px, rgba(0, 0, 0, 0.22) 1px, transparent 1px, transparent 3px);
       box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
     }
-
+    
     body.night-mode .crt-overlay {
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.15) 0px,
-          rgba(0, 0, 0, 0.15) 1px,
-          transparent 1px,
-          transparent 3px
-        );
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
     }
 
-    .crt-overlay::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 20vh;
-      background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.035) 50%, transparent 100%);
-      animation: scanRoll 7s linear infinite;
-    }
-
-    @keyframes scanRoll {
-      0% { top: -20vh; }
-      100% { top: 110vh; }
-    }
-
-    /* =============================================
-       SMARTPHONE OPTIMIZATION (BREAKPOINTS)
-       ============================================= */
+    /* Mobile Breakpoints */
     @media (max-width: 820px) {
       .hud-nav { display: none; }
-      .profile-grid { grid-template-columns: 1fr; }
-      .edu-lang-grid { grid-template-columns: 1fr; }
+      .profile-grid, .edu-lang-grid { grid-template-columns: 1fr; }
+      .retro-section { margin-bottom: 95px; }
     }
 
     @media (max-width: 580px) {
-      .arcade-hud {
-        padding: 8px 12px;
-      }
-      .hud-player {
-        font-size: 0.5rem;
-      }
-      .hud-btn {
-        padding: 6px 8px;
-        font-size: 0.48rem;
-      }
-      .page-container {
-        padding: 70px 14px 60px;
-      }
-      .hero-buttons {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .btn-arcade {
-        width: 100%;
-      }
-      .contact-cards-flex {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .contact-pill-link {
-        width: 100%;
-      }
-      .section-card {
-        padding: 16px 12px;
-      }
-      .timeline {
-        padding-left: 18px;
-      }
-      .timeline-dot {
-        left: -18px;
-        width: 10px;
-        height: 10px;
-      }
+      .arcade-hud { padding: 8px 12px; }
+      .hud-player { font-size: 0.5rem; }
+      .hud-btn { padding: 6px 8px; font-size: 0.48rem; }
+      .page-container { padding: 70px 14px 60px; }
+      .hero-buttons, .contact-cards-flex { flex-direction: column; align-items: stretch; }
+      .btn-arcade, .contact-pill-link { width: 100%; }
+      .section-card { padding: 18px 14px; }
+      .timeline { padding-left: 18px; }
+      .timeline-dot { left: -18px; width: 10px; height: 10px; }
+      .retro-section { margin-bottom: 85px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- RETRO TARGETING SIGHT (ACTIVE ON DESKTOP MOUSE) -->
+  <!-- Hidden multi-file input for uploading prints directly -->
+  <input type="file" id="bulk-prints-input" accept="image/*" multiple style="display:none;" />
+
+  <!-- RETRO SIGHT CURSOR -->
   <div class="retro-sight" id="retro-sight">
     <div class="sight-ring"></div>
     <div class="sight-dot"></div>
@@ -1072,16 +1162,12 @@
   <div class="crt-overlay"></div>
   <canvas id="bg-canvas"></canvas>
 
-  <!-- 3D Perspective Outrun Grid Floor -->
   <div class="retro-stage-bg">
     <div class="grid-bottom">
       <div class="grid-plane"></div>
       <div class="grid-vignette"></div>
     </div>
   </div>
-
-  <!-- Hidden file picker for custom photo upload -->
-  <input type="file" src="10000019839.png" style="display: none;" />
 
   <!-- Top Arcade HUD -->
   <header class="arcade-hud">
@@ -1090,6 +1176,7 @@
       <ul class="hud-nav">
         <li><a href="#about" class="hud-link" data-i18n="navBio">[ BIO ]</a></li>
         <li><a href="#skills" class="hud-link" data-i18n="navSkills">[ INVENTÁRIO ]</a></li>
+        <li><a href="#gallery" class="hud-link" data-i18n="navGallery">[ GALERIA ]</a></li>
         <li><a href="#experience" class="hud-link" data-i18n="navExp">[ QUEST LOG ]</a></li>
         <li><a href="#education" class="hud-link" data-i18n="navEdu">[ EDUCAÇÃO ]</a></li>
         <li><a href="#contact" class="hud-link" data-i18n="navContact">[ CONTACTO ]</a></li>
@@ -1105,44 +1192,57 @@
   <!-- Main Content -->
   <main class="page-container">
 
-    <!-- HERO SECTION (CET NIVEL 5 BADGE REMOVED) -->
+    <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
-      
-      <!-- CYBERPUNK PORTRAIT -->
-      <div class="avatar-portal" id="avatar-portal" title="Click or Drag & Drop to change photo!">
+      <div class="avatar-portal">
         <div class="avatar-ring-outer"></div>
         <div class="avatar-ring-inner"></div>
         <div class="avatar-frame">
-          <img 
-            id="avatar-img" 
-            class="avatar-img" 
-            src="avatar.jpg" 
-            alt="Eliseu Barbosa" 
-            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'"
-          />
+          <img id="avatar-img" class="avatar-img" src="foto eli.png" alt="Eliseu Barbosa" />
           <div class="avatar-scanline"></div>
         </div>
         <div class="avatar-badge-hint" data-i18n="avatarHint">⚡ ELISEU.B // ONLINE</div>
       </div>
 
+      <!-- ANIMATED VECTOR SVG MAIN TITLE ("ELISEU") ONLY -->
       <div class="hero-name">
-        <h1 class="first-name">ELISEU</h1>
-        <div class="last-name">Barbosa</div>
+        <div class="svg-logo-wrapper">
+          <svg viewBox="0 0 310 112" role="img" aria-label="Eliseu" id="eliseu-svg-logo" class="eliseu-svg-logo">
+            <g stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6">
+              <!-- E -->
+              <path class="svg-logo-line" d="M8 10H58V27H25V42H52V59H25V73H58V90H8Z"/>
+              <!-- l -->
+              <path class="svg-logo-line" d="M66 10H83V90H66Z"/>
+              <!-- i (stem + dot) -->
+              <path class="svg-logo-line" d="M91 22H108V90H91Z"/>
+              <path class="svg-logo-line" d="M99.5 1.5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 1 1 0-17Z"/>
+              <!-- s -->
+              <path class="svg-logo-line" d="M161 41A21 21 0 1 0 140 62A7 7 0 1 1 133 69L119 69A21 21 0 1 0 140 48A7 7 0 1 1 147 41Z"/>
+              <!-- e (outer shape + counter) -->
+              <path class="svg-logo-line" d="M225.4 49A28 34 0 1 0 219.4 78L206.8 70A13 19 0 0 1 185.9 63L225.4 63Z"/>
+              <path class="svg-logo-line" d="M185.9 49A13 19 0 0 1 210.1 49Z"/>
+              <!-- u -->
+              <path class="svg-logo-line" d="M247 22H264V65A8 8 0 0 0 280 65V22H297V65A25 25 0 0 1 247 65Z"/>
+            </g>
+          </svg>
+        </div>
       </div>
 
       <p class="hero-tagline" data-i18n="heroTagline">Desenvolvimento de Produtos e Conteúdos Multimédia</p>
 
       <div class="hero-buttons">
-        <a href="#contact" class="btn-arcade primary" data-i18n="heroBtnContact">▶ TRANSMITIR MENSAGEM</a>
-        <a href="#about" class="btn-arcade" data-i18n="heroBtnExplore">▼ VER PERFIL</a>
+        <a href="#gallery" class="btn-arcade primary" data-i18n="heroBtnGallery">▶ VER GALERIA</a>
+        <a href="#contact" class="btn-arcade" data-i18n="heroBtnContact">✉ CONTACTAR</a>
       </div>
     </section>
 
-    <!-- SOBRE MIM / BIO & STATS -->
+    <!-- SOBRE MIM -->
     <section class="retro-section" id="about">
       <div class="section-header">
-        <span class="section-icon">👾</span>
-        <h2 class="section-title" data-i18n="aboutTitle">Sobre Mim // Ficha de Jogador</h2>
+        <div class="section-header-left">
+          <span class="section-icon">👾</span>
+          <h2 class="section-title" data-i18n="aboutTitle">Sobre Mim // Ficha de Jogador</h2>
+        </div>
       </div>
 
       <div class="section-card">
@@ -1167,27 +1267,22 @@
 
           <div>
             <div class="stats-title" data-i18n="statsHeader">// ATRIBUTOS DE DESEMPENHO</div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat1">Criatividade & Visão Visual</span><span>95%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="95%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat2">Comunicação & Empatia</span><span>92%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="92%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat3">Organização & Rigor</span><span>90%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="90%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat4">Polivalência Tecnológica</span><span>88%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="88%"></div></div>
             </div>
-
             <div class="stat-row">
               <div class="stat-label"><span data-i18n="stat5">Capacidade de Adaptação</span><span>96%</span></div>
               <div class="stat-bar-outer"><div class="stat-bar-inner" data-width="96%"></div></div>
@@ -1197,11 +1292,13 @@
       </div>
     </section>
 
-    <!-- INVENTÁRIO / SKILLS -->
+    <!-- INVENTÁRIO -->
     <section class="retro-section" id="skills">
       <div class="section-header">
-        <span class="section-icon">⚔️</span>
-        <h2 class="section-title" data-i18n="skillsTitle">Inventário & Competências</h2>
+        <div class="section-header-left">
+          <span class="section-icon">⚔️</span>
+          <h2 class="section-title" data-i18n="skillsTitle">Inventário & Competências</h2>
+        </div>
       </div>
 
       <div class="skills-categories">
@@ -1243,11 +1340,68 @@
       </div>
     </section>
 
-    <!-- QUEST LOG / EXPERIÊNCIA -->
+    <!-- =============================================
+         MULTIMEDIA GALLERY: PRINTSCREENS WITH SLIDES
+         ============================================= -->
+    <section class="retro-section" id="gallery">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-icon">🕹️</span>
+          <h2 class="section-title" data-i18n="galleryTitle">Galeria Multimédia // Projetos & Prints</h2>
+        </div>
+        <button class="btn-quick-loader" id="btn-load-prints" title="Carregar imagens do seu computador">📁 CARREGAR PRINTS</button>
+      </div>
+
+      <!-- Filters by Software -->
+      <div class="gallery-top-controls">
+        <div class="gallery-filters">
+          <button class="filter-btn active" data-filter="all" data-i18n="fAll">TODOS</button>
+          <button class="filter-btn" data-filter="figma">FIGMA</button>
+          <button class="filter-btn" data-filter="blender">BLENDER</button>
+          <button class="filter-btn" data-filter="affinity">AFFINITY</button>
+          <button class="filter-btn" data-filter="canva">CANVA</button>
+        </div>
+      </div>
+
+      <div class="gallery-grid" id="gallery-container">
+        <!-- Rendered dynamically by script using PRINTS_CONFIG -->
+      </div>
+    </section>
+
+    <!-- SLIDESHOW LIGHTBOX MODAL -->
+    <div class="retro-modal" id="retro-modal">
+      <div class="modal-box">
+        <div class="modal-header-row">
+          <h3 class="modal-title" id="modal-title">Título do Projeto</h3>
+          <button class="modal-close-btn" id="modal-close-btn" title="Fechar (ESC)">[ X ]</button>
+        </div>
+
+        <!-- Carousel Presentation Area -->
+        <div class="carousel-container">
+          <div class="carousel-viewport" id="carousel-viewport">
+            <!-- Slide Media Rendered Here -->
+          </div>
+          <div class="carousel-controls-bar">
+            <button class="carousel-arrow-btn" id="prev-slide-btn">[ ◄ ANTERIOR ]</button>
+            <span class="carousel-counter" id="carousel-counter">[ SLIDE 01 / 03 ]</span>
+            <button class="carousel-arrow-btn" id="next-slide-btn">[ SEGUINTE ► ]</button>
+          </div>
+        </div>
+
+        <!-- Slide Caption & Detailed Overview -->
+        <div class="slide-caption-box" id="slide-caption">Legenda do slide em exibição.</div>
+        <p class="modal-desc" id="modal-desc">Descrição do projeto.</p>
+        <div class="gallery-tech-row" id="modal-tags"></div>
+      </div>
+    </div>
+
+    <!-- QUEST LOG -->
     <section class="retro-section" id="experience">
       <div class="section-header">
-        <span class="section-icon">🕹️</span>
-        <h2 class="section-title" data-i18n="expTitle">Quest Log // Experiência Profissional</h2>
+        <div class="section-header-left">
+          <span class="section-icon">🕹️</span>
+          <h2 class="section-title" data-i18n="expTitle">Quest Log // Experiência Profissional</h2>
+        </div>
       </div>
 
       <div class="section-card">
@@ -1275,22 +1429,22 @@
       </div>
     </section>
 
-    <!-- EDUCAÇÃO & LÍNGUAS (CET NIVEL 5 PROMINENT HERE) -->
+    <!-- EDUCAÇÃO & LÍNGUAS -->
     <section class="retro-section" id="education">
       <div class="section-header">
-        <span class="section-icon">📜</span>
-        <h2 class="section-title" data-i18n="eduTitle">Educação & Idiomas</h2>
+        <div class="section-header-left">
+          <span class="section-icon">📜</span>
+          <h2 class="section-title" data-i18n="eduTitle">Educação & Idiomas</h2>
+        </div>
       </div>
 
       <div class="edu-lang-grid">
         <div class="section-card">
           <div class="stats-title" data-i18n="eduHeader">// REGISTO ACADÉMICO</div>
-
           <div class="edu-card-item">
             <div class="edu-level" data-i18n="edu1Level">CET NÍVEL 5 (CURSO DE ESPECIALIZAÇÃO TECNOLÓGICA)</div>
             <div class="edu-degree" data-i18n="edu1Degree">Técnico Especialista em Desenvolvimento de Produtos Multimédia</div>
           </div>
-
           <div class="edu-card-item" style="border-left-color: var(--cyan);">
             <div class="edu-level" style="color: var(--cyan);" data-i18n="edu2Level">12º ANO — ENSINO SECUNDÁRIO</div>
             <div class="edu-degree" data-i18n="edu2Degree">Técnico de Apoio à Gestão</div>
@@ -1299,17 +1453,14 @@
 
         <div class="section-card">
           <div class="stats-title" data-i18n="langHeader">// COMUNICAÇÃO LINGUÍSTICA</div>
-
           <div class="lang-item">
             <span class="lang-name" data-i18n="langPt">🇵🇹 Português</span>
             <span class="lang-level" data-i18n="langPtLevel">NATIVO</span>
           </div>
-
           <div class="lang-item">
             <span class="lang-name" data-i18n="langEn">🇬🇧 Inglês</span>
             <span class="lang-level" data-i18n="langEnLevel">PROFICIENTE</span>
           </div>
-
           <div class="lang-item">
             <span class="lang-name" data-i18n="langEs">🇪🇸 Espanhol</span>
             <span class="lang-level" data-i18n="langEsLevel">OPERACIONAL</span>
@@ -1321,8 +1472,10 @@
     <!-- CONTACTO -->
     <section class="retro-section" id="contact">
       <div class="section-header">
-        <span class="section-icon">📡</span>
-        <h2 class="section-title" data-i18n="contactTitle">Iniciar Transmissão // Contactos</h2>
+        <div class="section-header-left">
+          <span class="section-icon">📡</span>
+          <h2 class="section-title" data-i18n="contactTitle">Iniciar Transmissão // Contactos</h2>
+        </div>
       </div>
 
       <div class="section-card contact-box">
@@ -1335,7 +1488,6 @@
             <span class="icon">✉</span>
             <span>eliiiseubarbosa@gmail.com</span>
           </a>
-
           <a href="tel:+351916356761" class="contact-pill-link">
             <span class="icon">☎</span>
             <span>(+351) 916 356 761</span>
@@ -1354,13 +1506,341 @@
   </main>
 
   <script>
+    /* ========================================================
+       CONFIGURAÇÃO DOS PRINTS PNG:
+       Basta colocar as tuas imagens PNG numa pasta 'prints'
+       (ou na mesma pasta do ficheiro index.html).
+       ======================================================== */
+    const PRINTS_CONFIG = {
+      // 1. FIGMA - CUDDLY APP (3 PNGs)
+      figma_cuddly_1: "Captura de ecrã 2026-11-12, às 11.58.20.png",
+      figma_cuddly_2: "Captura de ecrã 2026-11-12, às 11.58.35.png",
+      figma_cuddly_3: "Captura de ecrã 2026-11-12, às 11.58.46.png",
+
+      // 2. BLENDER & PYTHON - PORTA-CHAVES (1 PNG)
+      blender_laptop_1: "Captura de ecrã 2026-11-12, às 12.11.49.png",
+
+      // 3. AFFINITY DESIGNER - LOGO EB MULTIMÉDIA (1 PNG)
+      affinity_logo_1: "Captura de ecrã 2026-11-12, às 12.04.59.png",
+
+      // 4. AFFINITY DESIGNER - CUDDLY PERSONAGENS (2 PNGs)
+      affinity_cuddly_1: "Captura de ecrã 2026-11-12, às 12.04.41.png",
+      affinity_cuddly_2: "Captura de ecrã 2026-11-12, às 12.04.41.png",
+
+      // 5. BLENDER - ESTÚDIO VIRTUAL (1 PNG)
+      blender_banco_1: "Captura de ecrã 2026-11-12, às 12.11.34.png",
+
+      // 6. BLENDER - BOUNCING BALL (3 PNGs)
+      blender_ball_1: "Captura de ecrã 2026-11-12, às 12.11.12.png",
+      blender_ball_2: "Captura de ecrã 2026-11-12, às 12.11.13.png",
+      blender_ball_3: "Captura de ecrã 2026-11-12, às 12.11.10.png",
+
+      // 7. CANVA - CARTAZ RETRO CRT (1 PNG)
+      canva_poster_pc: "Captura de ecrã 2026-11-12, às 12.05.43.png",
+
+      // 8. CANVA - CARTAZ CYBER CHIP (1 PNG)
+      canva_poster_chip: "Captura de ecrã 2026-11-12, às 12.06.19.png",
+
+      // 9. CANVA - POSTER PENAFIEL 2026 (1 PNG)
+      canva_poster_penafiel: "Captura de ecrã 2026-11-12, às 12.06.05.png",
+
+      // 10. CANVA - CARTÃO DE VISITA (1 PNG)
+      canva_card_gameboy: "Captura de ecrã 2026-11-12, às 12.05.33.png"
+    };
+
     (() => {
-      /* =========================================
-         1. RETRO TARGETING SIGHT (DESKTOP MOUSE)
-         ========================================= */
+      /* 1. ANIMATED VECTOR SVG TITLE LOADER */
+      const svgLogo = document.getElementById('eliseu-svg-logo');
+      const paths = [...document.querySelectorAll('.svg-logo-line')];
+      let currentAnime = null;
+
+      async function setupLogoAnimation() {
+        try {
+          const { animate, svg, stagger } = await import('https://cdn.jsdelivr.net/npm/animejs@4/+esm');
+          const drawables = svg.createDrawable('.svg-logo-line');
+          const run = () => {
+            currentAnime?.cancel?.();
+            currentAnime = animate(drawables, {
+              draw: ['0 0', '0 1', '1 1'],
+              ease: 'inOutQuad',
+              duration: 2200,
+              delay: stagger(120),
+              loop: true
+            });
+          };
+          run();
+          svgLogo.addEventListener('click', () => {
+            run();
+            playLaserClick(650, 950);
+          });
+        } catch (err) {
+          paths.forEach(p => {
+            p.setAttribute('pathLength', '1');
+            p.style.strokeDasharray = '1';
+          });
+          const run = () => {
+            currentAnime?.forEach?.(a => a.cancel());
+            currentAnime = paths.map((p, i) => p.animate(
+              [{ strokeDashoffset: 1 }, { strokeDashoffset: 0, offset: .5 }, { strokeDashoffset: -1 }],
+              { duration: 2200, delay: i * 120, iterations: Infinity, easing: 'ease-in-out', fill: 'both' }
+            ));
+          };
+          run();
+          svgLogo.addEventListener('click', () => {
+            run();
+            playLaserClick(650, 950);
+          });
+        }
+      }
+      setupLogoAnimation();
+
+      /* 2. AUDIO SYNTHESIZER */
+      let audioCtx = null;
+      let sfxActive = true;
+
+      function getAudioContext() {
+        if (!sfxActive) return null;
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        return audioCtx;
+      }
+
+      function playLaserClick(freq1 = 750, freq2 = 220) {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq1, now);
+        osc.frequency.exponentialRampToValueAtTime(freq2, now + 0.08);
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.09);
+      }
+
+      function playCoinSound() {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.09);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.46);
+      }
+
+      const sfxBtn = document.getElementById('sfx-toggle');
+      sfxBtn.addEventListener('click', () => {
+        sfxActive = !sfxActive;
+        sfxBtn.textContent = sfxActive ? 'SFX' : 'MUTE';
+        sfxBtn.style.opacity = sfxActive ? '1' : '0.5';
+        if (sfxActive) playLaserClick(500, 850);
+      });
+
+      /* 3. CANVAS & AUTONOMOUS FLYING ARCADE SPACESHIP */
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let width = 0, height = 0;
+      const stars = [], particles = [], shockwaves = [];
+      let isNightMode = false;
+
+      const ship = {
+        x: -40,
+        y: 120,
+        targetX: 300,
+        targetY: 180,
+        angle: 0,
+        speed: 135
+      };
+
+      function pickNewShipWaypoint() {
+        ship.targetX = 60 + Math.random() * (width - 120);
+        ship.targetY = 70 + Math.random() * (height * 0.65);
+        ship.speed = 120 + Math.random() * 60;
+      }
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        stars.length = 0;
+        const starCount = width < 600 ? 50 : 85;
+        for (let i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height * 0.7,
+            size: Math.random() < 0.25 ? 2.5 : 1.5,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+        pickNewShipWaypoint();
+      }
+
+      function spawnClickFX(x, y) {
+        shockwaves.push({
+          x, y, r: 4,
+          maxR: 58,
+          alpha: 1,
+          color: isNightMode ? '#00d4ff' : '#00f0ff'
+        });
+
+        const colors = isNightMode 
+          ? ['#00d4ff', '#9d4edd', '#ffd166', '#ffffff']
+          : ['#00f0ff', '#ff007f', '#ffea00', '#ffffff', '#00ff73'];
+
+        for (let i = 0; i < 16; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 60 + Math.random() * 200;
+          particles.push({
+            x, y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 20,
+            size: 2 + Math.floor(Math.random() * 3),
+            life: 1,
+            decay: 1.2 + Math.random() * 0.8,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      window.addEventListener('pointerdown', (e) => {
+        spawnClickFX(e.clientX, e.clientY);
+        playLaserClick(820, 240);
+        if (sight) sight.classList.add('firing');
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (sight) sight.classList.remove('firing');
+      });
+
+      function updateAndDrawSpaceship(dt) {
+        const dist = Math.hypot(ship.targetX - ship.x, ship.targetY - ship.y);
+        if (dist < 45) {
+          pickNewShipWaypoint();
+        }
+
+        const targetAngle = Math.atan2(ship.targetY - ship.y, ship.targetX - ship.x);
+        let diff = targetAngle - ship.angle;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        ship.angle += diff * Math.min(dt * 3.4, 1);
+
+        ship.x += Math.cos(ship.angle) * ship.speed * dt;
+        ship.y += Math.sin(ship.angle) * ship.speed * dt;
+
+        if (Math.random() < 0.7) {
+          const exhaustX = ship.x - Math.cos(ship.angle) * 11;
+          const exhaustY = ship.y - Math.sin(ship.angle) * 11;
+          particles.push({
+            x: exhaustX,
+            y: exhaustY,
+            vx: -Math.cos(ship.angle) * 50 + (Math.random() - 0.5) * 15,
+            vy: -Math.sin(ship.angle) * 50 + (Math.random() - 0.5) * 15,
+            size: 2,
+            life: 0.55,
+            decay: 1.8,
+            color: Math.random() > 0.4 ? (isNightMode ? '#00d4ff' : '#00f0ff') : '#ff007f'
+          });
+        }
+
+        ctx.save();
+        ctx.translate(ship.x, ship.y);
+        ctx.rotate(ship.angle);
+
+        ctx.strokeStyle = isNightMode ? '#00d4ff' : '#00f0ff';
+        ctx.fillStyle = '#080214';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(13, 0);
+        ctx.lineTo(-9, -8);
+        ctx.lineTo(-5, 0);
+        ctx.lineTo(-9, 8);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(1, 0, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      let lastTime = performance.now();
+      function render(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
+        ctx.clearRect(0, 0, width, height);
+
+        for (const s of stars) {
+          const alpha = 0.25 + 0.75 * Math.abs(Math.sin(now * 0.002 + s.phase));
+          ctx.fillStyle = isNightMode ? `rgba(180, 210, 255, ${alpha.toFixed(2)})` : `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
+          ctx.fillRect(Math.floor(s.x), Math.floor(s.y), s.size, s.size);
+        }
+
+        updateAndDrawSpaceship(dt);
+
+        for (let i = shockwaves.length - 1; i >= 0; i--) {
+          const sw = shockwaves[i];
+          sw.r += 120 * dt;
+          sw.alpha -= 2.2 * dt;
+          if (sw.alpha <= 0) {
+            shockwaves.splice(i, 1);
+            continue;
+          }
+          ctx.save();
+          ctx.strokeStyle = sw.color;
+          ctx.globalAlpha = Math.max(0, sw.alpha);
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.vy += 180 * dt;
+          p.life -= p.decay * dt;
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+            continue;
+          }
+          ctx.globalAlpha = Math.max(0, p.life);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+
+      /* 4. RETRO TARGETING SIGHT (DESKTOP) */
       const sight = document.getElementById('retro-sight');
-      let sightX = -100, sightY = -100;
-      let targetX = -100, targetY = -100;
+      let sightX = -100, sightY = -100, targetX = -100, targetY = -100;
       const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
       if (!isTouch) {
@@ -1377,69 +1857,459 @@
         }
         requestAnimationFrame(updateSight);
 
-        window.addEventListener('pointerdown', () => sight.classList.add('firing'));
-        window.addEventListener('pointerup', () => sight.classList.remove('firing'));
+        function bindHoverTargets() {
+          document.querySelectorAll('a, button, .skill-pill, .contact-pill-link, .gallery-card, .filter-btn, .eliseu-svg-logo').forEach(el => {
+            el.addEventListener('pointerenter', () => sight.classList.add('locked'));
+            el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
+          });
+        }
+        bindHoverTargets();
+      }
 
-        const targets = document.querySelectorAll('a, button, .skill-pill, .avatar-portal, .contact-pill-link, .stat-bar-outer, .lang-item');
-        targets.forEach(el => {
-          el.addEventListener('pointerenter', () => sight.classList.add('locked'));
-          el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
+      /* ========================================================
+         5. REAL PRINTS DATABASE & DYNAMIC SLIDE RENDERING
+         ======================================================== */
+      const userPrintsCache = JSON.parse(localStorage.getItem('eliseu_prints_cache') || '{}');
+
+      const realShowcaseProjects = [
+        {
+          id: "figma_cuddly_flow",
+          category: "figma",
+          title: "Cuddly App // UI/UX & Onboarding Flow",
+          titleEn: "Cuddly App // UI/UX & Onboarding Flow",
+          desc: "Prototipagem completa em Figma da aplicação móvel 'Cuddly' (acompanhamento pós-parto e cuidados com o bebé). Apresenta a mascote no ecrã de boas-vindas e os formulários de registo 'Sobre ti' e 'Sobre o bebé'.",
+          descEn: "Complete mobile UI/UX design in Figma for the 'Cuddly' post-partum care app. Features welcome screen with baby mascot logo and registration flows ('About you' and 'About baby').",
+          tags: ["Figma", "UI/UX", "Mobile Onboarding", "Design System"],
+          defaultPrintKey: "figma_cuddly_1",
+          slides: [
+            {
+              key: "figma_cuddly_1",
+              caption: "Ecrãs Iniciais: Onboarding com logo mascote 'Cuddly', login e formulários de registo ('Sobre ti' e 'Sobre o bebé')."
+            },
+            {
+              key: "figma_cuddly_2",
+              caption: "Visão Global do Board (Figma): Fluxo de Dashboard principal, registo de grávida e módulo de início pós-parto."
+            },
+            {
+              key: "figma_cuddly_3",
+              caption: "Módulos de Configuração: Monitorização de Sono, Cuidadores, Notificações, Privacidade e Permissões."
+            }
+          ]
+        },
+        {
+          id: "blender_laptop_keychain",
+          category: "blender",
+          title: "Porta-Chaves Laptop 3D // Python Scripting",
+          titleEn: "3D Laptop Keychain // Python Scripting",
+          desc: "Modelação paramétrica no Blender 5.2 (`porta chaves iefo.blend`) de um portátil articulado para impressão 3D (STL), com consola interativa Python para automação de rotação euler e manipulação de malha.",
+          descEn: "Parametric 3D modeling in Blender 5.2 (`porta chaves iefo.blend`) of a hinged laptop keychain for 3D printing, with an interactive Python console for procedural rotation.",
+          tags: ["Blender 5.2", "Python (bpy)", "3D Modeling", "STL Print"],
+          defaultPrintKey: "blender_laptop_1",
+          slides: [
+            {
+              key: "blender_laptop_1",
+              caption: "Viewport 3D no Blender: Modelo articulado para porta-chaves com consola Python aberta (`tampa.rotation_euler.x = 0`)."
+            }
+          ]
+        },
+        {
+          id: "affinity_eb_logo",
+          category: "affinity",
+          title: "Identidade Visual // EB. Multimédia",
+          titleEn: "Visual Identity // EB. Multimedia",
+          desc: "Branding pessoal e desenho vetorial de monograma minimalista 'EB.' no Affinity Designer (`logo eli 1`). Exploração em múltiplas pranchetas com variantes de contraste e ponto cromático azul/vermelho.",
+          descEn: "Personal branding and vector monogram 'EB.' in Affinity Designer (`logo eli 1`). Artboard exploration with light/dark contrast and cyan/red accents.",
+          tags: ["Affinity Designer", "Vector Art", "Branding", "Monogram"],
+          defaultPrintKey: "affinity_logo_1",
+          slides: [
+            {
+              key: "affinity_logo_1",
+              caption: "Pranchetas no Affinity Designer: Monograma 'EB.' em fundo claro e escuro com estudo tipográfico."
+            }
+          ]
+        },
+        {
+          id: "affinity_cuddly_characters",
+          category: "affinity",
+          title: "Ilustração Vetorial // Cuddly Personagens",
+          titleEn: "Vector Illustration // Cuddly Characters",
+          desc: "Criação de mascote e avatares no Affinity Designer (`Cuddly_perfis`): desenho vetorial da mascote bebé com lettering tridimensional e sistema de avatares com estudo rigoroso de tons de pele.",
+          descEn: "Character and mascot design in Affinity Designer (`Cuddly_perfis`): baby mascot, 3D lettering, and avatar system with skin tone studies.",
+          tags: ["Affinity Designer", "Character Design", "Palette Study", "Vector"],
+          defaultPrintKey: "affinity_cuddly_1",
+          slides: [
+            {
+              key: "affinity_cuddly_1",
+              caption: "Design de Mascote: Ilustração vetorial da face infantil com lettering volumétrico 'CUDDLY'."
+            },
+            {
+              key: "affinity_cuddly_2",
+              caption: "Avatares Familiares & Tons de Pele: Estudos de proporção e paleta cromática inclusiva no Affinity Designer."
+            }
+          ]
+        },
+        {
+          id: "blender_studio_bench",
+          category: "blender",
+          title: "Estúdio Virtual 3D // Mobiliário & EEVEE",
+          titleEn: "3D Virtual Studio // Furniture & EEVEE",
+          desc: "Modelação 3D de banco contemporâneo em madeira com pernas metálicas no Blender (`banco2_1.blend`). Configuração de estúdio virtual com ciclorama curvado e iluminação Key & Fill em renderizador EEVEE.",
+          descEn: "3D contemporary wood and metal bench modeling in Blender (`banco2_1.blend`) with an infinity curve virtual studio and 3-point lighting in EEVEE.",
+          tags: ["Blender 5.2", "Studio Lighting", "Product Design", "EEVEE"],
+          defaultPrintKey: "blender_banco_1",
+          slides: [
+            {
+              key: "blender_banco_1",
+              caption: "Estúdio 3D (`banco2_1.blend`): Ciclorama curvado, banco moderno e sistema de iluminação de 3 pontos."
+            }
+          ]
+        },
+        {
+          id: "blender_bouncing_ball",
+          category: "blender",
+          title: "Animação de Física // Bouncing Ball",
+          titleEn: "Physics Animation // Bouncing Ball",
+          desc: "Estudo fundamental dos princípios de animação no Blender (`ball 3.blend`) demonstrando trajetória parabólica, gravidade e timing com keyframing na Dope Sheet ao longo dos frames 12, 34 e 46.",
+          descEn: "Core physics animation study in Blender (`ball 3.blend`) demonstrating parabolic arcs, gravity timing, and keyframing in the Dope Sheet across frames 12, 34, and 46.",
+          tags: ["Blender 5.2", "Animation", "Keyframing", "Physics Arc"],
+          defaultPrintKey: "blender_ball_1",
+          slides: [
+            {
+              key: "blender_ball_1",
+              caption: "Frame 12 (Dope Sheet): Início do salto e arco ascendente da esfera sobre o plano."
+            },
+            {
+              key: "blender_ball_2",
+              caption: "Frame 34: Apógeo da trajetória com desaceleração gravitacional."
+            },
+            {
+              key: "blender_ball_3",
+              caption: "Frame 46: Squash & Stretch e contacto com a superfície."
+            }
+          ]
+        },
+        {
+          id: "canva_poster_pc",
+          category: "canva",
+          title: "Cartaz Retro CRT // Dia da Informática",
+          titleEn: "Retro CRT Poster // Computer Science Day",
+          desc: "Cartaz A3 desenvolvido no Canva para o 'Dia da Informática' no IEFP Viana do Castelo. Layout dividido em blocos de cor pastel, computador retro CRT com cursor pixel e tipografia técnica.",
+          descEn: "A3 print poster designed in Canva for 'Dia da Informática' at IEFP Viana do Castelo. Dual pastel layout with retro CRT computer and pixel cursor.",
+          tags: ["Canva", "Poster A3", "Retro CRT", "IEFP"],
+          defaultPrintKey: "canva_poster_pc",
+          slides: [
+            {
+              key: "canva_poster_pc",
+              caption: "Cartaz A3 no Canva: Composição com computador CRT vintage e tipografia editorial para o IEFP Viana do Castelo."
+            }
+          ]
+        },
+        {
+          id: "canva_poster_chip",
+          category: "canva",
+          title: "Cartaz Cyber Microchip // Dia da Informática",
+          titleEn: "Cyber Microchip Poster // Computer Science Day",
+          desc: "Conceito alternativo no Canva para o evento no IEFP Viana do Castelo, combinando um microprocessador metálico tridimensional com pistas de circuito integrado e estética terminal.",
+          descEn: "Alternative concept in Canva for IEFP Viana do Castelo, featuring a 3D metallic processor with circuit board traces.",
+          tags: ["Canva", "Cyberpunk", "3D Graphic", "IEFP"],
+          defaultPrintKey: "canva_poster_chip",
+          slides: [
+            {
+              key: "canva_poster_chip",
+              caption: "Cartaz Cyberpunk: Processador 3D prateado com pistas de circuito integrado e formatação de texto estilo código."
+            }
+          ]
+        },
+        {
+          id: "canva_poster_penafiel",
+          category: "canva",
+          title: "Poster Retro // Penafiel 2026",
+          titleEn: "Retro Poster // Penafiel 2026",
+          desc: "Cartaz vintage dos anos 70/80 criado no Canva com faixas de cor horizontais analógicas (turquesa, terracota, mostarda) e televisor analógico CRT central.",
+          descEn: "70s/80s vintage poster designed in Canva, featuring horizontal analogue color stripes and a retro CRT television.",
+          tags: ["Canva", "Print Poster", "Vintage Style", "70s/80s"],
+          defaultPrintKey: "canva_poster_penafiel",
+          slides: [
+            {
+              key: "canva_poster_penafiel",
+              caption: "Poster Retro 'Penafiel 2026': Paleta analógica vintage com televisor CRT de tubo sobre fundo escuro."
+            }
+          ]
+        },
+        {
+          id: "canva_card_gameboy",
+          category: "canva",
+          title: "Cartão de Visita // Console Retro",
+          titleEn: "Business Card // Retro Game Console",
+          desc: "Identidade de cartão de visita personalizado concebido no Canva, simulando o ecrã e os botões direcionais de uma consola portátil clássica para 'Técnico de Desenvolvimento de Multimédia'.",
+          descEn: "Creative business card mockup in Canva simulating a classic retro handheld console screen and D-Pad for 'Técnico de Desenvolvimento de Multimédia'.",
+          tags: ["Canva", "Business Card", "Print Design", "Branding"],
+          defaultPrintKey: "canva_card_gameboy",
+          slides: [
+            {
+              key: "canva_card_gameboy",
+              caption: "Mockup de Cartão de Visita no Canva: Formato de consola portátil retro com logo e controlos clássicos."
+            }
+          ]
+        }
+      ];
+
+      function resolveImage(key) {
+        if (userPrintsCache[key]) return userPrintsCache[key];
+        return PRINTS_CONFIG[key] || `prints/${key}.png`;
+      }
+
+      const galleryContainer = document.getElementById('gallery-container');
+
+      function buildGallery() {
+        galleryContainer.innerHTML = realShowcaseProjects.map((proj, idx) => {
+          const thumbSrc = resolveImage(proj.defaultPrintKey);
+          const slidesCount = proj.slides.length;
+          const badgeText = `${proj.category.toUpperCase()} • ${slidesCount} ${slidesCount > 1 ? 'SLIDES' : 'SLIDE'}`;
+
+          return `
+            <div class="gallery-card" data-category="${proj.category}">
+              <div class="gallery-thumb-wrap">
+                <img 
+                  src="${thumbSrc}" 
+                  alt="${proj.title}" 
+                  class="gallery-card-img" 
+                  onerror="this.onerror=null; this.src='${proj.defaultPrintKey.replace('prints/', '')}';" 
+                />
+                <div class="gallery-scanline"></div>
+                <span class="gallery-tag-float">${badgeText}</span>
+              </div>
+              <div class="gallery-info">
+                <h3 class="gallery-card-title">${proj.title}</h3>
+                <p class="gallery-card-desc">${proj.desc}</p>
+                <div class="gallery-tech-row">
+                  ${proj.tags.map(t => `<span class="gallery-mini-tag">${t}</span>`).join('')}
+                </div>
+                <button class="gallery-open-btn" data-project="${idx}">[ EXPANDIR // VER SLIDES ]</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        document.querySelectorAll('.gallery-open-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pIdx = parseInt(btn.getAttribute('data-project'));
+            openModalForProject(pIdx);
+          });
+        });
+
+        if (!isTouch && sight) {
+          document.querySelectorAll('.gallery-card, .gallery-open-btn').forEach(el => {
+            el.addEventListener('pointerenter', () => sight.classList.add('locked'));
+            el.addEventListener('pointerleave', () => sight.classList.remove('locked'));
+          });
+        }
+      }
+
+      buildGallery();
+
+      /* 6. MODAL SLIDESHOW CONTROLLER */
+      let currentProjectIndex = 0;
+      let currentSlideIndex = 0;
+
+      const modal = document.getElementById('retro-modal');
+      const modalClose = document.getElementById('modal-close-btn');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDesc = document.getElementById('modal-desc');
+      const modalTags = document.getElementById('modal-tags');
+      const carouselViewport = document.getElementById('carousel-viewport');
+      const carouselCounter = document.getElementById('carousel-counter');
+      const slideCaption = document.getElementById('slide-caption');
+      const prevSlideBtn = document.getElementById('prev-slide-btn');
+      const nextSlideBtn = document.getElementById('next-slide-btn');
+
+      function renderCurrentSlide() {
+        const proj = realShowcaseProjects[currentProjectIndex];
+        const slide = proj.slides[currentSlideIndex];
+        const total = proj.slides.length;
+        const slideSrc = resolveImage(slide.key);
+
+        carouselCounter.textContent = `[ SLIDE ${String(currentSlideIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')} ]`;
+        slideCaption.textContent = slide.caption;
+
+        carouselViewport.innerHTML = `
+          <img 
+            src="${slideSrc}" 
+            alt="${proj.title} - Slide ${currentSlideIndex + 1}" 
+            class="slide-media-item" 
+            onerror="this.onerror=null; this.src='${slide.key}.png';"
+          />
+        `;
+      }
+
+      function openModalForProject(index) {
+        currentProjectIndex = index;
+        currentSlideIndex = 0;
+        const proj = realShowcaseProjects[index];
+
+        modalTitle.textContent = currentLang === 'pt' ? proj.title : proj.titleEn;
+        modalDesc.textContent = currentLang === 'pt' ? proj.desc : proj.descEn;
+        modalTags.innerHTML = proj.tags.map(t => `<span class="gallery-mini-tag">${t}</span>`).join('');
+
+        renderCurrentSlide();
+        modal.classList.add('active');
+        playCoinSound();
+      }
+
+      function nextSlide() {
+        const total = realShowcaseProjects[currentProjectIndex].slides.length;
+        currentSlideIndex = (currentSlideIndex + 1) % total;
+        renderCurrentSlide();
+        playLaserClick(650, 450);
+      }
+
+      function prevSlide() {
+        const total = realShowcaseProjects[currentProjectIndex].slides.length;
+        currentSlideIndex = (currentSlideIndex - 1 + total) % total;
+        renderCurrentSlide();
+        playLaserClick(500, 350);
+      }
+
+      nextSlideBtn.addEventListener('click', nextSlide);
+      prevSlideBtn.addEventListener('click', prevSlide);
+
+      function closeModal() {
+        modal.classList.remove('active');
+        playLaserClick(400, 200);
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+      });
+
+      /* 7. QUICK BULK PRINTS LOADER */
+      const bulkInput = document.getElementById('bulk-prints-input');
+      const btnLoadPrints = document.getElementById('btn-load-prints');
+
+      btnLoadPrints.addEventListener('click', () => {
+        bulkInput.click();
+      });
+
+      bulkInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handleBulkPrints(e.target.files);
+        }
+      });
+
+      function handleBulkPrints(fileList) {
+        const files = Array.from(fileList);
+        let loaded = 0;
+
+        files.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const dataUrl = event.target.result;
+            const nameLower = file.name.toLowerCase();
+
+            if (nameLower.includes('cuddly') && (nameLower.includes('1') || nameLower.includes('sobre'))) {
+              userPrintsCache['figma_cuddly_1'] = dataUrl;
+            } else if (nameLower.includes('cuddly') && (nameLower.includes('board') || nameLower.includes('all'))) {
+              userPrintsCache['figma_cuddly_2'] = dataUrl;
+            } else if (nameLower.includes('cuddly') && nameLower.includes('perfil')) {
+              userPrintsCache['affinity_cuddly_2'] = dataUrl;
+            } else if (nameLower.includes('cuddly') && nameLower.includes('mascot')) {
+              userPrintsCache['affinity_cuddly_1'] = dataUrl;
+            } else if (nameLower.includes('cuddly')) {
+              userPrintsCache['figma_cuddly_3'] = dataUrl;
+            } else if (nameLower.includes('laptop') || nameLower.includes('chave')) {
+              userPrintsCache['blender_laptop_1'] = dataUrl;
+            } else if (nameLower.includes('banco')) {
+              userPrintsCache['blender_banco_1'] = dataUrl;
+            } else if (nameLower.includes('ball') && nameLower.includes('12')) {
+              userPrintsCache['blender_ball_1'] = dataUrl;
+            } else if (nameLower.includes('ball') && nameLower.includes('34')) {
+              userPrintsCache['blender_ball_2'] = dataUrl;
+            } else if (nameLower.includes('ball') || nameLower.includes('46')) {
+              userPrintsCache['blender_ball_3'] = dataUrl;
+            } else if (nameLower.includes('logo') || nameLower.includes('eb')) {
+              userPrintsCache['affinity_logo_1'] = dataUrl;
+            } else if (nameLower.includes('penafiel')) {
+              userPrintsCache['canva_poster_penafiel'] = dataUrl;
+            } else if (nameLower.includes('chip') || nameLower.includes('cyber')) {
+              userPrintsCache['canva_poster_chip'] = dataUrl;
+            } else if (nameLower.includes('cartao') || nameLower.includes('gameboy') || nameLower.includes('visita')) {
+              userPrintsCache['canva_card_gameboy'] = dataUrl;
+            } else if (nameLower.includes('informatica') || nameLower.includes('crt')) {
+              userPrintsCache['canva_poster_pc'] = dataUrl;
+            } else {
+              const unassigned = [
+                'figma_cuddly_1', 'figma_cuddly_2', 'figma_cuddly_3',
+                'blender_laptop_1', 'blender_banco_1', 'blender_ball_1', 'blender_ball_2', 'blender_ball_3',
+                'affinity_logo_1', 'affinity_cuddly_1', 'affinity_cuddly_2',
+                'canva_poster_pc', 'canva_poster_chip', 'canva_poster_penafiel', 'canva_card_gameboy'
+              ].find(k => !userPrintsCache[k]);
+              if (unassigned) userPrintsCache[unassigned] = dataUrl;
+            }
+
+            loaded++;
+            if (loaded === files.length) {
+              try {
+                localStorage.setItem('eliseu_prints_cache', JSON.stringify(userPrintsCache));
+              } catch (e) {
+                console.warn('Storage limit reached.');
+              }
+              buildGallery();
+              playCoinSound();
+              spawnClickFX(window.innerWidth / 2, window.innerHeight * 0.5);
+              alert(`${loaded} prints carregados com sucesso para a galeria e slides!`);
+            }
+          };
+          reader.readAsDataURL(file);
         });
       }
 
-      /* =========================================
-         2. PHOTO MANAGEMENT & PERSISTENCE
-         ========================================= */
-      const avatarPortal = document.getElementById('avatar-portal');
+      /* 8. PROFILE IMAGE ROBUST FALLBACK */
       const avatarImg = document.getElementById('avatar-img');
-      const avatarInput = document.getElementById('avatar-input');
+      const defaultRetroSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#140228"/><stop offset="100%" stop-color="#04010a"/></linearGradient>
+            <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00f0ff"/><stop offset="100%" stop-color="#ff007f"/></linearGradient>
+          </defs>
+          <rect width="240" height="240" fill="url(#bg)"/>
+          <path d="M 40 240 C 40 190, 75 165, 95 160 L 95 142 L 145 142 L 145 160 C 165 165, 200 190, 200 240 Z" fill="#0c0915" stroke="url(#rim)" stroke-width="2"/>
+          <rect x="94" y="132" width="52" height="22" rx="4" fill="#140f22" stroke="#00f0ff" stroke-width="1.5"/>
+          <ellipse cx="120" cy="100" rx="36" ry="44" fill="#ffd1b3"/>
+          <path d="M 94 98 C 94 135, 102 142, 120 142 C 138 142, 146 135, 146 98 C 146 112, 138 134, 120 134 C 102 134, 94 112, 94 98 Z" fill="#301e17"/>
+          <path d="M 104 104 Q 120 115 136 104 Q 120 109 104 104 Z" fill="#251610"/>
+          <path d="M 82 92 C 82 52, 102 45, 120 45 C 138 45, 158 52, 158 92 C 152 74, 135 62, 120 64 C 105 62, 88 74, 82 92 Z" fill="#22150f"/>
+          <circle cx="120" cy="120" r="110" fill="none" stroke="url(#rim)" stroke-width="2" stroke-dasharray="6,6"/>
+          <text x="120" y="215" font-family="'Press Start 2P', monospace" font-size="8" fill="#00f0ff" text-anchor="middle">ELISEU BARBOSA</text>
+        </svg>
+      `);
 
-      const savedAvatar = localStorage.getItem('eliseu_avatar');
-      if (savedAvatar) {
-        avatarImg.src = savedAvatar;
-      }
+      avatarImg.onerror = () => {
+        avatarImg.onerror = null;
+        avatarImg.src = defaultRetroSvg;
+      };
 
-      avatarPortal.addEventListener('click', () => avatarInput.click());
-
-      avatarInput.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files[0]) {
-          loadFile(e.target.files[0]);
-        }
-      });
-
-      window.addEventListener('dragover', (e) => e.preventDefault());
-      window.addEventListener('drop', (e) => {
-        e.preventDefault();
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-          loadFile(e.dataTransfer.files[0]);
-        }
-      });
-
-      function loadFile(file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          avatarImg.src = event.target.result;
-          localStorage.setItem('eliseu_avatar', event.target.result);
-          playCoinSound();
-          spawnFireworks(window.innerWidth / 2, window.innerHeight * 0.35, 35);
-        };
-        reader.readAsDataURL(file);
-      }
-
-      /* =========================================
-         3. TRANSLATION (PT / EN)
-         ========================================= */
+      /* 9. TRANSLATION (PT / EN) */
       const translations = {
         pt: {
           navBio: "[ BIO ]",
           navSkills: "[ INVENTÁRIO ]",
+          navGallery: "[ GALERIA ]",
           navExp: "[ QUEST LOG ]",
           navEdu: "[ EDUCAÇÃO ]",
           navContact: "[ CONTACTO ]",
           avatarHint: "⚡ ELISEU.B // ONLINE",
           heroTagline: "Desenvolvimento de Produtos e Conteúdos Multimédia",
-          heroBtnContact: "▶ TRANSMITIR MENSAGEM",
-          heroBtnExplore: "▼ VER PERFIL",
+          heroBtnGallery: "▶ VER GALERIA",
+          heroBtnContact: "✉ CONTACTAR",
           aboutTitle: "Sobre Mim // Ficha de Jogador",
           bio1: "Em processo de <strong>mudança de carreira</strong>, com foco total no <strong>desenvolvimento de produtos e conteúdos multimédia</strong>.",
           bio2: "Perfil dinâmico e colaborativo, aliando pensamento criativo à resolução prática de problemas. Forte capacidade de comunicação, empatia com o cliente, elevado sentido de organização, responsabilidade e paixão pela polivalência e aprendizagem contínua.",
@@ -1463,6 +2333,9 @@
           catAdmin: "GESTÃO & ADMINISTRAÇÃO",
           pillBackOffice: "📋 Back-Office",
           pillCustomerSupport: "👥 Atendimento ao Público",
+          galleryTitle: "Galeria Multimédia // Projetos & Prints",
+          fAll: "TODOS",
+          gInspect: "[ EXPANDIR // VER SLIDES ]",
           expTitle: "Quest Log // Experiência Profissional",
           quest1Period: "2011 — 2025 [ 14 ANOS DE EXP. ]",
           quest1Title: "Assistente de Loja & Relação com Cliente",
@@ -1493,13 +2366,14 @@
         en: {
           navBio: "[ BIO ]",
           navSkills: "[ INVENTORY ]",
+          navGallery: "[ GALLERY ]",
           navExp: "[ QUEST LOG ]",
           navEdu: "[ EDUCATION ]",
           navContact: "[ CONTACT ]",
           avatarHint: "⚡ ELISEU.B // ONLINE",
           heroTagline: "Multimedia Product & Content Development",
-          heroBtnContact: "▶ TRANSMIT MESSAGE",
-          heroBtnExplore: "▼ VIEW PROFILE",
+          heroBtnGallery: "▶ VIEW GALLERY",
+          heroBtnContact: "✉ CONTACT ME",
           aboutTitle: "About Me // Player Sheet",
           bio1: "Currently undergoing a <strong>career transition</strong>, with full focus on <strong>multimedia product and content development</strong>.",
           bio2: "Dynamic and collaborative profile, combining creative thinking with practical problem-solving. Strong communication skills, deep customer empathy, high sense of organization, accountability, and a passion for versatility and continuous learning.",
@@ -1523,6 +2397,9 @@
           catAdmin: "MANAGEMENT & ADMIN",
           pillBackOffice: "📋 Back-Office",
           pillCustomerSupport: "👥 Customer Relations",
+          galleryTitle: "Multimedia Gallery // Projects & Prints",
+          fAll: "ALL",
+          gInspect: "[ EXPAND // VIEW SLIDES ]",
           expTitle: "Quest Log // Professional Experience",
           quest1Period: "2011 — 2025 [ 14 YEARS EXP. ]",
           quest1Title: "Store Assistant & Customer Relations",
@@ -1566,197 +2443,25 @@
             el.innerHTML = translations[lang][key];
           }
         });
+
+        buildGallery();
       }
 
-      langToggleBtn.addEventListener('click', () => {
+      langToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         setLanguage(currentLang === 'pt' ? 'en' : 'pt');
-        playChirp(480, 880, 0.12, 'square');
       });
 
-      /* =========================================
-         4. NIGHT MODE / THEME TOGGLE
-         ========================================= */
+      /* 10. NIGHT MODE TOGGLE */
       const themeToggleBtn = document.getElementById('theme-toggle');
-      let isNightMode = false;
-
-      themeToggleBtn.addEventListener('click', () => {
+      themeToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         isNightMode = !isNightMode;
         document.body.classList.toggle('night-mode', isNightMode);
         themeToggleBtn.textContent = isNightMode ? '☀️' : '🌙';
-        playChirp(isNightMode ? 320 : 640, isNightMode ? 160 : 960, 0.16, 'sawtooth');
       });
 
-      /* =========================================
-         5. WEB AUDIO SYNTHESIZER
-         ========================================= */
-      let audioCtx = null;
-      let sfxActive = true;
-
-      function getAudioContext() {
-        if (!sfxActive) return null;
-        if (!audioCtx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) audioCtx = new AudioContext();
-        }
-        if (audioCtx && audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        return audioCtx;
-      }
-
-      function playChirp(freq1, freq2, duration, type = 'square') {
-        const ctx = getAudioContext();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq1, now);
-        osc.frequency.exponentialRampToValueAtTime(freq2, now + duration);
-
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + duration + 0.02);
-      }
-
-      function playCoinSound() {
-        const ctx = getAudioContext();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(987.77, now);
-        osc.frequency.setValueAtTime(1318.51, now + 0.09);
-
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.46);
-      }
-
-      const sfxBtn = document.getElementById('sfx-toggle');
-      sfxBtn.addEventListener('click', () => {
-        sfxActive = !sfxActive;
-        sfxBtn.textContent = sfxActive ? 'SFX' : 'MUTE';
-        sfxBtn.style.opacity = sfxActive ? '1' : '0.5';
-        if (sfxActive) playChirp(440, 880, 0.15);
-      });
-
-      document.querySelectorAll('.btn-arcade, .hud-nav a, .skill-pill, .contact-pill-link, .hud-btn').forEach(el => {
-        el.addEventListener('mouseenter', () => playChirp(350, 480, 0.06, 'triangle'));
-        el.addEventListener('click', () => playChirp(520, 920, 0.12, 'square'));
-      });
-
-      const coinBtn = document.getElementById('btn-coin');
-      coinBtn.addEventListener('click', () => {
-        playCoinSound();
-        spawnFireworks(window.innerWidth / 2, window.innerHeight * 0.7, 45);
-      });
-
-      /* =========================================
-         6. CANVAS PARTICLES & STARFIELD
-         ========================================= */
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      let width = 0;
-      let height = 0;
-      const stars = [];
-      const particles = [];
-
-      function resize() {
-        // Limit DPR to 1.5 on high-density mobile screens to preserve battery/GPU
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-        stars.length = 0;
-        const starCount = width < 600 ? 50 : 85;
-        for (let i = 0; i < starCount; i++) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height * 0.7,
-            size: Math.random() < 0.25 ? 2.5 : 1.5,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
-      }
-
-      function spawnFireworks(x, y, count = 30) {
-        const colors = isNightMode 
-          ? ['#00d4ff', '#9d4edd', '#ffd166', '#ffffff', '#06d6a0']
-          : ['#00f0ff', '#ff007f', '#ffea00', '#ffffff', '#00ff73'];
-
-        const particleCount = width < 600 ? Math.floor(count * 0.6) : count;
-
-        for (let i = 0; i < particleCount; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = 70 + Math.random() * 240;
-          particles.push({
-            x,
-            y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 40,
-            size: 2 + Math.floor(Math.random() * 3),
-            life: 1,
-            decay: 0.8 + Math.random() * 0.7,
-            color: colors[Math.floor(Math.random() * colors.length)]
-          });
-        }
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-
-      let lastTime = performance.now();
-      function render(now) {
-        const dt = Math.min((now - lastTime) / 1000, 0.05);
-        lastTime = now;
-        ctx.clearRect(0, 0, width, height);
-
-        for (const s of stars) {
-          const alpha = 0.25 + 0.75 * Math.abs(Math.sin(now * 0.002 + s.phase));
-          ctx.fillStyle = isNightMode 
-            ? `rgba(180, 210, 255, ${alpha.toFixed(2)})`
-            : `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
-          ctx.fillRect(Math.floor(s.x), Math.floor(s.y), s.size, s.size);
-        }
-
-        for (let i = particles.length - 1; i >= 0; i--) {
-          const p = particles[i];
-          p.x += p.vx * dt;
-          p.y += p.vy * dt;
-          p.vy += 320 * dt;
-          p.life -= p.decay * dt;
-
-          if (p.life <= 0) {
-            particles.splice(i, 1);
-            continue;
-          }
-
-          ctx.globalAlpha = Math.max(0, p.life);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
-        }
-        ctx.globalAlpha = 1;
-
-        requestAnimationFrame(render);
-      }
-      requestAnimationFrame(render);
-
-      /* =========================================
-         7. STAT BARS ANIMATION
-         ========================================= */
+      /* 11. STAT BARS ANIMATION ON SCROLL */
       const statBars = document.querySelectorAll('.stat-bar-inner');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1770,6 +2475,13 @@
 
       const aboutSection = document.getElementById('about');
       if (aboutSection) observer.observe(aboutSection);
+
+      const coinBtn = document.getElementById('btn-coin');
+      coinBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playCoinSound();
+        spawnClickFX(window.innerWidth / 2, window.innerHeight * 0.7);
+      });
     })();
   </script>
 </body>
