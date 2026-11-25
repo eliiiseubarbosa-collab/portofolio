@@ -1,9 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-PT" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#050505" />
   <title>Eliseu Barbosa — Multimédia &amp; Desenvolvimento de Produtos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,11 +60,15 @@
     :root{
       --font-main:'Borned','Bruno Ace SC','Michroma',sans-serif;
       --warp-ease:cubic-bezier(.22,1,.36,1);--warp-exit-ease:cubic-bezier(.4,0,.2,1);
-      --holo-lift-y:-56px;--holo-lift-y-peak:-64px;--holo-lift-z:140px;--holo-lift-z-peak:155px
+      --holo-lift-y:-56px;--holo-lift-y-peak:-64px;--holo-lift-z:140px;--holo-lift-z-peak:155px;
+      /* Measured by JS (ResizeObserver) so panels never sit under the fixed header/footer */
+      --hud-h:4.7rem;--ftr-h:3.6rem
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-main)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-main);-webkit-tap-highlight-color:transparent}
     @media (pointer:fine) and (hover:hover){*,html,body,a,button,input,textarea{cursor:none!important}}
-    html,body{width:100%;height:100dvh;overflow:hidden;background:var(--bg-void);color:var(--text-primary);letter-spacing:.03em;-webkit-font-smoothing:antialiased;transition:background-color .35s ease,color .35s ease}
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    html,body{width:100%;height:100vh;height:100dvh;overflow:hidden;background:var(--bg-void);color:var(--text-primary);letter-spacing:.03em;-webkit-font-smoothing:antialiased;transition:background-color .35s ease,color .35s ease}
+    button{touch-action:manipulation}
 
     .skip-link{position:fixed;top:-120px;left:1rem;z-index:1000;background:var(--matrix-green);color:var(--matrix-green-contrast);font-size:.74rem;font-weight:600;padding:.65rem 1rem;border-radius:10px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.45);transition:top .2s ease}
     .skip-link:focus{top:1rem}
@@ -74,7 +79,7 @@
     .health-warning-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1.2rem;background:rgba(5,5,5,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     [data-theme="light"] .health-warning-overlay{background:rgba(240,240,240,.76)}
     .health-warning-overlay.hidden{display:none}
-    .health-card{position:relative;width:100%;max-width:560px;margin:auto;background:var(--bg-card);border:1px solid var(--border-glow);border-radius:20px;padding:clamp(1.35rem,3vw,2rem);box-shadow:inset 0 1px 0 var(--box-rim),0 28px 70px rgba(0,0,0,.78),0 0 30px -8px var(--matrix-green-glow);display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center;overflow:hidden}
+    .health-card{position:relative;width:100%;max-width:560px;max-height:92dvh;overflow-y:auto;margin:auto;background:var(--bg-card);border:1px solid var(--border-glow);border-radius:20px;padding:clamp(1.35rem,3vw,2rem);box-shadow:inset 0 1px 0 var(--box-rim),0 28px 70px rgba(0,0,0,.78),0 0 30px -8px var(--matrix-green-glow);display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center}
     .health-card.glitch-in{animation:cardGlitchIn .68s cubic-bezier(.22,1,.36,1) both}
     .health-card.glitch-out{animation:cardGlitchOut .56s steps(1,end) forwards}
     @keyframes cardGlitchIn{
@@ -106,7 +111,7 @@
     .health-continue-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:44px;padding:.75rem 1.7rem;border-radius:999px;border:1px solid var(--matrix-green);background:var(--matrix-green);color:var(--matrix-green-contrast);font-size:.7rem;font-weight:600;letter-spacing:.12em;box-shadow:0 0 18px var(--matrix-green-glow);transition:transform .2s ease,opacity .2s ease}
     .health-continue-btn:hover{transform:translateY(-2px);opacity:.92}
 
-    /* Spatial Airlock Gate (20% longer & smoother) */
+    /* Spatial Airlock Gate */
     .space-gate{position:fixed;inset:0;z-index:400;pointer-events:auto;overflow:hidden}
     .space-gate.opening{pointer-events:none}
     .space-gate.hidden{display:none}
@@ -151,7 +156,7 @@
     .cube-cursor.locked .cursor-cube-3d{scale:1.45}.cube-cursor.locked .cc-face{background:var(--accent);opacity:.85}.cube-cursor.pressed .cursor-cube-3d{scale:.72}
 
     /* Space Impact Cabinet */
-    .game-cabinet{width:100%;max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:20px;padding:1rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 var(--box-rim),0 26px 60px -14px var(--box-drop)}
+    .game-cabinet{width:100%;max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:20px;padding:1rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 1px 0 var(--box-rim),0 26px 60px -14px var(--box-drop);-webkit-user-select:none;user-select:none}
     .game-hud-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem;padding-bottom:.65rem;border-bottom:1px solid var(--border-subtle);font-size:.68rem}
     .game-title-tag{display:flex;align-items:center;gap:.5rem;font-weight:600;color:var(--text-primary);letter-spacing:.1em}
     .game-stats{display:flex;align-items:center;gap:1rem;color:var(--text-secondary)}.game-stats strong{color:var(--text-primary)}
@@ -163,7 +168,7 @@
     .game-overlay-msg.show{display:flex}.game-overlay-title{font-size:clamp(1.05rem,2.6vw,1.5rem);font-weight:700;letter-spacing:.12em}
     .game-overlay-actions{display:flex;flex-wrap:wrap;gap:.65rem;justify-content:center}
     .game-touch-pad{display:none;align-items:center;justify-content:space-between;gap:.6rem}
-    .pad-btn{flex:1;min-height:44px;padding:.65rem;border-radius:10px;background:var(--bg-pill);border:1px solid var(--border-subtle);color:var(--text-primary);font-size:.72rem;text-align:center;touch-action:manipulation}
+    .pad-btn{flex:1;min-height:48px;padding:.65rem;border-radius:10px;background:var(--bg-pill);border:1px solid var(--border-subtle);color:var(--text-primary);font-size:.72rem;text-align:center;touch-action:manipulation}
     .pad-btn:active{background:var(--accent);color:var(--accent-contrast)}
     .game-footer-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem}
     .game-hint{font-size:.6rem;color:var(--text-secondary);line-height:1.45;letter-spacing:.06em}
@@ -182,8 +187,10 @@
     .panel-container,.gallery-grid,.contact-methods,.hero-logo-stage,.about-grid,.skills-grid,.timeline-grid,.contact-grid{perspective:1100px}
 
     .box-3d{--rx:1.2deg;--ry:-1.2deg;--tz:0px;transform-style:preserve-3d;transform:perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(var(--tz));border:1px solid var(--border-subtle);box-shadow:inset 0 1px 0 var(--box-rim),0 20px 44px -14px var(--box-drop);transition:transform .28s var(--warp-ease),border-color .28s ease,box-shadow .28s ease,background .35s ease}
-    .box-3d:hover{--tz:12px;border-color:var(--border-glow);box-shadow:inset 0 1px 0 var(--box-rim),0 28px 58px -12px var(--box-drop),0 0 24px -6px rgba(255,255,255,.14)}
-    [data-theme="light"] .box-3d:hover{box-shadow:inset 0 1px 0 var(--box-rim),0 26px 52px -12px rgba(0,0,0,.18)}
+    @media (hover:hover){
+      .box-3d:hover{--tz:12px;border-color:var(--border-glow);box-shadow:inset 0 1px 0 var(--box-rim),0 28px 58px -12px var(--box-drop),0 0 24px -6px rgba(255,255,255,.14)}
+      [data-theme="light"] .box-3d:hover{box-shadow:inset 0 1px 0 var(--box-rim),0 26px 52px -12px rgba(0,0,0,.18)}
+    }
     .glass-card .section-kicker,.glass-card .timeline-header,.glass-card .skill-cat-head,.glass-card .cv-profile-banner,.glass-card .meta-block-title{transform:translateZ(12px)}
 
     /* Canvas & Warp */
@@ -197,7 +204,7 @@
     .hud-header{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:.55rem;padding:calc(.6rem + env(safe-area-inset-top)) clamp(.85rem,2vw,1.4rem) .6rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:var(--hud-bg);border-bottom:1px solid var(--border-subtle);transition:background .35s ease,border-color .35s ease}
     .hud-brand{display:flex;align-items:center;gap:.6rem;background:none;border:none;color:var(--text-primary);text-align:left;min-width:0;transition:transform .25s ease}
     .hud-brand:hover{transform:scale(1.02)}
-    .avatar-ring{position:relative;width:38px;height:38px;border-radius:50%;padding:2px;background:var(--avatar-grad);flex-shrink:0;box-shadow:0 0 12px rgba(255,255,255,.16)}
+    .avatar-ring{position:relative;display:block;width:38px;height:38px;border-radius:50%;padding:2px;background:var(--avatar-grad);flex-shrink:0;box-shadow:0 0 12px rgba(255,255,255,.16)}
     [data-theme="light"] .avatar-ring{box-shadow:0 0 12px rgba(0,0,0,.12)}
     .avatar-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 20%;display:block;background:#141414;filter:grayscale(15%)}
     .avatar-fallback{display:none;width:100%;height:100%;border-radius:50%;background:#141414;color:#ffffff;align-items:center;justify-content:center;font-weight:600;font-size:.76rem}
@@ -237,42 +244,40 @@
     .audio-btn.active{background:var(--matrix-green);color:var(--matrix-green-contrast);border-color:var(--matrix-green);text-shadow:none;box-shadow:0 0 10px var(--matrix-green-glow)}
     .audio-btn:disabled{opacity:.35}
 
-    /* Restored Straight-Line Going-Inside Warp Stage (Longer Travel) */
+    /* Warp Stage */
     .warp-stage{position:relative;width:100%;height:100%;z-index:10;perspective:1400px;perspective-origin:50% 50%;transform-style:preserve-3d;overflow:hidden}
-    .warp-panel{position:absolute;inset:0;padding:calc(4.7rem + env(safe-area-inset-top)) clamp(.9rem,2.4vw,2rem) calc(4.3rem + env(safe-area-inset-bottom));overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-gutter:stable both-edges;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none;transform:translateZ(-2100px) scale(.32);will-change:transform,opacity;transition:transform 1.85s var(--warp-ease),opacity 1.4s cubic-bezier(.25,.8,.25,1);scrollbar-width:thin;scrollbar-color:var(--border-subtle) transparent}
+    .warp-panel{position:absolute;inset:0;padding:calc(var(--hud-h) + .9rem) clamp(.9rem,2.4vw,2rem) calc(var(--ftr-h) + .7rem);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-gutter:stable both-edges;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none;transform:translateZ(-2100px) scale(.32);will-change:transform,opacity;transition:transform 1.85s var(--warp-ease),opacity 1.4s cubic-bezier(.25,.8,.25,1);scrollbar-width:thin;scrollbar-color:var(--border-subtle) transparent}
     .warp-panel::-webkit-scrollbar{width:6px}.warp-panel::-webkit-scrollbar-thumb{background:var(--border-subtle);border-radius:999px}
     .warp-panel.active{opacity:1;pointer-events:auto;transform:translateZ(0) scale(1)}
     .warp-panel.exit-forward{opacity:0;pointer-events:none;transform:translateZ(840px) scale(1.95);transition:transform 1.45s var(--warp-exit-ease),opacity 1.05s ease-out}
     .warp-panel.exit-backward{opacity:0;pointer-events:none;transform:translateZ(-2100px) scale(.32);transition:transform 1.45s var(--warp-exit-ease),opacity 1.05s ease-out}
 
-    /* Safe Vertical & Horizontal Centering */
-    .panel-container{width:100%;max-width:1120px;margin:auto 0;padding:.4rem 0;display:flex;flex-direction:column}
+    .panel-container{width:100%;max-width:1120px;margin:auto 0;padding:.4rem 0;display:flex;flex-direction:column;min-width:0}
     .warp-panel[data-panel="0"] .panel-container{max-width:1280px}
     .warp-panel[data-panel="7"] .panel-container{max-width:860px}
 
-    /* Scroll Down Arrow (Without Text) */
     .scroll-down-cue{align-self:center;margin-top:1.75rem;padding:.5rem 1rem .2rem;background:none;border:none;display:inline-flex;flex-direction:column;align-items:center;gap:.3rem;color:var(--text-secondary);min-width:44px;min-height:44px;transition:color .25s ease,transform .25s ease}
     .scroll-down-cue:hover{color:var(--text-primary);transform:translateY(2px)}
     .scroll-cue-stem{width:1px;height:16px;background:linear-gradient(to bottom,transparent,var(--accent));opacity:.75}
     .scroll-cue-arrow{width:22px;height:22px;display:block;animation:scrollArrowFloat 2s ease-in-out infinite}
     @keyframes scrollArrowFloat{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(5px);opacity:1}}
 
-    /* 3D Titles: Conthrax-SemiBold on BOTH Hero (+22% bigger, single line, left, green glitch) & Section Titles */
+    /* 3D Titles */
     .section-kicker{font-size:.66rem;color:var(--text-secondary);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem}
-    .section-kicker::before{content:'';width:24px;height:1px;background:var(--accent)}
-    .title-3d-stage{perspective:1050px;margin-bottom:1.35rem;overflow:visible}
+    .section-kicker::before{content:'';width:24px;height:1px;background:var(--accent);flex-shrink:0}
+    .title-3d-stage{perspective:1050px;margin-bottom:1.35rem;overflow:visible;max-width:100%}
     .hero-name-stage{perspective:1050px;margin-bottom:1.1rem;overflow:visible;text-align:left}
 
-    .title-3d{position:relative;display:inline-block;text-transform:uppercase;letter-spacing:.05em;line-height:1.18;font-weight:normal;transform-style:preserve-3d;animation:title3DSubtle 9.5s ease-in-out infinite}
+    .title-3d{position:relative;display:inline-block;max-width:100%;text-transform:uppercase;letter-spacing:.05em;line-height:1.18;font-weight:normal;transform-style:preserve-3d;animation:title3DSubtle 9.5s ease-in-out infinite}
     .title-3d,.title-3d .t3d-layer{font-family:'Conthrax-SemiBold','Conthrax','Michroma','Bruno Ace SC',sans-serif;font-weight:normal}
-    .section-title.title-3d{font-size:clamp(1.15rem,2.35vw,1.9rem);margin-bottom:0;animation-duration:10.5s}
+    .section-title.title-3d{font-size:clamp(1.15rem,2.35vw,1.9rem);margin-bottom:0;animation-duration:10.5s;overflow-wrap:anywhere}
     .hero-name-3d.title-3d{font-size:clamp(1.68rem,3.96vw,3.60rem);letter-spacing:.03em;line-height:1.14;white-space:nowrap;max-width:100%}
     .hero-name-3d.title-3d .t3d-layer{white-space:nowrap}
 
     @keyframes title3DSubtle{0%,100%{transform:rotateX(2.5deg) rotateY(-3deg) translateZ(0px)}50%{transform:rotateX(-2deg) rotateY(3deg) translateZ(6px)}}
 
-    .t3d-layer{display:block;user-select:none}
-    .t3d-front{position:relative;transform:translateZ(8px);background:var(--hero-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 14px rgba(0,0,0,.3))}
+    .t3d-layer{display:block;user-select:none;-webkit-user-select:none}
+    .t3d-front{position:relative;transform:translateZ(8px);background:var(--hero-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 14px rgba(0,0,0,.3))}
     .t3d-depth-1{position:absolute;inset:0;color:var(--title-depth-1);transform:translateZ(1px) translate(1.5px,2px);pointer-events:none}
     .t3d-depth-2{position:absolute;inset:0;color:var(--title-depth-2);transform:translateZ(-6px) translate(3px,4px);pointer-events:none}
 
@@ -404,8 +409,10 @@
     .about-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.95fr);gap:1.35rem;align-items:stretch}
     .cv-profile-banner{display:flex;align-items:center;gap:1.15rem;padding-bottom:1.15rem;margin-bottom:1.15rem;border-bottom:1px solid var(--border-subtle)}
     .cv-profile-banner .avatar-ring{width:76px;height:76px;padding:3px;position:relative;z-index:10;transform-origin:center center;transition:transform .42s var(--warp-ease),box-shadow .42s ease}
-    .cv-profile-banner .avatar-ring:hover{transform:scale(2.02) translateZ(42px);z-index:30;box-shadow:0 24px 48px rgba(0,0,0,.78),0 0 30px rgba(255,255,255,.4)}
-    [data-theme="light"] .cv-profile-banner .avatar-ring:hover{box-shadow:0 22px 44px rgba(0,0,0,.32)}
+    @media (hover:hover){
+      .cv-profile-banner .avatar-ring:hover{transform:scale(2.02) translateZ(42px);z-index:30;box-shadow:0 24px 48px rgba(0,0,0,.78),0 0 30px rgba(255,255,255,.4)}
+      [data-theme="light"] .cv-profile-banner .avatar-ring:hover{box-shadow:0 22px 44px rgba(0,0,0,.32)}
+    }
     .cv-profile-banner .avatar-fallback{font-size:1.25rem}
     .cv-profile-meta h3{font-size:1.05rem;font-weight:600;margin-bottom:.3rem;letter-spacing:.08em}
     .cv-profile-meta p{font-size:.64rem;color:var(--text-secondary);line-height:1.55}
@@ -524,15 +531,19 @@
     .step-btn:hover:not(:disabled) .step-arrow{color:var(--matrix-green-on-accent);text-shadow:none}
     .step-btn:disabled{opacity:.35}
 
+    /* ================= RESPONSIVE ================= */
     @media (pointer:coarse),(hover:none){
       .lang-btn,.icon-toggle,.mobile-menu-toggle,.audio-power-btn,.audio-btn,.variant-pill,.filter-pill,.load-prints-btn,.copy-btn,.carousel-nav-btn,.modal-close,.step-btn{min-height:42px}
-      .icon-toggle,.audio-btn{min-width:36px;height:36px}
-      .glass-card,.contact-item,.gallery-card{animation:none!important}
+      .icon-toggle,.audio-btn{min-width:40px;height:40px}
+      .glass-card,.contact-item,.gallery-card{animation:none!important;will-change:auto}
+      /* Cheaper rendering on touch devices: flat cards, lighter blur */
+      .box-3d{transform:none!important}
+      .glass-card,.gallery-card,.game-cabinet{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     }
     @media (max-width:1520px){.hud-status{display:none}}
     @media (max-width:1280px){
-      .hud-nav{position:fixed;top:calc(4.1rem + env(safe-area-inset-top));right:1rem;left:1rem;flex-direction:column;align-items:stretch;gap:.35rem;border-radius:18px;padding:.75rem;background:var(--bg-surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 20px 45px rgba(0,0,0,.35);display:none}
-      .hud-nav.open{display:flex}.nav-btn{padding:.8rem 1rem;font-size:.74rem;min-height:44px}.mobile-menu-toggle{display:inline-flex}
+      .hud-nav{position:absolute;top:calc(100% + .4rem);right:.85rem;left:.85rem;flex-direction:column;align-items:stretch;gap:.35rem;border-radius:18px;padding:.75rem;background:var(--bg-surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 20px 45px rgba(0,0,0,.35);display:none;max-height:calc(100dvh - var(--hud-h) - 1rem);overflow-y:auto}
+      .hud-nav.open{display:flex}.nav-btn{padding:.8rem 1rem;font-size:.74rem;min-height:44px}.nav-btn span.idx{font-size:.62rem}.mobile-menu-toggle{display:inline-flex}
     }
     @media (max-width:980px){.skills-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}}
     @media (max-width:920px){
@@ -542,15 +553,29 @@
       .hud-footer{display:flex;justify-content:space-between}.footer-trademark{display:none}
     }
     @media (max-width:768px){
-      .hud-header{flex-wrap:wrap;row-gap:.45rem}.hud-brand{flex:1 1 auto}.audio-deck{margin-left:auto}
-      .hud-nav{top:calc(6.85rem + env(safe-area-inset-top))}.warp-panel{padding-top:calc(7.3rem + env(safe-area-inset-top))}
+      /* Two-row header: brand + controls, then audio deck */
+      .hud-header{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand ctrl" "audio audio";row-gap:.4rem;column-gap:.5rem}
+      .hud-brand{grid-area:brand}
+      .hud-controls{grid-area:ctrl}
+      .audio-deck{grid-area:audio;justify-self:stretch;justify-content:center;gap:.6rem}
       .game-touch-pad{display:flex}.game-screen-wrap{aspect-ratio:4/3}
       .gate-lock-core{width:126px;height:126px}.gate-core-emblem{font-size:1.1rem}.gate-telemetry-tag{font-size:.44rem;padding:.28rem .52rem}
+      .gallery-header-bar{flex-direction:column;align-items:stretch}
+      .load-prints-btn{justify-content:center;width:100%}
+      .modal-dialog{max-height:96dvh;border-radius:16px}
+      .gallery-modal{padding:.6rem}
+      .carousel-viewport{height:clamp(200px,38dvh,380px)}
+      .carousel-bar{flex-wrap:wrap;justify-content:center}
+      .carousel-counter{order:-1;width:100%;text-align:center}
+      .carousel-nav-btn{flex:1}
     }
     @media (max-width:600px){
       :root{--holo-lift-y:-34px;--holo-lift-y-peak:-40px;--holo-lift-z:90px;--holo-lift-z-peak:104px}
-      .hud-header{padding:calc(.55rem + env(safe-area-inset-top)) .85rem .5rem}.avatar-ring{width:34px;height:34px}.hud-brand-name{font-size:.66rem}.hud-brand-sub{font-size:.48rem}
-      .warp-panel{padding:calc(7rem + env(safe-area-inset-top)) .95rem calc(4.5rem + env(safe-area-inset-bottom))}
+      .hud-header{padding:calc(.5rem + env(safe-area-inset-top)) .85rem .5rem}
+      .avatar-ring{width:34px;height:34px}.hud-brand-name{font-size:.68rem}.hud-brand-sub{font-size:.48rem}
+      .hud-controls{gap:.3rem}
+      .lang-btn{padding:.3rem .45rem;font-size:.6rem}
+      .warp-panel{padding-left:.95rem;padding-right:.95rem}
       .glass-card{padding:1.2rem;border-radius:15px}.box-3d{--rx:0deg;--ry:0deg}
       .hero-grid{gap:1.35rem}.hero-name-3d.title-3d{font-size:clamp(1.28rem,6.1vw,2.25rem);letter-spacing:.015em}
       .hero-actions{flex-direction:column}.hero-actions button{width:100%}
@@ -559,9 +584,44 @@
       .logo-variant-switch{margin-top:1.35rem}.cv-profile-banner{flex-direction:column;text-align:center}.cv-profile-banner .avatar-ring:hover{transform:scale(1.68) translateZ(28px)}
       .timeline-card{padding-left:1.6rem}.timeline-card::before{left:.55rem}.timeline-card::after{left:calc(.55rem - 4px)}
       .contact-item{flex-direction:column;align-items:flex-start}.copy-btn{align-self:flex-end}.form-field input,.form-field textarea{font-size:1rem}
-      .hud-footer{padding:.6rem .9rem calc(.6rem + env(safe-area-inset-bottom))}.warp-telemetry{padding:.42rem .75rem;font-size:.5rem}.step-btn{padding:.46rem .78rem;font-size:.54rem}
-      .game-cabinet{padding:.75rem}.game-hud-bar{font-size:.56rem}.game-footer-bar{flex-direction:column;align-items:stretch;text-align:center}.enter-portfolio-btn{justify-content:center}.scroll-down-cue{padding-top:1.2rem}
+      .hud-footer{padding:.55rem .85rem calc(.55rem + env(safe-area-inset-bottom));gap:.5rem}
+      .warp-telemetry{padding:.42rem .7rem;font-size:.54rem;min-width:0}
+      .warp-telemetry #telemetry-sector{white-space:nowrap}
+      .step-btn{padding:.46rem .8rem;font-size:.58rem}
+      .game-cabinet{padding:.75rem}.game-hud-bar{font-size:.58rem}.game-footer-bar{flex-direction:column;align-items:stretch;text-align:center}.enter-portfolio-btn{justify-content:center}.scroll-down-cue{padding-top:1.2rem}
       .gate-tag-tl,.gate-tag-tr{top:.9rem}.gate-tag-bl,.gate-tag-br{bottom:.9rem}.gate-tag-tl,.gate-tag-bl{left:.75rem}.gate-tag-tr,.gate-tag-br{right:.75rem}
+      /* Readability: larger type on phones */
+      .section-title.title-3d{font-size:clamp(.92rem,4.7vw,1.4rem)}
+      .section-kicker{font-size:.62rem;letter-spacing:.14em}
+      .hero-role{font-size:.9rem}
+      .about-text{font-size:.84rem}
+      .cv-profile-meta p{font-size:.7rem}
+      .trait-chip{font-size:.68rem}
+      .lang-row{font-size:.85rem}.lang-level{font-size:.66rem}
+      .goal-copy,.avail-copy{font-size:.82rem}
+      .timeline-role{font-size:.92rem}.timeline-org{font-size:.8rem}
+      .timeline-bullets{font-size:.82rem}.timeline-period{font-size:.66rem}
+      .entity-badge{font-size:.68rem}
+      .skill-pill{font-size:.72rem}.skill-cat-title{font-size:.88rem}
+      .filter-pill{font-size:.68rem}
+      .gallery-card-title{font-size:.88rem}.gallery-card-desc{font-size:.78rem}.gallery-tag{font-size:.62rem}
+      .gallery-open-btn{font-size:.68rem;min-height:44px}
+      .gallery-thumb{height:170px}
+      .slide-caption,.modal-desc{font-size:.8rem}
+      .contact-label{font-size:.62rem}.contact-value{font-size:.88rem}.form-field label{font-size:.66rem}
+      .game-hint{font-size:.64rem}
+      .health-card{padding:1.25rem}
+    }
+    @media (max-width:360px){
+      .hud-brand-sub{display:none}
+      .audio-label{display:none}
+      .step-btn span[data-i18n]{display:none}
+      .step-btn{padding:.46rem .9rem}
+    }
+    @media (max-height:480px) and (orientation:landscape){
+      .gate-lock-core{width:96px;height:96px}
+      .health-card{gap:.6rem;padding:1rem}
+      .warp-panel{padding-top:calc(var(--hud-h) + .5rem)}
     }
     @media (prefers-reduced-motion:reduce){
       .glass-card,.contact-item,.gallery-card,.logo-holo-wrapper,.title-3d,.cursor-cube-3d,.scroll-cue-arrow,.holo-logo-plane,.holo-emitter-pad,.holo-scan-overlay,.title-3d .t3d-front,.title-3d .t3d-depth-1,.title-3d .t3d-depth-2,.gate-ring-outer,.gate-ring-inner,.health-card{animation:none!important}
@@ -636,14 +696,14 @@
   <!-- Top HUD -->
   <header class="hud-header" id="hud-header" inert>
     <button class="hud-brand" data-target="0" aria-label="Início / Home">
-      <div class="avatar-ring">
+      <span class="avatar-ring">
         <img src="foto eli.png" alt="Eliseu Barbosa" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="avatar-fallback" aria-hidden="true">EB</div>
-      </div>
-      <div class="hud-brand-text">
+        <span class="avatar-fallback" aria-hidden="true">EB</span>
+      </span>
+      <span class="hud-brand-text">
         <span class="hud-brand-name">Eliseu Barbosa</span>
         <span class="hud-brand-sub">EB. Multimédia</span>
-      </div>
+      </span>
     </button>
 
     <nav class="hud-nav" id="hud-nav" aria-label="Navegação Principal">
@@ -677,7 +737,7 @@
     </div>
   </header>
 
-  <!-- Going-Inside Warp Viewport Stage (Restored Straight-Line Longer Travel) -->
+  <!-- Going-Inside Warp Viewport Stage -->
   <main class="warp-stage" id="warp-stage" tabindex="-1" inert>
 
     <!-- PANEL 00: INÍCIO -->
@@ -693,7 +753,7 @@
               </h1>
             </div>
             <p class="hero-role" data-i18n-html="hero_role">
-              <strong>Desenvolvimento de Produtos e Conteúdos Multimédia</strong> — unindo experiência sólida em contacto com o cliente à criação visual, design e tecnologia web.
+              Focado em <strong>Desenvolvimento de Produtos e Conteúdos Multimédia</strong> — unindo experiência sólida em contacto com o cliente à criação visual, design e tecnologia web.
             </p>
             <div class="hero-actions">
               <button class="btn-primary" data-target="5"><span data-i18n="hero_cta_gallery">Ver Galeria</span> <span aria-hidden="true">→</span></button>
@@ -1072,12 +1132,18 @@
     </div>
 
     <div class="warp-step-controls">
-      <button class="step-btn" id="prev-btn" disabled><span class="step-arrow" aria-hidden="true">←</span> <span data-i18n="btn_prev">Anterior</span></button>
-      <button class="step-btn" id="next-btn"><span data-i18n="btn_next">Seguinte</span> <span class="step-arrow" aria-hidden="true">→</span></button>
+      <button class="step-btn" id="prev-btn" aria-label="Anterior" disabled><span class="step-arrow" aria-hidden="true">←</span> <span data-i18n="btn_prev">Anterior</span></button>
+      <button class="step-btn" id="next-btn" aria-label="Seguinte"><span data-i18n="btn_next">Seguinte</span> <span class="step-arrow" aria-hidden="true">→</span></button>
     </div>
   </footer>
 
   <script>
+    /* Safe storage: localStorage can throw (private mode, blocked cookies) */
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch {} }
+    };
+
     const PRINTS_CONFIG = {
       figma_cuddly_1: "Captura de ecrã 2026-11-12, às 11.58.20.png",
       figma_cuddly_2: "Captura de ecrã 2026-11-12, às 11.58.35.png",
@@ -1085,6 +1151,8 @@
       blender_laptop_1: "Captura de ecrã 2026-11-12, às 12.11.49.png",
       affinity_logo_1: "Captura de ecrã 2026-11-12, às 12.04.59.png",
       affinity_cuddly_1: "Captura de ecrã 2026-11-12, às 12.04.41.png",
+      // TODO: affinity_cuddly_2 pointed to the SAME file as affinity_cuddly_1, so both slides showed an identical image.
+      // Replace the file name below with the real screenshot of the avatars / skin-tone study.
       affinity_cuddly_2: "Captura de ecrã 2026-11-12, às 12.04.41.png",
       blender_banco_1: "Captura de ecrã 2026-11-12, às 12.11.34.png",
       blender_ball_1: "Captura de ecrã 2026-11-12, às 12.11.12.png",
@@ -1192,18 +1260,35 @@
       }
     };
 
-    let currentLang = localStorage.getItem('eb_lang') || 'pt';
+    let currentLang = store.get('eb_lang') === 'en' ? 'en' : 'pt';
     let currentIndex = 0;
     let currentFilter = 'all';
     let gateOpened = false;
 
     const bgLandmarks = [document.getElementById('hud-header'), document.getElementById('warp-stage'), document.getElementById('hud-footer')];
 
+    /* Keep panels clear of the fixed header/footer, whatever height they have on this device */
+    (function trackHudHeights() {
+      const root = document.documentElement, header = document.getElementById('hud-header'), footer = document.getElementById('hud-footer');
+      const update = () => {
+        root.style.setProperty('--hud-h', header.offsetHeight + 'px');
+        root.style.setProperty('--ftr-h', footer.offsetHeight + 'px');
+      };
+      update();
+      if ('ResizeObserver' in window) {
+        const ro = new ResizeObserver(update);
+        ro.observe(header); ro.observe(footer);
+      }
+      window.addEventListener('resize', update);
+      window.addEventListener('orientationchange', update);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+    })();
+
     function renderSectorText(text) { return text.replace(/^(\d+)/, '<span class="sector-num">$1</span>'); }
 
     function applyLanguage(lang) {
       currentLang = lang;
-      localStorage.setItem('eb_lang', lang);
+      store.set('eb_lang', lang);
       document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
       const dict = I18N[lang];
       document.title = dict.doc_title;
@@ -1218,6 +1303,8 @@
         const active = btn.dataset.lang === lang;
         btn.classList.toggle('active', active); btn.setAttribute('aria-pressed', String(active));
       });
+      document.getElementById('prev-btn').setAttribute('aria-label', dict.btn_prev);
+      document.getElementById('next-btn').setAttribute('aria-label', dict.btn_next);
       document.getElementById('telemetry-sector').innerHTML = renderSectorText(dict.sectors[currentIndex]);
       buildGallery();
       if (document.getElementById('gallery-modal').classList.contains('open')) renderCurrentSlide();
@@ -1243,8 +1330,10 @@
     }
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('eb_theme', theme);
+      store.set('eb_theme', theme);
       themeToggle.textContent = theme === 'dark' ? '☀' : '☾';
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', theme === 'dark' ? '#050505' : '#f5f5f5');
       setLogoMode(theme);
     }
     themeToggle.addEventListener('click', () => applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
@@ -1256,7 +1345,7 @@
       let cx = -120, cy = -120, tx = -120, ty = -120;
       window.addEventListener('pointermove', (e) => {
         tx = e.clientX; ty = e.clientY;
-        cubeCursor.classList.toggle('locked', Boolean(e.target.closest('a,button,input,textarea,.gallery-thumb,.box-3d,.cv-profile-banner .avatar-ring,.logo-holo-wrapper')));
+        cubeCursor.classList.toggle('locked', Boolean(e.target.closest && e.target.closest('a,button,input,textarea,.gallery-thumb,.box-3d,.cv-profile-banner .avatar-ring,.logo-holo-wrapper')));
       });
       window.addEventListener('pointerdown', () => cubeCursor.classList.add('pressed'));
       window.addEventListener('pointerup', () => cubeCursor.classList.remove('pressed'));
@@ -1283,8 +1372,12 @@
     document.querySelectorAll('.box-3d').forEach(bind3DBoxTilt);
 
     let userPrintsCache = {};
-    try { userPrintsCache = JSON.parse(localStorage.getItem('eliseu_prints_cache') || '{}'); } catch { userPrintsCache = {}; }
-    function resolveImage(key) { return userPrintsCache[key] || PRINTS_CONFIG[key] || `${key}.png`; }
+    try { userPrintsCache = JSON.parse(store.get('eliseu_prints_cache') || '{}') || {}; } catch { userPrintsCache = {}; }
+    /* File names contain spaces, commas and accents, so encode them for the URL (data: URLs are left alone) */
+    function resolveImage(key) {
+      if (userPrintsCache[key]) return userPrintsCache[key];
+      return PRINTS_CONFIG[key] ? encodeURI(PRINTS_CONFIG[key]) : `${key}.png`;
+    }
 
     function buildGallery() {
       const grid = document.getElementById('gallery-grid');
@@ -1297,8 +1390,8 @@
         return `
           <article class="gallery-card box-3d" data-category="${proj.category}">
             <button type="button" class="gallery-thumb" data-open-project="${idx}" aria-label="${title} — ${dict.btn_view_slides}">
-              <img src="${resolveImage(proj.defaultPrintKey)}" alt="${title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-              <div class="thumb-placeholder"><span class="thumb-placeholder-cat">${proj.category.toUpperCase()}</span><span class="thumb-placeholder-file">${PRINTS_CONFIG[proj.defaultPrintKey] || ''}</span></div>
+              <img src="${resolveImage(proj.defaultPrintKey)}" alt="${title}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <span class="thumb-placeholder"><span class="thumb-placeholder-cat">${proj.category.toUpperCase()}</span><span class="thumb-placeholder-file">${PRINTS_CONFIG[proj.defaultPrintKey] || ''}</span></span>
               <span class="gallery-badge" aria-hidden="true">${badge}</span>
             </button>
             <div class="gallery-body">
@@ -1337,7 +1430,7 @@
       document.getElementById('next-slide-btn').disabled = total <= 1;
       document.getElementById('carousel-viewport').innerHTML = `
         <img src="${resolveImage(slide.key)}" alt="${proj.title[currentLang]} — ${slide.caption[currentLang]}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="thumb-placeholder"><span class="thumb-placeholder-cat">${proj.category.toUpperCase()}</span><span class="thumb-placeholder-file">${PRINTS_CONFIG[slide.key] || ''}</span></div>`;
+        <span class="thumb-placeholder"><span class="thumb-placeholder-cat">${proj.category.toUpperCase()}</span><span class="thumb-placeholder-file">${PRINTS_CONFIG[slide.key] || ''}</span></span>`;
     }
     function openModalForProject(idx) {
       lastModalTrigger = document.activeElement; modalProjectIdx = idx; modalSlideIdx = 0;
@@ -1365,6 +1458,14 @@
       let loaded = 0;
       files.forEach(file => {
         const reader = new FileReader();
+        const done = () => {
+          if (++loaded === files.length) {
+            store.set('eliseu_prints_cache', JSON.stringify(userPrintsCache));
+            buildGallery();
+            bulkInput.value = '';
+          }
+        };
+        reader.onerror = done;
         reader.onload = (ev) => {
           const url = ev.target.result, n = file.name.toLowerCase();
           const exact = Object.keys(PRINTS_CONFIG).find(k => PRINTS_CONFIG[k].toLowerCase() === n);
@@ -1385,25 +1486,24 @@
           else if (n.includes('cartao') || n.includes('gameboy') || n.includes('visita')) userPrintsCache['canva_card_gameboy'] = url;
           else if (n.includes('informatica') || n.includes('crt')) userPrintsCache['canva_poster_pc'] = url;
           else { const k = Object.keys(PRINTS_CONFIG).find(key => !userPrintsCache[key]); if (k) userPrintsCache[k] = url; }
-          if (++loaded === files.length) {
-            try { localStorage.setItem('eliseu_prints_cache', JSON.stringify(userPrintsCache)); } catch {}
-            buildGallery();
-          }
+          done();
         };
         reader.readAsDataURL(file);
       });
     });
 
-    /* Restored Straight-Line Going-Inside Warp Starfield (Longer Travel: depth 1.8x, boost 1150ms) */
+    /* Warp Starfield */
     (function initWarpField() {
       const canvas = document.getElementById('warp-canvas'), ctx = canvas.getContext('2d');
       let w, h, cx, cy;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      const STAR_COUNT = isMobile ? 160 : 300;
+      const STAR_COUNT = reduceMotion ? 80 : (isMobile ? 130 : 300);
       const stars = [], burstParticles = [];
       let warpSpeed = 1.05, targetSpeed = 1.05, boostTimer = null, lastTime = performance.now();
 
       window.triggerWarpBoost = () => {
+        if (reduceMotion) return;
         targetSpeed = 42;
         const flash = document.getElementById('warp-flash');
         flash.classList.add('active');
@@ -1412,7 +1512,8 @@
       };
 
       window.triggerIntroDissolveParticles = () => {
-        for (let i = 0; i < 75; i++) {
+        if (reduceMotion) return;
+        for (let i = 0; i < (isMobile ? 45 : 75); i++) {
           const a = Math.random() * Math.PI * 2, sp = 2.5 + Math.random() * 11;
           burstParticles.push({ x: cx + (Math.random() - .5) * 140, y: cy + (Math.random() - .5) * 90, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, size: 2 + Math.random() * 3.5, life: 1, decay: .012 + Math.random() * .016, bright: Math.random() > .35 });
         }
@@ -1456,7 +1557,12 @@
         requestAnimationFrame(animate);
       }
 
-      window.addEventListener('resize', () => { resize(); initStars(); });
+      /* On mobile the URL bar changes innerHeight while scrolling: only rebuild when the width changes */
+      let lastW = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (window.innerWidth === lastW && stars.length) { h = canvas.height = window.innerHeight; cy = h / 2; return; }
+        lastW = window.innerWidth; resize(); initStars();
+      });
       resize(); initStars(); requestAnimationFrame(animate);
     })();
 
@@ -1634,7 +1740,7 @@
         if (!audioEnabled) audioEnabled = true;
         ensureAudioGraph();
         if (!ctx) return;
-        if (ctx.state === 'suspended') await ctx.resume();
+        try { if (ctx.state === 'suspended') await ctx.resume(); } catch { return; }
         if (playState === 'playing') return;
         playState = 'playing';
         const now = ctx.currentTime;
@@ -1679,6 +1785,8 @@
       playBtn.addEventListener('click', startMusic);
       pauseBtn.addEventListener('click', pauseMusic);
       stopBtn.addEventListener('click', stopMusic);
+      /* Pause audio when the tab/app goes to the background (important on phones) */
+      document.addEventListener('visibilitychange', () => { if (document.hidden && playState === 'playing') pauseMusic(); });
       syncAudioUI();
     })();
 
@@ -1700,6 +1808,7 @@
           bgStars: Array.from({ length: 42 }, () => ({ x: Math.random() * W, y: Math.random() * H, sp: 1 + Math.random() * 2.5, sz: Math.random() < .3 ? 2 : 1 })),
           boss: null, bossWarnTimer: 0
         };
+        targetY = null;
         syncOverlay(); updateHUD();
       }
 
@@ -1713,7 +1822,7 @@
 
       function updateHUD() {
         scoreEl.textContent = String(state.score).padStart(3, '0');
-        waveEl.textContent = String(state.boss ? 'BOSS' : String(state.wave).padStart(2, '0'));
+        waveEl.textContent = state.boss ? 'BOSS' : String(state.wave).padStart(2, '0');
         livesEl.textContent = state.lives > 0 ? Array(state.lives).fill('♦').join(' ') : '—';
       }
 
@@ -1881,7 +1990,7 @@
         else { keys.up = keys.down = false; if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
       };
 
-      const mapY = (cy) => ((cy - canvas.getBoundingClientRect().top) / canvas.getBoundingClientRect().height) * H;
+      const mapY = (cy) => { const r = canvas.getBoundingClientRect(); return ((cy - r.top) / r.height) * H; };
       canvas.addEventListener('pointermove', (e) => { if (currentIndex === 7) targetY = mapY(e.clientY); });
       canvas.addEventListener('pointerdown', (e) => { if (currentIndex === 7) targetY = mapY(e.clientY); });
       screenWrap.addEventListener('touchstart', (e) => { if (currentIndex === 7) e.stopPropagation(); }, { passive: true });
@@ -1894,18 +2003,22 @@
       };
       bindPad(document.getElementById('pad-up'), 'up');
       bindPad(document.getElementById('pad-down'), 'down');
+      /* Touch pad buttons must not trigger a panel swipe either */
+      document.querySelector('.game-touch-pad').addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+      document.querySelector('.game-touch-pad').addEventListener('touchend', (e) => { e.stopPropagation(); }, { passive: true });
 
       window.addEventListener('keydown', (e) => {
         if (!gateOpened || currentIndex !== 7 || modalEl.classList.contains('open')) return;
         if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
         if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { keys.up = true; e.preventDefault(); }
         if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') { keys.down = true; e.preventDefault(); }
-        if ((e.key === 'Enter' || e.key === ' ') && state.phase !== 'playing') { e.preventDefault(); resetGame(true); }
+        if ((e.key === 'Enter' || e.key === ' ') && state.phase !== 'playing' && document.activeElement.tagName !== 'BUTTON') { e.preventDefault(); resetGame(true); }
       });
       window.addEventListener('keyup', (e) => {
         if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') keys.up = false;
         if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') keys.down = false;
       });
+      window.addEventListener('blur', () => { keys.up = keys.down = false; });
 
       startBtn.addEventListener('click', () => resetGame(true));
       retryBtn.addEventListener('click', () => resetGame(true));
@@ -1913,7 +2026,7 @@
       resetGame(false);
     })();
 
-    /* Restored Double-RAF Straight-Line Going-Inside Warp Navigation (Longer Travel) */
+    /* Warp Navigation */
     (function initWarpNavigation() {
       const panels = Array.from(document.querySelectorAll('.warp-panel')), navBtns = Array.from(document.querySelectorAll('.nav-btn')), triggers = Array.from(document.querySelectorAll('[data-target]'));
       const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), telemetryEl = document.getElementById('telemetry-sector');
@@ -1981,6 +2094,13 @@
       prevBtn.addEventListener('click', () => warpTo(currentIndex - 1));
       nextBtn.addEventListener('click', () => warpTo(currentIndex + 1));
 
+      /* Close the mobile menu when tapping anywhere outside it */
+      document.addEventListener('click', (e) => {
+        if (!hudNav.classList.contains('open')) return;
+        if (e.target.closest('#hud-nav') || e.target.closest('#mobile-menu-toggle')) return;
+        hudNav.classList.remove('open'); mobileToggle.setAttribute('aria-expanded', 'false');
+      });
+
       window.addEventListener('keydown', (e) => {
         if (!gateOpened) return;
         if (modalEl.classList.contains('open')) {
@@ -1998,8 +2118,13 @@
           else if (e.key === 'ArrowLeft') warpTo(currentIndex - 1);
           return;
         }
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') warpTo(currentIndex + 1);
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') warpTo(currentIndex - 1);
+        const p = panels[currentIndex];
+        const atTop = p.scrollTop <= 2, atBot = p.scrollTop + p.clientHeight >= p.scrollHeight - 2;
+        if (e.key === 'ArrowRight') warpTo(currentIndex + 1);
+        else if (e.key === 'ArrowLeft') warpTo(currentIndex - 1);
+        /* Up/Down scroll the panel first and only change section at its edges */
+        else if (e.key === 'ArrowDown' && atBot) warpTo(currentIndex + 1);
+        else if (e.key === 'ArrowUp' && atTop) warpTo(currentIndex - 1);
       });
 
       let wheelLock = false;
@@ -2037,7 +2162,7 @@
           await navigator.clipboard.writeText(btn.dataset.copy);
           btn.textContent = I18N[currentLang].btn_copied;
           setTimeout(() => { btn.textContent = I18N[currentLang].btn_copy; }, 1800);
-        } catch { btn.textContent = '!'; }
+        } catch { btn.textContent = '!'; setTimeout(() => { btn.textContent = I18N[currentLang].btn_copy; }, 1800); }
       });
     });
 
@@ -2048,9 +2173,8 @@
       document.getElementById('form-feedback').textContent = I18N[currentLang].form_sent;
     });
 
-    applyTheme(localStorage.getItem('eb_theme') || 'dark');
+    applyTheme(store.get('eb_theme') === 'light' ? 'light' : 'dark');
     applyLanguage(currentLang);
   </script>
 </body>
 </html>
-```
