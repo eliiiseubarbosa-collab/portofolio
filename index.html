@@ -68,7 +68,7 @@
     @media (pointer:fine) and (hover:hover){*,html,body,a,button,input,textarea{cursor:none!important}}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     html,body{width:100%;height:100vh;height:100dvh;overflow:hidden;background:var(--bg-void);color:var(--text-primary);letter-spacing:.03em;-webkit-font-smoothing:antialiased;transition:background-color .35s ease,color .35s ease}
-    button{touch-action:manipulation}
+    button{touch-action:manipulation;-webkit-appearance:none;appearance:none;font-family:var(--font-main)}
 
     .skip-link{position:fixed;top:-120px;left:1rem;z-index:1000;background:var(--matrix-green);color:var(--matrix-green-contrast);font-size:.74rem;font-weight:600;padding:.65rem 1rem;border-radius:10px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.45);transition:top .2s ease}
     .skip-link:focus{top:1rem}
@@ -209,16 +209,16 @@
     .avatar-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 20%;display:block;background:#141414;filter:grayscale(15%)}
     .avatar-fallback{display:none;width:100%;height:100%;border-radius:50%;background:#141414;color:#ffffff;align-items:center;justify-content:center;font-weight:600;font-size:.76rem}
     .hud-brand-text{display:flex;flex-direction:column;min-width:0}
-    .hud-brand-name{font-weight:600;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.07em}
+    .hud-brand-name{font-family:'Conthrax-SemiBold','Conthrax','Michroma','Bruno Ace SC',sans-serif;font-weight:normal;text-transform:uppercase;font-size:.7rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.04em}
     .hud-brand-sub{font-size:.5rem;color:var(--text-secondary);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 
     .hud-nav{display:flex;align-items:center;gap:.08rem;background:var(--bg-surface);border:1px solid var(--border-subtle);padding:.22rem;border-radius:999px}
     .nav-btn{background:transparent;border:none;color:var(--text-secondary);font-size:.54rem;padding:.4rem .5rem;border-radius:999px;white-space:nowrap;transition:color .25s ease,background .25s ease,box-shadow .25s ease;display:flex;align-items:center;gap:.22rem;letter-spacing:.04em}
-    .nav-btn span.idx{color:var(--matrix-green);opacity:1;font-size:.48rem;text-shadow:0 0 6px var(--matrix-green-glow);transition:color .25s ease,text-shadow .25s ease}
+    .nav-btn span.idx{color:inherit;opacity:1;font-size:.48rem;text-shadow:none;transition:color .25s ease}
     .nav-btn:hover{color:var(--text-primary);background:var(--bg-pill)}
     .nav-btn.active{color:var(--accent-contrast);background:var(--accent);font-weight:600;box-shadow:0 0 16px rgba(255,255,255,.22)}
     [data-theme="light"] .nav-btn.active{box-shadow:0 4px 14px rgba(0,0,0,.16)}
-    .nav-btn.active span.idx{color:var(--matrix-green-on-accent);opacity:1;text-shadow:none}
+    .nav-btn:hover span.idx,.nav-btn.active span.idx{color:inherit}
 
     .hud-controls{display:flex;align-items:center;gap:.4rem;flex-shrink:0}
     .lang-switch{display:inline-flex;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:999px;padding:.18rem}
@@ -239,10 +239,16 @@
     .audio-power-btn{background:var(--matrix-green-bg);border:1px solid var(--matrix-green-border);color:var(--matrix-green-dim);font-size:.48rem;font-weight:600;letter-spacing:.08em;padding:.24rem .48rem;border-radius:999px;transition:all .2s ease}
     .audio-power-btn.on{background:var(--matrix-green);color:var(--matrix-green-contrast);border-color:var(--matrix-green);box-shadow:0 0 10px var(--matrix-green-glow)}
     .audio-sep{width:1px;height:14px;background:var(--border-subtle);margin:0 .06rem}
-    .audio-btn{width:26px;height:26px;border-radius:50%;background:transparent;border:1px solid transparent;color:var(--matrix-green-dim);font-size:.6rem;display:inline-flex;align-items:center;justify-content:center;transition:all .2s ease;text-shadow:0 0 6px var(--matrix-green-glow)}
+    .audio-btn{position:relative;width:26px;height:26px;padding:0;border-radius:50%;background:transparent;border:1px solid transparent;color:var(--matrix-green-dim);display:inline-flex;align-items:center;justify-content:center;transition:all .2s ease;line-height:1}
+    /* SVG icons instead of ▶︎ ⏸ ⏹ glyphs: phones render those as orange emoji */
+    .audio-btn svg{width:11px;height:11px;display:block;fill:currentColor;filter:drop-shadow(0 0 4px var(--matrix-green-glow));pointer-events:none}
     .audio-btn:hover:not(:disabled){color:var(--matrix-green);border-color:var(--matrix-green-border);background:var(--matrix-green-bg)}
-    .audio-btn.active{background:var(--matrix-green);color:var(--matrix-green-contrast);border-color:var(--matrix-green);text-shadow:none;box-shadow:0 0 10px var(--matrix-green-glow)}
+    .audio-btn.active{background:var(--matrix-green);color:var(--matrix-green-contrast);border-color:var(--matrix-green);box-shadow:0 0 10px var(--matrix-green-glow)}
+    .audio-btn.active svg{filter:none}
     .audio-btn:disabled{opacity:.35}
+    /* Bigger touch area without changing the look */
+    .audio-btn::after,.audio-power-btn::after{content:'';position:absolute;inset:-8px}
+    .audio-power-btn{position:relative;font-family:var(--font-main)}
 
     /* Warp Stage */
     .warp-stage{position:relative;width:100%;height:100%;z-index:10;perspective:1400px;perspective-origin:50% 50%;transform-style:preserve-3d;overflow:hidden}
@@ -531,10 +537,104 @@
     .step-btn:hover:not(:disabled) .step-arrow{color:var(--matrix-green-on-accent);text-shadow:none}
     .step-btn:disabled{opacity:.35}
 
+    /* ================= PLANETS (one per section) ================= */
+    :root,[data-theme="dark"]{
+      --pl-base:#262626;--pl-light:rgba(255,255,255,.30);--pl-dark:rgba(0,0,0,.82);--pl-line:rgba(255,255,255,.34);
+      --pl-band:rgba(255,255,255,.17);--pl-band2:rgba(0,0,0,.40);--pl-ring-a:rgba(255,255,255,.38);--pl-ring-b:rgba(255,255,255,.20);
+      --pl-rim:rgba(255,255,255,.18);--pl-op:.82
+    }
+    [data-theme="light"]{
+      --pl-base:#d2d2d2;--pl-light:rgba(255,255,255,.75);--pl-dark:rgba(0,0,0,.50);--pl-line:rgba(0,0,0,.34);
+      --pl-band:rgba(0,0,0,.13);--pl-band2:rgba(255,255,255,.40);--pl-ring-a:rgba(0,0,0,.38);--pl-ring-b:rgba(0,0,0,.20);
+      --pl-rim:rgba(0,0,0,.16);--pl-op:.74
+    }
+    .planet-layer{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+    .pl-wrap{position:absolute;width:var(--s);height:var(--s);opacity:0;transform:scale(.4);transition:transform 1.7s var(--warp-ease),opacity 1.1s ease}
+    .pl-wrap.active{opacity:var(--pl-op);transform:scale(1);transition-delay:.35s}
+    .pl-float{position:absolute;inset:0;transform-style:preserve-3d;animation:plFloat 8s ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+    @keyframes plFloat{0%{transform:translate3d(0,0,0) rotateX(9deg) rotateY(-12deg) rotateZ(var(--tilt,0deg))}100%{transform:translate3d(6px,-16px,40px) rotateX(-7deg) rotateY(12deg) rotateZ(calc(var(--tilt,0deg) + 3deg))}}
+    .planet{position:absolute;inset:0;z-index:1;border-radius:50%;overflow:hidden;background:var(--pl-base);box-shadow:0 0 0 1px var(--pl-rim),0 0 38px -4px var(--pl-rim)}
+    .planet.glow{box-shadow:0 0 0 1px var(--matrix-green-border),0 0 44px -2px var(--matrix-green-glow)}
+    .pl-surface{position:absolute;top:0;left:0;width:200%;height:100%;animation:plSpin var(--spin,46s) linear infinite;will-change:transform}
+    @keyframes plSpin{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+    .pl-shade{position:absolute;inset:0;border-radius:50%;
+      background:
+        radial-gradient(circle at 27% 23%,rgba(255,255,255,.55) 0,rgba(255,255,255,.16) 7%,transparent 20%),
+        radial-gradient(circle at 30% 26%,var(--pl-light),transparent 46%),
+        radial-gradient(circle at 26% 22%,transparent 0 26%,rgba(0,0,0,.30) 52%,var(--pl-dark) 86%);
+      box-shadow:inset -30px -24px 64px var(--pl-dark),inset 7px 6px 22px rgba(255,255,255,.12)}
+    /* limb darkening + fresnel rim: wraps the flat texture around the sphere */
+    .pl-limb{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 50%,transparent 52%,rgba(0,0,0,.5) 86%,rgba(0,0,0,.78) 100%);mix-blend-mode:multiply}
+    .pl-fresnel{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--pl-rim),inset 8px 6px 14px -6px rgba(255,255,255,.28)}
+    .pl-clouds{position:absolute;top:0;left:0;width:200%;height:100%;opacity:.9;animation:plSpin var(--spin2,30s) linear infinite;will-change:transform;
+      background-image:radial-gradient(ellipse 16% 5% at 20% 30%,var(--pl-light),transparent 72%),radial-gradient(ellipse 20% 6% at 64% 52%,var(--pl-light),transparent 72%),radial-gradient(ellipse 14% 5% at 40% 78%,var(--pl-light),transparent 72%);background-size:50% 100%}
+    .pl-atmo{position:absolute;inset:-7%;border-radius:50%;z-index:0;filter:blur(7px);
+      background:radial-gradient(circle at 50% 50%,transparent 58%,var(--pl-rim) 74%,transparent 100%)}
+    .pl-atmo.glow{background:radial-gradient(circle at 50% 50%,transparent 58%,var(--matrix-green-glow) 74%,transparent 100%)}
+    .pl-ringshadow{position:absolute;left:-12%;top:54%;width:124%;height:15%;border-radius:50%;transform:rotate(var(--ring-tilt,-18deg));background:radial-gradient(ellipse at center,rgba(0,0,0,.72),transparent 72%);filter:blur(4px)}
+    .pl-par{position:absolute;inset:0;perspective:900px;translate:calc(var(--px,0) * var(--depth,14px)) calc(var(--py,0) * var(--depth,14px));transition:translate .5s ease-out}
+    .pl-float{filter:drop-shadow(0 26px 30px rgba(0,0,0,.55))}
+    [data-theme="light"] .pl-float{filter:drop-shadow(0 22px 24px rgba(0,0,0,.28))}
+    /* surfaces: every tile is 50% of the 200%-wide strip, so the scroll loops seamlessly */
+    .pl-bands{background-image:radial-gradient(ellipse 24% 7% at 38% 60%,var(--pl-band2),transparent 72%),repeating-linear-gradient(0deg,var(--pl-band) 0 5%,transparent 5% 11%,var(--pl-band2) 11% 15%,transparent 15% 24%);background-size:50% 100%,50% 100%}
+    .pl-storm{background-image:radial-gradient(ellipse 18% 9% at 60% 66%,var(--pl-light),var(--pl-band2) 55%,transparent 75%),repeating-linear-gradient(0deg,var(--pl-band2) 0 7%,transparent 7% 15%,var(--pl-band) 15% 20%,transparent 20% 31%);background-size:50% 100%,50% 100%}
+    .pl-craters{background-image:
+      radial-gradient(circle at 20% 30%,var(--pl-band2) 0 6%,var(--pl-band) 6.5% 8%,transparent 8.5%),
+      radial-gradient(circle at 58% 62%,var(--pl-band2) 0 9%,var(--pl-band) 9.5% 11.5%,transparent 12%),
+      radial-gradient(circle at 84% 24%,var(--pl-band2) 0 4.5%,var(--pl-band) 5% 6.2%,transparent 6.7%),
+      radial-gradient(circle at 36% 80%,var(--pl-band2) 0 5%,var(--pl-band) 5.5% 7%,transparent 7.5%),
+      radial-gradient(circle at 72% 46%,var(--pl-band2) 0 3%,transparent 3.6%);background-size:50% 100%}
+    .pl-grid{background-image:repeating-linear-gradient(90deg,var(--pl-line) 0 1.5px,transparent 1.5px 12.5%),repeating-linear-gradient(0deg,var(--pl-line) 0 1.5px,transparent 1.5px 14.285%);background-size:50% 100%,50% 100%}
+    .pl-dots{background-image:radial-gradient(circle,var(--pl-line) 0 1.3px,transparent 1.9px);background-size:calc(var(--s) / 16) calc(var(--s) / 16)}
+    /* rings */
+    .pl-ring-holder{position:absolute;inset:0;transform:rotate(var(--ring-tilt,-18deg))}
+    .pl-ring{position:absolute;left:-45%;top:-45%;width:190%;height:190%;border-radius:50%;transform:perspective(800px) rotateX(70deg);
+      background:radial-gradient(circle closest-side,transparent 60%,var(--pl-ring-a) 61% 74%,transparent 75% 80%,var(--pl-ring-b) 81% 97%,transparent 98%)}
+    .pl-ring-holder.back{z-index:0}
+    .pl-ring-holder.front{z-index:2}
+    .pl-ring.front{clip-path:inset(50% 0 0 0)}
+    /* orbit + moon */
+    .pl-orbit{position:absolute;inset:-25%;border:1px dashed var(--pl-line);border-radius:50%;transform:rotateX(70deg);opacity:.7}
+    .pl-moon-x{position:absolute;left:50%;top:50%;width:0;height:0;z-index:3;animation:orbX 5s ease-in-out infinite alternate,moonZ 10s steps(1,end) infinite;animation-delay:var(--md,0s)}
+    .pl-moon-y{position:absolute;left:0;top:0;width:0;height:0;animation:orbY 5s ease-in-out infinite alternate;animation-delay:calc(var(--md,0s) - 2.5s)}
+    .pl-moon{position:absolute;width:calc(var(--s) * .12);height:calc(var(--s) * .12);left:calc(var(--s) * -.06);top:calc(var(--s) * -.06);border-radius:50%;
+      background:radial-gradient(circle at 32% 28%,var(--pl-light),var(--pl-base) 55%,var(--pl-dark) 100%);box-shadow:0 0 0 1px var(--pl-rim),0 0 12px var(--pl-rim)}
+    @keyframes orbX{from{transform:translateX(calc(var(--s) * -.75))}to{transform:translateX(calc(var(--s) * .75))}}
+    @keyframes orbY{from{transform:translateY(calc(var(--s) * -.25))}to{transform:translateY(calc(var(--s) * .25))}}
+    .pl-moon{animation:moonS 5s ease-in-out infinite alternate;animation-delay:calc(var(--md,0s) - 2.5s)}
+    @keyframes moonS{from{transform:scale(.7)}to{transform:scale(1.3)}}
+    @keyframes moonZ{0%,49.99%{z-index:3}50%,100%{z-index:0}}
+    /* beacon + HUD tag (same language as the airlock gate) */
+    .pl-beacon{position:absolute;z-index:4;left:76%;top:20%;width:7px;height:7px;border-radius:50%;background:var(--matrix-green);box-shadow:0 0 10px var(--matrix-green-glow),0 0 0 4px var(--matrix-green-bg);animation:pulse-dot 2s infinite ease-in-out}
+    .pl-tag{position:absolute;z-index:4;left:50%;top:calc(100% + 18px);transform:translateX(-50%);white-space:nowrap;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--matrix-green);border:1px solid var(--matrix-green-border);background:var(--bg-surface);padding:.3rem .6rem;border-radius:6px;text-shadow:0 0 8px var(--matrix-green-glow)}
+    /* positions: peek in from the edges so content stays readable */
+    .pl-0{--s:clamp(210px,23vw,340px);right:-4vw;bottom:13vh}
+    .pl-1{--s:clamp(170px,18vw,280px);left:-5vw;top:26vh}
+    .pl-2{--s:clamp(150px,15vw,240px);right:-3vw;top:calc(var(--hud-h) + 5vh)}
+    .pl-3{--s:clamp(170px,17vw,270px);left:-4vw;bottom:12vh}
+    .pl-4{--s:clamp(190px,20vw,300px);right:-5vw;bottom:16vh}
+    .pl-5{--s:clamp(160px,16vw,250px);left:-4vw;top:calc(var(--hud-h) + 9vh)}
+    .pl-6{--s:clamp(170px,17vw,270px);right:-4vw;top:32vh}
+    .pl-7{--s:clamp(160px,15vw,240px);left:-5vw;bottom:14vh}
+    @media (max-width:768px){
+      .pl-par{perspective:700px}
+      .pl-wrap{--s:clamp(104px,29vw,160px)}
+      .pl-0,.pl-2,.pl-4,.pl-6{right:-9vw;left:auto;bottom:auto;top:calc(var(--hud-h) + 1.5vh)}
+      .pl-1,.pl-3,.pl-5,.pl-7{left:-9vw;right:auto;top:auto;bottom:calc(var(--ftr-h) + 2vh)}
+      .pl-0{top:auto;bottom:calc(var(--ftr-h) + 3vh)}
+      .pl-tag{display:none}
+      :root,[data-theme="dark"]{--pl-op:.62}
+      [data-theme="light"]{--pl-op:.55}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .pl-float,.pl-surface,.pl-clouds,.pl-moon,.pl-moon-x,.pl-moon-y,.pl-beacon{animation:none!important}
+      .pl-wrap{transition:opacity .2s ease!important;transform:none!important}
+    }
+
     /* ================= RESPONSIVE ================= */
     @media (pointer:coarse),(hover:none){
-      .lang-btn,.icon-toggle,.mobile-menu-toggle,.audio-power-btn,.audio-btn,.variant-pill,.filter-pill,.load-prints-btn,.copy-btn,.carousel-nav-btn,.modal-close,.step-btn{min-height:42px}
-      .icon-toggle,.audio-btn{min-width:40px;height:40px}
+      .lang-btn,.icon-toggle,.mobile-menu-toggle,.variant-pill,.filter-pill,.load-prints-btn,.copy-btn,.carousel-nav-btn,.modal-close,.step-btn{min-height:42px}
+      .icon-toggle{min-width:40px;height:40px}
       .glass-card,.contact-item,.gallery-card{animation:none!important;will-change:auto}
       /* Cheaper rendering on touch devices: flat cards, lighter blur */
       .box-3d{transform:none!important}
@@ -557,7 +657,7 @@
       .hud-header{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand ctrl" "audio audio";row-gap:.4rem;column-gap:.5rem}
       .hud-brand{grid-area:brand}
       .hud-controls{grid-area:ctrl}
-      .audio-deck{grid-area:audio;justify-self:stretch;justify-content:center;gap:.6rem}
+      .audio-deck{grid-area:audio;justify-self:center}
       .game-touch-pad{display:flex}.game-screen-wrap{aspect-ratio:4/3}
       .gate-lock-core{width:126px;height:126px}.gate-core-emblem{font-size:1.1rem}.gate-telemetry-tag{font-size:.44rem;padding:.28rem .52rem}
       .gallery-header-bar{flex-direction:column;align-items:stretch}
@@ -572,7 +672,7 @@
     @media (max-width:600px){
       :root{--holo-lift-y:-34px;--holo-lift-y-peak:-40px;--holo-lift-z:90px;--holo-lift-z-peak:104px}
       .hud-header{padding:calc(.5rem + env(safe-area-inset-top)) .85rem .5rem}
-      .avatar-ring{width:34px;height:34px}.hud-brand-name{font-size:.68rem}.hud-brand-sub{font-size:.48rem}
+      .avatar-ring{width:34px;height:34px}.hud-brand-name{font-size:.58rem;letter-spacing:.02em}.hud-brand-sub{font-size:.48rem}
       .hud-controls{gap:.3rem}
       .lang-btn{padding:.3rem .45rem;font-size:.6rem}
       .warp-panel{padding-left:.95rem;padding-right:.95rem}
@@ -645,11 +745,12 @@
   <canvas id="warp-canvas" aria-hidden="true"></canvas>
   <div class="ambient-vignette" aria-hidden="true"></div>
   <div class="warp-flash" id="warp-flash" aria-hidden="true"></div>
+  <div class="planet-layer" id="planet-layer" aria-hidden="true"></div>
 
   <!-- HEALTH WARNING CARD -->
   <div class="health-warning-overlay" id="health-warning-overlay" role="alertdialog" aria-modal="true" aria-labelledby="health-title" aria-describedby="health-desc">
     <div class="health-card glitch-in" id="health-card">
-      <div class="health-badge" data-i18n="health_badge">⚠ AVISO DE SAÚDE VISUAL</div>
+      <div class="health-badge" data-i18n="health_badge">⚠︎ AVISO DE SAÚDE VISUAL</div>
       <h2 class="health-title" id="health-title" data-i18n="health_title">AVISO DE SENSIBILIDADE VISUAL</h2>
       <p class="health-desc" id="health-desc" data-i18n-html="health_desc">
         Este portefólio contém <strong>efeitos glitch, transições warp rápidas e luzes intermitentes</strong>. Se tiver historial de epilepsia fotossensível ou sensibilidade a movimento, proceda com precaução.
@@ -723,7 +824,7 @@
         <button class="lang-btn active" data-lang="pt" aria-pressed="true">PT</button>
         <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <button class="icon-toggle" id="theme-toggle" aria-label="Alternar modo claro/escuro" title="Dark / Light Mode">☀</button>
+      <button class="icon-toggle" id="theme-toggle" aria-label="Alternar modo claro/escuro" title="Dark / Light Mode">☀︎</button>
       <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="hud-nav">☰</button>
     </div>
 
@@ -731,9 +832,9 @@
       <span class="audio-label" data-i18n="audio_label">SOM</span>
       <button class="audio-power-btn on" id="music-power-btn" type="button" aria-pressed="true" title="Turn Audio On / Off">ON</button>
       <div class="audio-sep" aria-hidden="true"></div>
-      <button class="audio-btn" id="music-play-btn" type="button" title="Play" aria-label="Play">▶</button>
-      <button class="audio-btn" id="music-pause-btn" type="button" title="Pause" aria-label="Pause">⏸</button>
-      <button class="audio-btn active" id="music-stop-btn" type="button" title="Stop" aria-label="Stop">⏹</button>
+      <button class="audio-btn" id="music-play-btn" type="button" title="Play" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg></button>
+      <button class="audio-btn" id="music-pause-btn" type="button" title="Pause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg></button>
+      <button class="audio-btn active" id="music-stop-btn" type="button" title="Stop" aria-label="Stop"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></button>
     </div>
   </header>
 
@@ -1075,7 +1176,7 @@
             <div class="game-overlay-msg show" id="si-overlay">
               <div class="game-overlay-title" id="si-overlay-title" data-i18n="game_ready">PRONTO PARA DESCOLAR</div>
               <div class="game-overlay-actions">
-                <button class="enter-portfolio-btn" id="si-start-btn" data-i18n="game_start">▶ INICIAR MISSÃO</button>
+                <button class="enter-portfolio-btn" id="si-start-btn" data-i18n="game_start">▶︎ INICIAR MISSÃO</button>
                 <button class="btn-ghost" id="si-retry-btn" style="display:none;padding:.6rem 1.1rem;font-size:.64rem;" data-i18n="game_retry">↻ JOGAR OUTRA VEZ</button>
                 <button class="btn-ghost" id="si-home-btn" data-target="0" style="padding:.6rem 1.1rem;font-size:.64rem;" data-i18n="game_home">⌂ VOLTAR AO INÍCIO</button>
               </div>
@@ -1180,12 +1281,12 @@
     const I18N = {
       pt: {
         doc_title: 'Eliseu Barbosa — Multimédia & Desenvolvimento de Produtos', skip_link: 'Saltar para o conteúdo',
-        health_badge: '⚠ AVISO DE SAÚDE VISUAL', health_title: 'AVISO DE SENSIBILIDADE VISUAL',
+        health_badge: '⚠︎ AVISO DE SAÚDE VISUAL', health_title: 'AVISO DE SENSIBILIDADE VISUAL',
         health_desc: 'Este portefólio contém <strong>efeitos glitch, transições warp rápidas e luzes intermitentes</strong>. Se tiver historial de epilepsia fotossensível ou sensibilidade a movimento, proceda com precaução.',
         health_auto: 'A CONTINUAR AUTOMATICAMENTE EM', health_continue: 'CONTINUAR',
         game_kicker: 'SECÇÃO 07 // ARCADE', game_title: 'Space Impact', game_score: 'SCORE', game_wave: 'WAVE',
         game_hint: 'RATO / TOQUE / ↑↓ PARA MOVER · DISPARO AUTOMÁTICO · BOSS AOS 120 PTS',
-        game_ready: 'PRONTO PARA DESCOLAR', game_start: '▶ INICIAR MISSÃO', game_restart: '↻ REINICIAR', game_home: '⌂ VOLTAR AO INÍCIO', game_retry: '↻ JOGAR OUTRA VEZ', game_over: 'GAME OVER', game_victory: 'MISSÃO CONCLUÍDA // VITÓRIA!', game_boss_warn: '⚠ BOSS DETECTADO: EB CORE',
+        game_ready: 'PRONTO PARA DESCOLAR', game_start: '▶︎ INICIAR MISSÃO', game_restart: '↻ REINICIAR', game_home: '⌂ VOLTAR AO INÍCIO', game_retry: '↻ JOGAR OUTRA VEZ', game_over: 'GAME OVER', game_victory: 'MISSÃO CONCLUÍDA // VITÓRIA!', game_boss_warn: '⚠︎ BOSS DETECTADO: EB CORE',
         nav_home: 'Início', nav_about: 'Sobre', nav_exp: 'Experiência', nav_edu: 'Educação', nav_skills: 'Competências', nav_gallery: 'Galeria', nav_contact: 'Contacto', nav_game: 'Space Impact',
         status_open: 'DISPONÍVEL', audio_label: 'SOM',
         hero_role: 'Focado em <strong>Desenvolvimento de Produtos e Conteúdos Multimédia</strong> — unindo experiência sólida em contacto com o cliente à criação visual, design e tecnologia web.',
@@ -1220,12 +1321,12 @@
       },
       en: {
         doc_title: 'Eliseu Barbosa — Multimedia & Product Development', skip_link: 'Skip to content',
-        health_badge: '⚠ VISUAL HEALTH ADVISORY', health_title: 'PHOTOSENSITIVITY & MOTION NOTICE',
+        health_badge: '⚠︎ VISUAL HEALTH ADVISORY', health_title: 'PHOTOSENSITIVITY & MOTION NOTICE',
         health_desc: 'This portfolio contains <strong>glitch effects, rapid warp motion, and flashing lights</strong>. If you have a history of photosensitive epilepsy or motion sensitivity, please proceed with caution.',
         health_auto: 'AUTO-CONTINUING IN', health_continue: 'CONTINUE',
         game_kicker: 'SECTION 07 // ARCADE', game_title: 'Space Impact', game_score: 'SCORE', game_wave: 'WAVE',
         game_hint: 'MOUSE / TOUCH / ↑↓ TO MOVE · AUTO-FIRE · BOSS AT 120 PTS',
-        game_ready: 'READY FOR LAUNCH', game_start: '▶ START MISSION', game_restart: '↻ RESTART', game_home: '⌂ BACK TO HOME', game_retry: '↻ PLAY AGAIN', game_over: 'GAME OVER', game_victory: 'MISSION CLEARED // VICTORY!', game_boss_warn: '⚠ BOSS INCOMING: EB CORE',
+        game_ready: 'READY FOR LAUNCH', game_start: '▶︎ START MISSION', game_restart: '↻ RESTART', game_home: '⌂ BACK TO HOME', game_retry: '↻ PLAY AGAIN', game_over: 'GAME OVER', game_victory: 'MISSION CLEARED // VICTORY!', game_boss_warn: '⚠︎ BOSS INCOMING: EB CORE',
         nav_home: 'Home', nav_about: 'About', nav_exp: 'Experience', nav_edu: 'Education', nav_skills: 'Skills', nav_gallery: 'Gallery', nav_contact: 'Contact', nav_game: 'Space Impact',
         status_open: 'OPEN TO WORK', audio_label: 'AUDIO',
         hero_role: 'Focused on <strong>Multimedia Product & Content Development</strong> — combining solid customer-facing experience with visual design, UI, and web technology.',
@@ -1331,7 +1432,7 @@
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       store.set('eb_theme', theme);
-      themeToggle.textContent = theme === 'dark' ? '☀' : '☾';
+      themeToggle.textContent = theme === 'dark' ? '☀︎' : '☾';
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', theme === 'dark' ? '#050505' : '#f5f5f5');
       setLogoMode(theme);
@@ -2055,6 +2156,7 @@
         newPanel.style.opacity = '0';
 
         currentIndex = targetIndex;
+        if (window.setActivePlanet) window.setActivePlanet(currentIndex);
         navBtns.forEach(btn => {
           const isCurrent = Number(btn.dataset.target) === currentIndex;
           btn.classList.toggle('active', isCurrent);
@@ -2172,6 +2274,49 @@
       window.location.href = `mailto:eliiiseubarbosa@gmail.com?subject=${encodeURIComponent(`[Portfolio] ${subject} — ${name}`)}&body=${encodeURIComponent(msg)}`;
       document.getElementById('form-feedback').textContent = I18N[currentLang].form_sent;
     });
+
+
+    /* Planets: one hovering planet per section, same monochrome + matrix-green language as the page */
+    (function initPlanets() {
+      const layer = document.getElementById('planet-layer');
+      if (!layer) return;
+      const CFG = [
+        { name: 'KEPLER-00', surface: 'bands',   ring: true,  moon: true,  tilt: '-6deg',  ringTilt: '-20deg', spin: 52, glow: false },
+        { name: 'AURORA-01', surface: 'storm',   ring: false, moon: true,  tilt: '8deg',   spin: 40, glow: true  },
+        { name: 'HELIOS-02', surface: 'craters', ring: false, moon: false, tilt: '-10deg', spin: 70, glow: false },
+        { name: 'NOVA-03',   surface: 'grid',    ring: false, moon: true,  tilt: '5deg',   spin: 36, glow: true  },
+        { name: 'ORION-04',  surface: 'dots',    ring: true,  moon: false, tilt: '-4deg',  ringTilt: '16deg',  spin: 60, glow: false },
+        { name: 'VEGA-05',   surface: 'bands',   ring: false, moon: true,  tilt: '10deg',  spin: 44, glow: false },
+        { name: 'LYRA-06',   surface: 'craters', ring: true,  moon: false, tilt: '-8deg',  ringTilt: '-26deg', spin: 66, glow: true  },
+        { name: 'ARCADE-07', surface: 'dots',    ring: false, moon: true,  tilt: '6deg',   spin: 30, glow: true  }
+      ];
+      layer.innerHTML = CFG.map((c, i) => `
+        <div class="pl-wrap pl-${i}${i === 0 ? ' active' : ''}" style="--tilt:${c.tilt};--d:${(-i * 1.3).toFixed(1)}s;--md:${(-i * 1.7).toFixed(1)}s;--spin:${c.spin}s;--spin2:${Math.round(c.spin * 0.62)}s;--depth:${10 + (i % 4) * 8}px;${c.ringTilt ? `--ring-tilt:${c.ringTilt};` : ''}">
+          <div class="pl-par"><div class="pl-float">
+            <div class="pl-atmo${c.glow ? ' glow' : ''}"></div>
+            ${c.ring ? '<div class="pl-ring-holder back"><div class="pl-ring back"></div></div>' : ''}
+            <div class="planet${c.glow ? ' glow' : ''}">
+              <div class="pl-surface pl-${c.surface}"></div>
+              ${c.surface === 'craters' ? '' : '<div class="pl-clouds"></div>'}
+              ${c.ring ? '<div class="pl-ringshadow"></div>' : ''}
+              <div class="pl-limb"></div><div class="pl-shade"></div><div class="pl-fresnel"></div>
+            </div>
+            ${c.ring ? '<div class="pl-ring-holder front"><div class="pl-ring front"></div></div>' : ''}
+            ${c.moon ? '<div class="pl-orbit"></div><div class="pl-moon-x"><div class="pl-moon-y"><div class="pl-moon"></div></div></div>' : ''}
+            <span class="pl-beacon"></span>
+            <span class="pl-tag">${c.name}</span>
+          </div></div>
+        </div>`).join('');
+      /* pointer / device parallax: nearer planets move more */
+      if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        window.addEventListener('pointermove', (e) => {
+          layer.style.setProperty('--px', ((e.clientX / window.innerWidth - 0.5) * -2).toFixed(3));
+          layer.style.setProperty('--py', ((e.clientY / window.innerHeight - 0.5) * -2).toFixed(3));
+        }, { passive: true });
+      }
+      const wraps = Array.from(layer.querySelectorAll('.pl-wrap'));
+      window.setActivePlanet = (idx) => wraps.forEach((w, i) => w.classList.toggle('active', i === idx));
+    })();
 
     applyTheme(store.get('eb_theme') === 'light' ? 'light' : 'dark');
     applyLanguage(currentLang);
